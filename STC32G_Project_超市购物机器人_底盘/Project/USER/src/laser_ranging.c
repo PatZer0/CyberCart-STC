@@ -2,8 +2,6 @@
 注意：  本程序串口通信使用私有库，没有针对SEEKFREE_LIBRARY修改，请勿使用SEEKFREE_LIBRARY库中的串口函数，以免造成冲突
         函数仅对两个激光模块同时使用的情况做了处理，其他情况需要自行修改
 */
-#include <STC32G.H>
-#include <STDIO.H>
 #include <STDLIB.H>
 #include "laser_ranging.h"
 #include "SEEKFREE_OLED.h"
@@ -27,24 +25,24 @@ unsigned char laser_ranging_cmd_arr_readcache[]             = {0x80, 0x06, 0x07,
 unsigned char laser_ranging_cmd_arr_laseron[]               = {0x80, 0x06, 0x05, 0x01, 0x74};       // 控制激光开启
 unsigned char laser_ranging_cmd_arr_laseroff[]              = {0x80, 0x06, 0x05, 0x00, 0x75};       // 控制激光关闭
 
-LASER_RANGING_CMD_DEF lrcmd_single              = {laser_ranging_cmd_arr_single,                sizeof(laser_ranging_cmd_arr_single) /                  sizeof(laser_ranging_cmd_arr_single[0])};
-LASER_RANGING_CMD_DEF lrcmd_continous           = {laser_ranging_cmd_arr_continous,             sizeof(laser_ranging_cmd_arr_continous) /               sizeof(laser_ranging_cmd_arr_continous[0])};
-LASER_RANGING_CMD_DEF lrcmd_shutdown            = {laser_ranging_cmd_arr_shutdown,              sizeof(laser_ranging_cmd_arr_shutdown) /                sizeof(laser_ranging_cmd_arr_shutdown[0])};
-LASER_RANGING_CMD_DEF lrcmd_setfreq_1hz         = {laser_ranging_cmd_arr_setfreq_1hz,           sizeof(laser_ranging_cmd_arr_setfreq_1hz) /             sizeof(laser_ranging_cmd_arr_setfreq_1hz[0])};
-LASER_RANGING_CMD_DEF lrcmd_setfreq_5hz         = {laser_ranging_cmd_arr_setfreq_5hz,           sizeof(laser_ranging_cmd_arr_setfreq_5hz) /             sizeof(laser_ranging_cmd_arr_setfreq_5hz[0])};
-LASER_RANGING_CMD_DEF lrcmd_setfreq_10hz        = {laser_ranging_cmd_arr_setfreq_10hz,          sizeof(laser_ranging_cmd_arr_setfreq_10hz) /            sizeof(laser_ranging_cmd_arr_setfreq_10hz[0])};
-LASER_RANGING_CMD_DEF lrcmd_setfreq_20hz        = {laser_ranging_cmd_arr_setfreq_20hz,          sizeof(laser_ranging_cmd_arr_setfreq_20hz) /            sizeof(laser_ranging_cmd_arr_setfreq_20hz[0])};
-LASER_RANGING_CMD_DEF lrcmd_setrange_5m         = {laser_ranging_cmd_arr_setrange_5m,           sizeof(laser_ranging_cmd_arr_setrange_5m) /             sizeof(laser_ranging_cmd_arr_setrange_5m[0])};
-LASER_RANGING_CMD_DEF lrcmd_setrange_10m        = {laser_ranging_cmd_arr_setrange_10m,          sizeof(laser_ranging_cmd_arr_setrange_10m) /            sizeof(laser_ranging_cmd_arr_setrange_10m[0])};
-LASER_RANGING_CMD_DEF lrcmd_setrange_30m        = {laser_ranging_cmd_arr_setrange_30m,          sizeof(laser_ranging_cmd_arr_setrange_30m) /            sizeof(laser_ranging_cmd_arr_setrange_30m[0])};
-LASER_RANGING_CMD_DEF lrcmd_setrange_50m        = {laser_ranging_cmd_arr_setrange_50m,          sizeof(laser_ranging_cmd_arr_setrange_50m) /            sizeof(laser_ranging_cmd_arr_setrange_50m[0])};
-LASER_RANGING_CMD_DEF lrcmd_setrange_80m        = {laser_ranging_cmd_arr_setrange_80m,          sizeof(laser_ranging_cmd_arr_setrange_80m) /            sizeof(laser_ranging_cmd_arr_setrange_80m[0])};
-LASER_RANGING_CMD_DEF lrcmd_setresolution_1mm   = {laser_ranging_cmd_arr_setresolution_1mm,     sizeof(laser_ranging_cmd_arr_setresolution_1mm) /       sizeof(laser_ranging_cmd_arr_setresolution_1mm[0])};
-LASER_RANGING_CMD_DEF lrcmd_setresolution_0_1mm = {laser_ranging_cmd_arr_setresolution_0_1mm,   sizeof(laser_ranging_cmd_arr_setresolution_0_1mm) /     sizeof(laser_ranging_cmd_arr_setresolution_0_1mm[0])};
-LASER_RANGING_CMD_DEF lrcmd_single_broadcast    = {laser_ranging_cmd_arr_single_broadcast,      sizeof(laser_ranging_cmd_arr_single_broadcast) /        sizeof(laser_ranging_cmd_arr_single_broadcast[0])};
-LASER_RANGING_CMD_DEF lrcmd_readcache           = {laser_ranging_cmd_arr_readcache,             sizeof(laser_ranging_cmd_arr_readcache) /               sizeof(laser_ranging_cmd_arr_readcache[0])};
-LASER_RANGING_CMD_DEF lrcmd_laseron             = {laser_ranging_cmd_arr_laseron,               sizeof(laser_ranging_cmd_arr_laseron) /                 sizeof(laser_ranging_cmd_arr_laseron[0])};
-LASER_RANGING_CMD_DEF lrcmd_laseroff            = {laser_ranging_cmd_arr_laseroff,              sizeof(laser_ranging_cmd_arr_laseroff) /                sizeof(laser_ranging_cmd_arr_laseroff[0])};
+LASER_RANGING_CMD_DEF lrcmd_single              = {laser_ranging_cmd_arr_single,                4};
+LASER_RANGING_CMD_DEF lrcmd_continous           = {laser_ranging_cmd_arr_continous,             4};
+LASER_RANGING_CMD_DEF lrcmd_shutdown            = {laser_ranging_cmd_arr_shutdown,              5};
+LASER_RANGING_CMD_DEF lrcmd_setfreq_1hz         = {laser_ranging_cmd_arr_setfreq_1hz,           5};
+LASER_RANGING_CMD_DEF lrcmd_setfreq_5hz         = {laser_ranging_cmd_arr_setfreq_5hz,           5};
+LASER_RANGING_CMD_DEF lrcmd_setfreq_10hz        = {laser_ranging_cmd_arr_setfreq_10hz,          5};
+LASER_RANGING_CMD_DEF lrcmd_setfreq_20hz        = {laser_ranging_cmd_arr_setfreq_20hz,          5};
+LASER_RANGING_CMD_DEF lrcmd_setrange_5m         = {laser_ranging_cmd_arr_setrange_5m,           5};
+LASER_RANGING_CMD_DEF lrcmd_setrange_10m        = {laser_ranging_cmd_arr_setrange_10m,          5};
+LASER_RANGING_CMD_DEF lrcmd_setrange_30m        = {laser_ranging_cmd_arr_setrange_30m,          5};
+LASER_RANGING_CMD_DEF lrcmd_setrange_50m        = {laser_ranging_cmd_arr_setrange_50m,          5};
+LASER_RANGING_CMD_DEF lrcmd_setrange_80m        = {laser_ranging_cmd_arr_setrange_80m,          5};
+LASER_RANGING_CMD_DEF lrcmd_setresolution_1mm   = {laser_ranging_cmd_arr_setresolution_1mm,     5};
+LASER_RANGING_CMD_DEF lrcmd_setresolution_0_1mm = {laser_ranging_cmd_arr_setresolution_0_1mm,   5};
+LASER_RANGING_CMD_DEF lrcmd_single_broadcast    = {laser_ranging_cmd_arr_single_broadcast,      4};
+LASER_RANGING_CMD_DEF lrcmd_readcache           = {laser_ranging_cmd_arr_readcache,             4};
+LASER_RANGING_CMD_DEF lrcmd_laseron             = {laser_ranging_cmd_arr_laseron,               5};
+LASER_RANGING_CMD_DEF lrcmd_laseroff            = {laser_ranging_cmd_arr_laseroff,              5};
 
 LASER_RANGING_DATA_DEF lrdata;   // 存储测距值, 调用方法：lrdata.x/y.valuedata/chardata
 

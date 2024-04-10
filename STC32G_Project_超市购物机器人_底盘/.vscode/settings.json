@@ -13,6 +13,8 @@
         "zf_tim.h": "c",
         "STDIO.H": "cpp",
         "seekfree_oled.h": "c",
-        "key.h": "c"
+        "key.h": "c",
+        "stdlib.h": "c",
+        "STDLIB.H": "cpp"
     }
 }

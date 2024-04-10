@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               10/04/24  19:01:16  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               10/04/24  20:21:03  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -42,31 +42,31 @@ stmt  level    source
    30   1          // 需要手动在Keil中添加
    31   1      }
    32          
-   33          void laser_ranging_uart_init()
-   34          {
-   35   1          uart_init(UART_1, UART1_RX_P43, UART1_TX_P44, 9600, TIM_2);
-   36   1          uart_init(UART_2, UART2_RX_P46, UART2_TX_P47, 9600, TIM_2);
-   37   1      }
+   33          // void laser_ranging_uart_init()
+   34          // {
+   35          //     uart_init(UART_1, UART1_RX_P43, UART1_TX_P44, 9600, TIM_2);
+   36          //     uart_init(UART_2, UART2_RX_P46, UART2_TX_P47, 9600, TIM_2);
+   37          // }
    38          
    39          void main()
    40          {   
    41   1        board_init();             // 初始化寄存器,勿删除此句代码。
    42   1          gpio_init();                    // 初始化GPIO，使得P4和P6正确输出
    43   1          oled_init_spi();                // 初始化OLED显示屏
-   44   1          oled_p6x8str_spi(0, 0, "LASER RANGING");
-   45   1          oled_p6x8str_spi(0, 1, "DIST:");
-   46   1          keys_ui_init();                 // 初始化按键UI
-   47   1          // lsm303_iic_init();              // 初始化LSM303_IIC接口
-   48   1          // lsm303_init_all();              // 初始化LSM303传感器
-   49   1          uart_port_init();               // 初始化UART端口
-   50   1          uart_initialize(1);             // 初始化UART1
-   51   1          uart_initialize(2);             // 初始化UART2
-   52   1          motor_drivers_pwm_init();     // 初始化PWM
-   53   1          laser_ranging_init();           // 初始化激光测距
-   54   1          // laser_ranging_uart_init();      // 初始化激光测距串口
-   55   1          laser_ranging('x', &lrcmd_continous);
+   44   1      
+   45   1          keys_ui_init();                 // 初始化按键UI
+   46   1          oled_p6x8str_spi(0, 0, "LASER RANGING");
+   47   1          oled_p6x8str_spi(0, 1, "DIST:");
+   48   1          // lsm303_iic_init();              // 初始化LSM303_IIC接口
+   49   1          // lsm303_init_all();              // 初始化LSM303传感器
+   50   1          uart_port_init();               // 初始化UART端口
+   51   1          uart_initialize(1);             // 初始化UART1
+   52   1          uart_initialize(2);             // 初始化UART2
+   53   1          motor_drivers_pwm_init();     // 初始化PWM
+   54   1          laser_ranging_init();           // 初始化激光测距
+   55   1          // laser_ranging_uart_init();      // 初始化激光测距串口
    56   1          while(1)
-C251 COMPILER V5.60.0,  main                                                               10/04/24  19:01:16  PAGE 2   
+C251 COMPILER V5.60.0,  main                                                               10/04/24  20:21:03  PAGE 2   
 
    57   1          {
    58   2              key1_check();
@@ -134,7 +134,7 @@ stmt  level    source
   119           * @Target core   STC32G12K128
   120           * @Taobao      https://seekfree.taobao.com/
   121           * @date          2020-12-18
-C251 COMPILER V5.60.0,  main                                                               10/04/24  19:01:16  PAGE 3   
+C251 COMPILER V5.60.0,  main                                                               10/04/24  20:21:03  PAGE 3   
 
   122           ********************************************************************************************************
              -************/
@@ -142,7 +142,7 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       284     ------
+  code size            =       222     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

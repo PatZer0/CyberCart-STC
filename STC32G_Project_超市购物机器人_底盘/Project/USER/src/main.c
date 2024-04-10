@@ -30,20 +30,21 @@ void lsm303_iic_init(void)
     // 需要手动在Keil中添加
 }
 
-void laser_ranging_uart_init()
-{
-    uart_init(UART_1, UART1_RX_P43, UART1_TX_P44, 9600, TIM_2);
-    uart_init(UART_2, UART2_RX_P46, UART2_TX_P47, 9600, TIM_2);
-}
+// void laser_ranging_uart_init()
+// {
+//     uart_init(UART_1, UART1_RX_P43, UART1_TX_P44, 9600, TIM_2);
+//     uart_init(UART_2, UART2_RX_P46, UART2_TX_P47, 9600, TIM_2);
+// }
 
 void main()
 {   
 	board_init();			        // 初始化寄存器,勿删除此句代码。
     gpio_init();                    // 初始化GPIO，使得P4和P6正确输出
     oled_init_spi();                // 初始化OLED显示屏
+
+    keys_ui_init();                 // 初始化按键UI
     oled_p6x8str_spi(0, 0, "LASER RANGING");
     oled_p6x8str_spi(0, 1, "DIST:");
-    keys_ui_init();                 // 初始化按键UI
     // lsm303_iic_init();              // 初始化LSM303_IIC接口
     // lsm303_init_all();              // 初始化LSM303传感器
     uart_port_init();               // 初始化UART端口

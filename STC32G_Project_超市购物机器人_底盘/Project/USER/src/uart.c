@@ -133,8 +133,8 @@ void uart1_isr(void) interrupt 4
 	if (RI)
 	{
 		RI = 0;
-        uart1_rx_buffer[uart1_rx_counter++] = SBUF;
-        if(uart1_rx_counter >= UART1_BUF_LENGTH) uart1_rx_counter = 0;    // 防止越界
+        // uart1_rx_buffer[uart1_rx_counter++] = SBUF;
+        // if(uart1_rx_counter >= UART1_BUF_LENGTH) uart1_rx_counter = 0;    // 防止越界
 
         // 以上为普通串口中断代码，以下是为激光测距仪设计的处理代码
         // laser_ranging_irqhandler('x');
@@ -152,8 +152,8 @@ void uart2_isr(void) interrupt 8                                            // �
 	if (S2CON & 0x01)	                                                    // 检测串口2接收中断
 	{
 		S2CON &= ~0x01;	                                                    // 清除串口2接收中断请求位
-        uart2_rx_buffer[uart2_rx_counter] = S2BUF;                          // 接收数据存入缓冲区
-        if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;    // 缓冲区满, 循环
+        // uart2_rx_buffer[uart2_rx_counter] = S2BUF;                          // 接收数据存入缓冲区
+        // if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;    // 缓冲区满, 循环
 
         // 以上为普通串口中断代码，以下是为激光测距仪设计的处理代码
         // laser_ranging_irqhandler('y');
