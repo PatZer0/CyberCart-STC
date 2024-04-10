@@ -1,0 +1,2 @@
+# ShoppingRobot-STC32G12K128
+基于若干个STC32G12K128单片机的超市购物机器人项目源代码。
