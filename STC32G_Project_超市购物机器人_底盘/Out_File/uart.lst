@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  uart                                                               10/04/24  18:59:09  PAGE 1   
+C251 COMPILER V5.60.0,  uart                                                               10/04/24  19:15:58  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE uart
@@ -66,7 +66,7 @@ stmt  level    source
    53   2                  {
    54   3                      SBUF = *puts;
    55   3                      uart1_tx_busy = 1;
-C251 COMPILER V5.60.0,  uart                                                               10/04/24  18:59:09  PAGE 2   
+C251 COMPILER V5.60.0,  uart                                                               10/04/24  19:15:58  PAGE 2   
 
    56   3                      while(uart1_tx_busy);
    57   3                  }
@@ -134,7 +134,7 @@ stmt  level    source
   119   3                      while(uart4_tx_busy);
   120   3                  }
   121   2              default:
-C251 COMPILER V5.60.0,  uart                                                               10/04/24  18:59:09  PAGE 3   
+C251 COMPILER V5.60.0,  uart                                                               10/04/24  19:15:58  PAGE 3   
 
   122   2                  break;
   123   2          }
@@ -202,7 +202,7 @@ stmt  level    source
   180   1        if (S4CON & 0x02)                                                     // 检测串口4发送中断
   181   1        {
   182   2          S4CON &= ~0x02;                                                     // 清除串口4发送中断请求�
-C251 COMPILER V5.60.0,  uart                                                               10/04/24  18:59:09  PAGE 4   
+C251 COMPILER V5.60.0,  uart                                                               10/04/24  19:15:58  PAGE 4   
 
              -��
   183   2              uart4_tx_busy = 0;                                                  // 发送空闲标志位
@@ -271,7 +271,7 @@ Module Information          Static   Overlayable
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
-C251 COMPILER V5.60.0,  uart                                                               10/04/24  18:59:09  PAGE 5   
+C251 COMPILER V5.60.0,  uart                                                               10/04/24  19:15:58  PAGE 5   
 
   xdata-const size     =    ------     ------
   edata size           =        86     ------

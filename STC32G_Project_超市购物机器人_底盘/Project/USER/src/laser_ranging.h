@@ -59,7 +59,7 @@
 #define __LASER_RANGING_H
 
 #include "headfile.h"
-#include "uart.h"
+// #include "uart.h"
 
 typedef struct
 {

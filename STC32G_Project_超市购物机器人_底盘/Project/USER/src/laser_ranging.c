@@ -1,10 +1,7 @@
 /*
-注意：  本程序串口通信使用私有库，没有针对SEEKFREE_LIBRARY修改，请勿使用SEEKFREE_LIBRARY库中的串口函数，以免造成冲突
-        函数仅对两个激光模块同时使用的情况做了处理，其他情况需要自行修改
+注意：  这是使用SEEKFREE库的串口实现的分支版本。
 */
-#include <STC32G.H>
-#include <STDIO.H>
-#include <STDLIB.H>
+#include "headfile.h"
 #include "laser_ranging.h"
 #include "SEEKFREE_OLED.h"
 
@@ -48,83 +45,82 @@ LASER_RANGING_CMD_DEF lrcmd_laseroff            = {laser_ranging_cmd_arr_laserof
 
 LASER_RANGING_DATA_DEF lrdata;   // 存储测距值, 调用方法：lrdata.x/y.valuedata/chardata
 
-void laser_ranging_irqhandler(unsigned char lr_axis)
-{
-    unsigned int i;
-    switch (lr_axis)
-    {
-    case 'x':
-            if (uart1_rx_buffer[0] == 0x80)
-            {
-                if(uart1_rx_counter > 2)
-                {
-                    if(uart1_rx_buffer[1] == 0x06 && uart1_rx_buffer[2] == 0x83)
-                    {
-                        if(uart1_rx_counter >= 11)
-                        {
-                            uart1_rx_counter=0;
-                            if( (uart1_rx_buffer[3]<0x34) && (uart1_rx_buffer[3]!='E') && (uart1_rx_buffer[4]!='R') && (uart1_rx_buffer[5]!='R') && (uart1_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart1_rx_buffer[3]+uart1_rx_buffer[4]+uart1_rx_buffer[5]+0x2E+uart1_rx_buffer[7]+uart1_rx_buffer[8]+uart1_rx_buffer[9])+1)) ) 
-                            {
-                                // laser_ranging_value = (uart1_rx_buffer[4]-0x30)*10000+(uart1_rx_buffer[5]-0x30)*1000 + (uart1_rx_buffer[7]-0x30)*100 + (uart1_rx_buffer[8]-0x30)*10 + (uart1_rx_buffer[9]-0x30);                 
-                                // sprintf(laser_ranging_char, "%f", laser_ranging_value);
-                                // 将uart1_rx_buffer[3]~uart1_rx_buffer[10]存储到laser_ranging_char数组中
-                                for(i=3;i<11;i++)
-                                {
-                                    lrdata.x.chardata[i-3] = uart1_rx_buffer[i];
-                                }
-                                lrdata.x.valuedata = atof(lrdata.x.chardata);
-                            }
-                            else
-                            {
-                                lrdata.x.valuedata = -1.0;
-                                lrdata.x.chardata[0] = 'E';
-                                lrdata.x.chardata[1] = 'R';
-                                lrdata.x.chardata[2] = 'R';
-                            }
-                        }
-                    }
-                }
-            }
-        break;
-    case 'y':
-            if (uart2_rx_buffer[0] == 0x80)
-            {
-                if(uart2_rx_counter > 2)
-                {
-                    if(uart2_rx_buffer[1] == 0x06 && uart2_rx_buffer[2] == 0x83)
-                    {
-                        if(uart2_rx_counter >= 11)
-                        {
-                            uart2_rx_counter=0;
+// void laser_ranging_irqhandler(unsigned char lr_axis)
+// {
+//     unsigned int i;
+//     switch (lr_axis)
+//     {
+//     case 'x':
+//             if (uart1_rx_buffer[0] == 0x80)
+//             {
+//                 if(uart1_rx_counter > 2)
+//                 {
+//                     if(uart1_rx_buffer[1] == 0x06 && uart1_rx_buffer[2] == 0x83)
+//                     {
+//                         if(uart1_rx_counter >= 11)
+//                         {
+//                             uart1_rx_counter=0;
+//                             if( (uart1_rx_buffer[3]<0x34) && (uart1_rx_buffer[3]!='E') && (uart1_rx_buffer[4]!='R') && (uart1_rx_buffer[5]!='R') && (uart1_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart1_rx_buffer[3]+uart1_rx_buffer[4]+uart1_rx_buffer[5]+0x2E+uart1_rx_buffer[7]+uart1_rx_buffer[8]+uart1_rx_buffer[9])+1)) ) 
+//                             {
+//                                 // laser_ranging_value = (uart1_rx_buffer[4]-0x30)*10000+(uart1_rx_buffer[5]-0x30)*1000 + (uart1_rx_buffer[7]-0x30)*100 + (uart1_rx_buffer[8]-0x30)*10 + (uart1_rx_buffer[9]-0x30);                 
+//                                 // sprintf(laser_ranging_char, "%f", laser_ranging_value);
+//                                 // 将uart1_rx_buffer[3]~uart1_rx_buffer[10]存储到laser_ranging_char数组中
+//                                 for(i=3;i<11;i++)
+//                                 {
+//                                     lrdata.x.chardata[i-3] = uart1_rx_buffer[i];
+//                                 }
+//                                 lrdata.x.valuedata = atof(lrdata.x.chardata);
+//                             }
+//                             else
+//                             {
+//                                 lrdata.x.valuedata = -1.0;
+//                                 lrdata.x.chardata[0] = 'E';
+//                                 lrdata.x.chardata[1] = 'R';
+//                                 lrdata.x.chardata[2] = 'R';
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         break;
+//     case 'y':
+//             if (uart2_rx_buffer[0] == 0x80)
+//             {
+//                 if(uart2_rx_counter > 2)
+//                 {
+//                     if(uart2_rx_buffer[1] == 0x06 && uart2_rx_buffer[2] == 0x83)
+//                     {
+//                         if(uart2_rx_counter >= 11)
+//                         {
+//                             uart2_rx_counter=0;
 
-                            if( (uart2_rx_buffer[3]<0x34) && (uart2_rx_buffer[3]!='E') && (uart2_rx_buffer[4]!='R') && (uart2_rx_buffer[5]!='R') && (uart2_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart2_rx_buffer[3]+uart2_rx_buffer[4]+uart2_rx_buffer[5]+0x2E+uart2_rx_buffer[7]+uart2_rx_buffer[8]+uart2_rx_buffer[9])+1)) ) 
-                            {
-                                // laser_ranging_value = (uart2_rx_buffer[4]-0x30)*10000+(uart2_rx_buffer[5]-0x30)*1000 + (uart2_rx_buffer[7]-0x30)*100 + (uart2_rx_buffer[8]-0x30)*10 + (uart2_rx_buffer[9]-0x30);                 
-                                // sprintf(laser_ranging_char, "%f", laser_ranging_value);
-                                // 将uart2_rx_buffer[3]~uart2_rx_buffer[10]存储到laser_ranging_char数组中
-                                for(i=3;i<11;i++)
-                                {
-                                    lrdata.y.chardata[i-3+16] = uart2_rx_buffer[i];
-                                }
-                                lrdata.y.valuedata = atof(lrdata.y.chardata);
-                            }
-                            else
-                            {
-                                lrdata.x.valuedata = -1.0;
-                                lrdata.x.chardata[0] = 'E';
-                                lrdata.x.chardata[1] = 'R';
-                                lrdata.x.chardata[2] = 'R';
-                            }
-                        }
-                    }
-                }
-            }
-        break;
-    default:
-        break;
-    }
-
-}
+//                             if( (uart2_rx_buffer[3]<0x34) && (uart2_rx_buffer[3]!='E') && (uart2_rx_buffer[4]!='R') && (uart2_rx_buffer[5]!='R') && (uart2_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart2_rx_buffer[3]+uart2_rx_buffer[4]+uart2_rx_buffer[5]+0x2E+uart2_rx_buffer[7]+uart2_rx_buffer[8]+uart2_rx_buffer[9])+1)) ) 
+//                             {
+//                                 // laser_ranging_value = (uart2_rx_buffer[4]-0x30)*10000+(uart2_rx_buffer[5]-0x30)*1000 + (uart2_rx_buffer[7]-0x30)*100 + (uart2_rx_buffer[8]-0x30)*10 + (uart2_rx_buffer[9]-0x30);                 
+//                                 // sprintf(laser_ranging_char, "%f", laser_ranging_value);
+//                                 // 将uart2_rx_buffer[3]~uart2_rx_buffer[10]存储到laser_ranging_char数组中
+//                                 for(i=3;i<11;i++)
+//                                 {
+//                                     lrdata.y.chardata[i-3+16] = uart2_rx_buffer[i];
+//                                 }
+//                                 lrdata.y.valuedata = atof(lrdata.y.chardata);
+//                             }
+//                             else
+//                             {
+//                                 lrdata.x.valuedata = -1.0;
+//                                 lrdata.x.chardata[0] = 'E';
+//                                 lrdata.x.chardata[1] = 'R';
+//                                 lrdata.x.chardata[2] = 'R';
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         break;
+//     default:
+//         break;
+//     }
+// }
 
 // 参数：lr_axis 方向，'x'、'y'、'z'
 // 返回：各个方向定义的激光测距UART串口号
@@ -153,7 +149,24 @@ unsigned char laser_ranging_get_uart_value(unsigned char lr_axis)
 // 参数：lr_axis 方向，'x'、'y'、'z'； specific_cmd 特定命令结构体
 void laser_ranging(unsigned char lr_axis, LASER_RANGING_CMD_DEF *specific_cmd)
 {
-    uart_sendcmd(laser_ranging_get_uart_value(lr_axis), specific_cmd->command, specific_cmd->length);
+    // uart_sendcmd(laser_ranging_get_uart_value(lr_axis), specific_cmd->command, specific_cmd->length);
+    switch (lr_axis)
+    {
+    case 'x':
+        uart_putbuff(UART_1, specific_cmd->command, specific_cmd->length);
+        break;
+    
+    case 'y':
+        uart_putbuff(UART_2, specific_cmd->command, specific_cmd->length);
+        break;
+    
+    case 'z':
+        uart_putbuff(UART_3, specific_cmd->command, specific_cmd->length);
+        break;
+    
+    default:
+        break;
+    }
 }
 
 void laser_ranging_init()

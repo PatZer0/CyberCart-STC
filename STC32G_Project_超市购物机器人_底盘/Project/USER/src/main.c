@@ -46,12 +46,15 @@ void main()
     keys_ui_init();                 // 初始化按键UI
     // lsm303_iic_init();              // 初始化LSM303_IIC接口
     // lsm303_init_all();              // 初始化LSM303传感器
-    uart_port_init();               // 初始化UART端口
-    uart_initialize(1);             // 初始化UART1
-    uart_initialize(2);             // 初始化UART2
+    // uart_port_init();               // 初始化UART端口
+    // uart_initialize(1);             // 初始化UART1
+    // uart_initialize(2);             // 初始化UART2
     motor_drivers_pwm_init();	    // 初始化PWM
+
+    laser_ranging_uart_init();      // 初始化激光测距串口
     laser_ranging_init();           // 初始化激光测距
-    // laser_ranging_uart_init();      // 初始化激光测距串口
+
+    laser_ranging('x', &lrcmd_continous);
     while(1)
     {
         key1_check();
@@ -59,6 +62,7 @@ void main()
         key3_check();
         key4_check();
         oled_printf_float_spi(5*6, 1, lrdata.x.valuedata, 2, 6);
+
         // oled_p6x8str_spi(0, 0, "LSM303 DATA READ TEST");
         // oled_p6x8str_spi(0, 1, "ACC X:");
         // oled_p6x8str_spi(0, 2, "ACC Y:");

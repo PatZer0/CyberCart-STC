@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  key                                                                10/04/24  18:55:27  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                10/04/24  20:12:08  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
@@ -47,83 +47,84 @@ stmt  level    source
    36   1          if(LaserRanging_State)  // 打开激光测距
    37   1          {
    38   2              oled_p6x8str_spi(6*18, 0, " ON");
-   39   2              laser_ranging('x', &lrcmd_continous);
-   40   2              laser_ranging('y', &lrcmd_continous);
-   41   2          }
-   42   1          else                    // 关闭激光测距
-   43   1          {
-   44   2              oled_p6x8str_spi(6*18, 0, "OFF");
-   45   2              laser_ranging('x', &lrcmd_continous);
-   46   2              laser_ranging('y', &lrcmd_laseroff);
-   47   2          }
-   48   1      }
-   49          
-   50          void key1_check() 
-   51          {
-   52   1          if(key1 == 0 && key1_up_store == 1)
-   53   1          {
-   54   2              key1_up_store = 0; // 标记按键被按下
-   55   2              oled_p6x8str_spi(0, 7, ">1<");
-   56   2          }
-   57   1          if(key1 == 1 && key1_up_store == 0)
-C251 COMPILER V5.60.0,  key                                                                10/04/24  18:55:27  PAGE 2   
+   39   2              uart_putbuff(UART_1, lrcmd_continous.command, lrcmd_continous.length);
+   40   2              // laser_ranging('x', &lrcmd_continous);
+   41   2              // laser_ranging('y', &lrcmd_continous);
+   42   2          }
+   43   1          else                    // 关闭激光测距
+   44   1          {
+   45   2              oled_p6x8str_spi(6*18, 0, "OFF");
+   46   2              // laser_ranging('x', &lrcmd_laseroff);
+   47   2              // laser_ranging('y', &lrcmd_laseroff);
+   48   2          }
+   49   1      }
+   50          
+   51          void key1_check() 
+   52          {
+   53   1          if(key1 == 0 && key1_up_store == 1)
+   54   1          {
+   55   2              key1_up_store = 0; // 标记按键被按下
+   56   2              oled_p6x8str_spi(0, 7, ">1<");
+   57   2          }
+C251 COMPILER V5.60.0,  key                                                                10/04/24  20:12:08  PAGE 2   
 
-   58   1          {
-   59   2              key1_up_store = 1; // 标记按键被释放
-   60   2              key1_short_press(); // 触发短按键1功能
-   61   2              oled_p6x8str_spi(0, 7, "[1]");
-   62   2          }
-   63   1      }
-   64          
-   65          void key2_check()
-   66          {
-   67   1          if(key2 == 0 && key2_up_store == 1)
-   68   1          {
-   69   2              key2_up_store = 0; // 标记按键被按下
-   70   2              oled_p6x8str_spi(3*6, 7, ">2<");
-   71   2          }
-   72   1          if(key2 == 1 && key2_up_store == 0)
-   73   1          {
-   74   2              key2_up_store = 1; // 标记按键被释放
-   75   2              key2_short_press(); // 触发短按键2功能
-   76   2              oled_p6x8str_spi(3*6, 7, "[2]");
-   77   2          }
-   78   1      }
-   79          
-   80          void key3_check()
-   81          {
-   82   1          if(key3 == 0 && key3_up_store == 1)
-   83   1          {
-   84   2              key3_up_store = 0; // 标记按键被按下
-   85   2              oled_p6x8str_spi(6*6, 7, ">3<");
-   86   2          }
-   87   1          if(key3 == 1 && key3_up_store == 0)
-   88   1          {
-   89   2              key3_up_store = 1; // 标记按键被释放
-   90   2              key3_short_press(); // 触发短按键3功能
-   91   2              oled_p6x8str_spi(6*6, 7, "[3]");
-   92   2          }
-   93   1      }
-   94          
-   95          void key4_check()
-   96          {
-   97   1          if(key4 == 0 && key4_up_store == 1)
-   98   1          {
-   99   2              key4_up_store = 0; // 标记按键被按下
-  100   2              oled_p6x8str_spi(9*6, 7, ">4<");
-  101   2          }
-  102   1          if(key4 == 1 && key4_up_store == 0)
-  103   1          {
-  104   2              key4_up_store = 1; // 标记按键被释放
-  105   2              key4_short_press(); // 触发短按键4功能
-  106   2              oled_p6x8str_spi(9*6, 7, "[4]");
-  107   2          }
-  108   1      }
+   58   1          if(key1 == 1 && key1_up_store == 0)
+   59   1          {
+   60   2              key1_up_store = 1; // 标记按键被释放
+   61   2              key1_short_press(); // 触发短按键1功能
+   62   2              oled_p6x8str_spi(0, 7, "[1]");
+   63   2          }
+   64   1      }
+   65          
+   66          void key2_check()
+   67          {
+   68   1          if(key2 == 0 && key2_up_store == 1)
+   69   1          {
+   70   2              key2_up_store = 0; // 标记按键被按下
+   71   2              oled_p6x8str_spi(3*6, 7, ">2<");
+   72   2          }
+   73   1          if(key2 == 1 && key2_up_store == 0)
+   74   1          {
+   75   2              key2_up_store = 1; // 标记按键被释放
+   76   2              key2_short_press(); // 触发短按键2功能
+   77   2              oled_p6x8str_spi(3*6, 7, "[2]");
+   78   2          }
+   79   1      }
+   80          
+   81          void key3_check()
+   82          {
+   83   1          if(key3 == 0 && key3_up_store == 1)
+   84   1          {
+   85   2              key3_up_store = 0; // 标记按键被按下
+   86   2              oled_p6x8str_spi(6*6, 7, ">3<");
+   87   2          }
+   88   1          if(key3 == 1 && key3_up_store == 0)
+   89   1          {
+   90   2              key3_up_store = 1; // 标记按键被释放
+   91   2              key3_short_press(); // 触发短按键3功能
+   92   2              oled_p6x8str_spi(6*6, 7, "[3]");
+   93   2          }
+   94   1      }
+   95          
+   96          void key4_check()
+   97          {
+   98   1          if(key4 == 0 && key4_up_store == 1)
+   99   1          {
+  100   2              key4_up_store = 0; // 标记按键被按下
+  101   2              oled_p6x8str_spi(9*6, 7, ">4<");
+  102   2          }
+  103   1          if(key4 == 1 && key4_up_store == 0)
+  104   1          {
+  105   2              key4_up_store = 1; // 标记按键被释放
+  106   2              key4_short_press(); // 触发短按键4功能
+  107   2              oled_p6x8str_spi(9*6, 7, "[4]");
+  108   2          }
+  109   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       432     ------
+  code size            =       417     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -134,9 +135,9 @@ Module Information          Static   Overlayable
   bit size             =         1     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
-  ebitaddressable size =    ------     ------
-C251 COMPILER V5.60.0,  key                                                                10/04/24  18:55:27  PAGE 3   
+C251 COMPILER V5.60.0,  key                                                                10/04/24  20:12:08  PAGE 3   
 
+  ebitaddressable size =    ------     ------
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------

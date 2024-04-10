@@ -695,11 +695,6 @@
               <FilePath>Project\USER\src\laser_ranging.c</FilePath>
             </File>
             <File>
-              <FileName>uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Project\USER\src\uart.c</FilePath>
-            </File>
-            <File>
               <FileName>key.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Project\USER\src\key.c</FilePath>

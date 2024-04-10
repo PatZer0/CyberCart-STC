@@ -36,14 +36,15 @@ void key4_short_press()
     if(LaserRanging_State)  // 打开激光测距
     {
         oled_p6x8str_spi(6*18, 0, " ON");
-        laser_ranging('x', &lrcmd_continous);
-        laser_ranging('y', &lrcmd_continous);
+        uart_putbuff(UART_1, lrcmd_continous.command, lrcmd_continous.length);
+        // laser_ranging('x', &lrcmd_continous);
+        // laser_ranging('y', &lrcmd_continous);
     }
     else                    // 关闭激光测距
     {
         oled_p6x8str_spi(6*18, 0, "OFF");
-        laser_ranging('x', &lrcmd_continous);
-        laser_ranging('y', &lrcmd_laseroff);
+        // laser_ranging('x', &lrcmd_laseroff);
+        // laser_ranging('y', &lrcmd_laseroff);
     }
 }
 

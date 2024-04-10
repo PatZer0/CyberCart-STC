@@ -33,7 +33,6 @@
 ".\Out_File\main.obj",
 ".\Out_File\motor_driver_boards.obj",
 ".\Out_File\laser_ranging.obj",
-".\Out_File\uart.obj",
 ".\Out_File\key.obj",
 ".\Out_File\seekfree_assistant.obj",
 ".\Out_File\seekfree_assistant_inface.obj" 
