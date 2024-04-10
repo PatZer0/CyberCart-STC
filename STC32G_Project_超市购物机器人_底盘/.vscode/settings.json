@@ -11,6 +11,8 @@
         "stdio.h": "c",
         "zf_uart.h": "c",
         "zf_tim.h": "c",
-        "STDIO.H": "cpp"
+        "STDIO.H": "cpp",
+        "seekfree_oled.h": "c",
+        "key.h": "c"
     }
 }

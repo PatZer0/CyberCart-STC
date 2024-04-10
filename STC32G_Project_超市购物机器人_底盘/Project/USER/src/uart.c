@@ -1,6 +1,4 @@
-#include <STC32G.h>
-#include <STDIO.H>
-#include <INTRINS.H>
+#include "headfile.h"
 #include "uart.h"
 #include "laser_ranging.h"
 
@@ -139,7 +137,7 @@ void uart1_isr(void) interrupt 4
         if(uart1_rx_counter >= UART1_BUF_LENGTH) uart1_rx_counter = 0;    // 防止越界
 
         // 以上为普通串口中断代码，以下是为激光测距仪设计的处理代码
-        laser_ranging_irqhandler('x');
+        // laser_ranging_irqhandler('x');
     }
 }
 
@@ -158,7 +156,7 @@ void uart2_isr(void) interrupt 8                                            // �
         if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;    // 缓冲区满, 循环
 
         // 以上为普通串口中断代码，以下是为激光测距仪设计的处理代码
-        laser_ranging_irqhandler('y');
+        // laser_ranging_irqhandler('y');
 	}
 }
 

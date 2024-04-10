@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  laser_ranging                                                      10/04/24  16:32:54  PAGE 1   
+C251 COMPILER V5.60.0,  laser_ranging                                                      10/04/24  19:00:25  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE laser_ranging
@@ -19,7 +19,7 @@ stmt  level    source
     6          #include <STDIO.H>
     7          #include <STDLIB.H>
     8          #include "laser_ranging.h"
-    9          
+    9          #include "SEEKFREE_OLED.h"
    10          
    11          unsigned char laser_ranging_cmd_arr_single[]                = {0x80, 0x06, 0x02, 0x78};             // µ•
              -¥Œ≤‚¡ø
@@ -66,7 +66,7 @@ stmt  level    source
              -ser_ranging_cmd_arr_shutdown) /                sizeof(laser_ranging_cmd_arr_shutdown[0])};
    33          LASER_RANGING_CMD_DEF lrcmd_setfreq_1hz         = {laser_ranging_cmd_arr_setfreq_1hz,           sizeof(la
              -ser_ranging_cmd_arr_setfreq_1hz) /             sizeof(laser_ranging_cmd_arr_setfreq_1hz[0])};
-C251 COMPILER V5.60.0,  laser_ranging                                                      10/04/24  16:32:54  PAGE 2   
+C251 COMPILER V5.60.0,  laser_ranging                                                      10/04/24  19:00:25  PAGE 2   
 
    34          LASER_RANGING_CMD_DEF lrcmd_setfreq_5hz         = {laser_ranging_cmd_arr_setfreq_5hz,           sizeof(la
              -ser_ranging_cmd_arr_setfreq_5hz) /             sizeof(laser_ranging_cmd_arr_setfreq_5hz[0])};
@@ -134,7 +134,7 @@ stmt  level    source
    79   7                                      lrdata.x.valuedata = -1.0;
    80   7                                      lrdata.x.chardata[0] = 'E';
    81   7                                      lrdata.x.chardata[1] = 'R';
-C251 COMPILER V5.60.0,  laser_ranging                                                      10/04/24  16:32:54  PAGE 3   
+C251 COMPILER V5.60.0,  laser_ranging                                                      10/04/24  19:00:25  PAGE 3   
 
    82   7                                      lrdata.x.chardata[2] = 'R';
    83   7                                  }
@@ -202,7 +202,7 @@ stmt  level    source
   141   2              break;
   142   2          
   143   2          case 'z':
-C251 COMPILER V5.60.0,  laser_ranging                                                      10/04/24  16:32:54  PAGE 4   
+C251 COMPILER V5.60.0,  laser_ranging                                                      10/04/24  19:00:25  PAGE 4   
 
   144   2              return 3;
   145   2              break;
@@ -221,10 +221,10 @@ stmt  level    source
   158          
   159          void laser_ranging_init()
   160          {
-  161   1          laser_ranging('x', &lrcmd_setfreq_20hz);
+  161   1          laser_ranging('x', &lrcmd_setfreq_5hz);
   162   1          laser_ranging('x', &lrcmd_setrange_80m);
   163   1          laser_ranging('x', &lrcmd_setresolution_0_1mm);
-  164   1          laser_ranging('y', &lrcmd_setfreq_20hz);
+  164   1          laser_ranging('y', &lrcmd_setfreq_5hz);
   165   1          laser_ranging('y', &lrcmd_setrange_80m);
   166   1          laser_ranging('y', &lrcmd_setresolution_0_1mm);
   167   1      }

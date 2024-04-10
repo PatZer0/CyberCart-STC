@@ -3,6 +3,7 @@
 #include "headfile.h"
 #include "laser_ranging.h"
 #include "motor_driver_boards.h"     // 电机驱动板头文件
+#include "key.h"
 // #include "lsm303_sw.h"
 
 void gpio_init()
@@ -22,8 +23,8 @@ void motor_drivers_pwm_init()
 
 void lsm303_iic_init(void)
 {
-    float acc_x, acc_y, acc_z;
-    float mag_x, mag_y, mag_z;
+    // float acc_x, acc_y, acc_z;
+    // float mag_x, mag_y, mag_z;
     iic_init(IIC_4, IIC4_SCL_P32, IIC4_SDA_P33, 19);
     // 需要注意SEEKFREE LIBRARY默认提供的项目文件没有导入iic相关c文件
     // 需要手动在Keil中添加
@@ -40,15 +41,24 @@ void main()
 	board_init();			        // 初始化寄存器,勿删除此句代码。
     gpio_init();                    // 初始化GPIO，使得P4和P6正确输出
     oled_init_spi();                // 初始化OLED显示屏
-    
+    oled_p6x8str_spi(0, 0, "LASER RANGING");
+    oled_p6x8str_spi(0, 1, "DIST:");
+    keys_ui_init();                 // 初始化按键UI
     // lsm303_iic_init();              // 初始化LSM303_IIC接口
     // lsm303_init_all();              // 初始化LSM303传感器
     uart_port_init();               // 初始化UART端口
     uart_initialize(1);             // 初始化UART1
     uart_initialize(2);             // 初始化UART2
     motor_drivers_pwm_init();	    // 初始化PWM
+    laser_ranging_init();           // 初始化激光测距
+    // laser_ranging_uart_init();      // 初始化激光测距串口
     while(1)
     {
+        key1_check();
+        key2_check();
+        key3_check();
+        key4_check();
+        oled_printf_float_spi(5*6, 1, lrdata.x.valuedata, 2, 6);
         // oled_p6x8str_spi(0, 0, "LSM303 DATA READ TEST");
         // oled_p6x8str_spi(0, 1, "ACC X:");
         // oled_p6x8str_spi(0, 2, "ACC Y:");

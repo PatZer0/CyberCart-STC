@@ -6,6 +6,7 @@
 #include <STDIO.H>
 #include <STDLIB.H>
 #include "laser_ranging.h"
+#include "SEEKFREE_OLED.h"
 
 unsigned char laser_ranging_cmd_arr_single[]                = {0x80, 0x06, 0x02, 0x78};             // 单次测量
 unsigned char laser_ranging_cmd_arr_continous[]             = {0x80, 0x06, 0x03, 0x77};             // 连续测量
@@ -157,10 +158,10 @@ void laser_ranging(unsigned char lr_axis, LASER_RANGING_CMD_DEF *specific_cmd)
 
 void laser_ranging_init()
 {
-    laser_ranging('x', &lrcmd_setfreq_20hz);
+    laser_ranging('x', &lrcmd_setfreq_5hz);
     laser_ranging('x', &lrcmd_setrange_80m);
     laser_ranging('x', &lrcmd_setresolution_0_1mm);
-    laser_ranging('y', &lrcmd_setfreq_20hz);
+    laser_ranging('y', &lrcmd_setfreq_5hz);
     laser_ranging('y', &lrcmd_setrange_80m);
     laser_ranging('y', &lrcmd_setresolution_0_1mm);
 }

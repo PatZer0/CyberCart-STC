@@ -83,6 +83,27 @@ extern float laser_ranging_value;
 extern unsigned char laser_ranging_char[16];
 extern unsigned char laser_ranging_range;
 
+extern LASER_RANGING_CMD_DEF lrcmd_single              ;
+extern LASER_RANGING_CMD_DEF lrcmd_continous           ;
+extern LASER_RANGING_CMD_DEF lrcmd_shutdown            ;
+extern LASER_RANGING_CMD_DEF lrcmd_setfreq_1hz         ;
+extern LASER_RANGING_CMD_DEF lrcmd_setfreq_5hz         ;
+extern LASER_RANGING_CMD_DEF lrcmd_setfreq_10hz        ;
+extern LASER_RANGING_CMD_DEF lrcmd_setfreq_20hz        ;
+extern LASER_RANGING_CMD_DEF lrcmd_setrange_5m         ;
+extern LASER_RANGING_CMD_DEF lrcmd_setrange_10m        ;
+extern LASER_RANGING_CMD_DEF lrcmd_setrange_30m        ;
+extern LASER_RANGING_CMD_DEF lrcmd_setrange_50m        ;
+extern LASER_RANGING_CMD_DEF lrcmd_setrange_80m        ;
+extern LASER_RANGING_CMD_DEF lrcmd_setresolution_1mm   ;
+extern LASER_RANGING_CMD_DEF lrcmd_setresolution_0_1mm ;
+extern LASER_RANGING_CMD_DEF lrcmd_single_broadcast    ;
+extern LASER_RANGING_CMD_DEF lrcmd_readcache           ;
+extern LASER_RANGING_CMD_DEF lrcmd_laseron             ;
+extern LASER_RANGING_CMD_DEF lrcmd_laseroff            ;
+
+extern LASER_RANGING_DATA_DEF lrdata;
+
 void laser_ranging_irqhandler(unsigned char lr_axis);
 unsigned char laser_ranging_get_uart_value(unsigned char lr_axis);
 void laser_ranging(unsigned char lr_axis, LASER_RANGING_CMD_DEF *specific_cmd);
