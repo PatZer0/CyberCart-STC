@@ -7,7 +7,6 @@
 #include <STDLIB.H>
 #include "laser_ranging.h"
 
-
 unsigned char laser_ranging_cmd_arr_single[]                = {0x80, 0x06, 0x02, 0x78};             // 单次测量
 unsigned char laser_ranging_cmd_arr_continous[]             = {0x80, 0x06, 0x03, 0x77};             // 连续测量
 unsigned char laser_ranging_cmd_arr_shutdown[]              = {0x80, 0x04, 0x02, 0x7A};             // 关机

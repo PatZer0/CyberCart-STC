@@ -175,7 +175,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\libraries\board.c</PathWithFileName>
+      <PathWithFileName>Libraries\libraries\board.c</PathWithFileName>
       <FilenameWithoutPath>board.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -187,7 +187,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\libraries\board.h</PathWithFileName>
+      <PathWithFileName>Libraries\libraries\board.h</PathWithFileName>
       <FilenameWithoutPath>board.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -199,7 +199,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\libraries\common.c</PathWithFileName>
+      <PathWithFileName>Libraries\libraries\common.c</PathWithFileName>
       <FilenameWithoutPath>common.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -211,7 +211,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\libraries\common.h</PathWithFileName>
+      <PathWithFileName>Libraries\libraries\common.h</PathWithFileName>
       <FilenameWithoutPath>common.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -223,7 +223,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\libraries\STC32Gxx.h</PathWithFileName>
+      <PathWithFileName>Libraries\libraries\STC32Gxx.h</PathWithFileName>
       <FilenameWithoutPath>STC32Gxx.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -243,7 +243,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\headfile.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\headfile.h</PathWithFileName>
       <FilenameWithoutPath>headfile.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -255,7 +255,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_adc.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_adc.c</PathWithFileName>
       <FilenameWithoutPath>zf_adc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -267,7 +267,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_adc.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_adc.h</PathWithFileName>
       <FilenameWithoutPath>zf_adc.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -279,7 +279,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_delay.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_delay.c</PathWithFileName>
       <FilenameWithoutPath>zf_delay.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -291,7 +291,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_delay.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_delay.h</PathWithFileName>
       <FilenameWithoutPath>zf_delay.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -303,7 +303,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_eeprom.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_eeprom.c</PathWithFileName>
       <FilenameWithoutPath>zf_eeprom.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -315,7 +315,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_eeprom.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_eeprom.h</PathWithFileName>
       <FilenameWithoutPath>zf_eeprom.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -327,7 +327,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_exti.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_exti.c</PathWithFileName>
       <FilenameWithoutPath>zf_exti.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -339,7 +339,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_exti.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_exti.h</PathWithFileName>
       <FilenameWithoutPath>zf_exti.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -351,7 +351,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_gpio.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_gpio.c</PathWithFileName>
       <FilenameWithoutPath>zf_gpio.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -363,7 +363,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_gpio.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_gpio.h</PathWithFileName>
       <FilenameWithoutPath>zf_gpio.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -375,7 +375,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_nvic.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_nvic.c</PathWithFileName>
       <FilenameWithoutPath>zf_nvic.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -387,7 +387,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_nvic.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_nvic.h</PathWithFileName>
       <FilenameWithoutPath>zf_nvic.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -399,7 +399,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_pwm.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_pwm.c</PathWithFileName>
       <FilenameWithoutPath>zf_pwm.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -411,7 +411,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_pwm.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_pwm.h</PathWithFileName>
       <FilenameWithoutPath>zf_pwm.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -423,7 +423,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_spi.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_spi.c</PathWithFileName>
       <FilenameWithoutPath>zf_spi.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -435,7 +435,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_spi.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_spi.h</PathWithFileName>
       <FilenameWithoutPath>zf_spi.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -447,7 +447,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_tim.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_tim.c</PathWithFileName>
       <FilenameWithoutPath>zf_tim.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -459,7 +459,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_tim.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_tim.h</PathWithFileName>
       <FilenameWithoutPath>zf_tim.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -471,7 +471,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_uart.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_uart.c</PathWithFileName>
       <FilenameWithoutPath>zf_uart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -483,7 +483,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_uart.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_uart.h</PathWithFileName>
       <FilenameWithoutPath>zf_uart.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -495,7 +495,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_fifo.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_fifo.c</PathWithFileName>
       <FilenameWithoutPath>zf_fifo.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -507,7 +507,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_fifo.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_fifo.h</PathWithFileName>
       <FilenameWithoutPath>zf_fifo.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -519,7 +519,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_iic.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_iic.c</PathWithFileName>
       <FilenameWithoutPath>zf_iic.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -531,7 +531,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_libraries\zf_iic.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_libraries\zf_iic.h</PathWithFileName>
       <FilenameWithoutPath>zf_iic.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -551,7 +551,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\headfile.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\headfile.h</PathWithFileName>
       <FilenameWithoutPath>headfile.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -563,7 +563,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_18TFT.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_18TFT.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_18TFT.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -575,7 +575,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_18TFT.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_18TFT.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_18TFT.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -587,7 +587,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_BLUETOOTH_CH9141.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -599,7 +599,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_BLUETOOTH_CH9141.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -611,7 +611,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_CONFIG.LIB</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_CONFIG.LIB</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_CONFIG.LIB</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -623,7 +623,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_CONFIG.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_CONFIG.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_CONFIG.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -635,7 +635,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_DL1A.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_DL1A.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_DL1A.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -647,7 +647,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_DL1A.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_DL1A.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_DL1A.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -659,7 +659,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_DL1B.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_DL1B.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_DL1B.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -671,7 +671,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_DL1B.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_DL1B.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_DL1B.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -683,7 +683,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_FONT.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_FONT.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_FONT.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -695,7 +695,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_FONT.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_FONT.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_FONT.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -707,7 +707,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_ICM20602.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_ICM20602.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_ICM20602.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -719,7 +719,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_ICM20602.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_ICM20602.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_ICM20602.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -731,7 +731,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU660RA.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_IMU660RA.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_IMU660RA.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -743,7 +743,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU660RA.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_IMU660RA.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_IMU660RA.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -755,7 +755,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_IMU963RA.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -767,7 +767,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_IMU963RA.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -779,7 +779,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_IPS114_SPI.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -791,7 +791,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_IPS114_SPI.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -803,7 +803,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_MPU6050.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_MPU6050.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_MPU6050.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -815,7 +815,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_MPU6050.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_MPU6050.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_MPU6050.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -827,7 +827,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_OLED.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_OLED.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_OLED.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -839,7 +839,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_OLED.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_OLED.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_OLED.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -851,7 +851,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_PRINTF.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_PRINTF.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_PRINTF.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -863,7 +863,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_PRINTF.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_PRINTF.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_PRINTF.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -875,7 +875,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_TSL1401.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_TSL1401.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_TSL1401.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -887,7 +887,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_TSL1401.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_TSL1401.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_TSL1401.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -899,7 +899,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_VIRSCO.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_VIRSCO.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_VIRSCO.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -911,7 +911,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_VIRSCO.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_VIRSCO.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_VIRSCO.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -923,7 +923,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_WIRELESS.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -935,7 +935,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_WIRELESS.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -947,7 +947,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.c</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_WIRELESS_CH573.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -959,7 +959,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.h</PathWithFileName>
       <FilenameWithoutPath>SEEKFREE_WIRELESS_CH573.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -979,7 +979,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\doc\version.txt</PathWithFileName>
+      <PathWithFileName>Libraries\doc\version.txt</PathWithFileName>
       <FilenameWithoutPath>version.txt</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -988,7 +988,7 @@
 
   <Group>
     <GroupName>user_c</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -999,7 +999,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\USER\src\isr.c</PathWithFileName>
+      <PathWithFileName>Project\USER\src\isr.c</PathWithFileName>
       <FilenameWithoutPath>isr.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1011,7 +1011,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\USER\src\main.c</PathWithFileName>
+      <PathWithFileName>Project\USER\src\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1023,7 +1023,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\USER\src\motor_driver_boards.c</PathWithFileName>
+      <PathWithFileName>Project\USER\src\motor_driver_boards.c</PathWithFileName>
       <FilenameWithoutPath>motor_driver_boards.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1035,7 +1035,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\USER\src\laser_ranging.c</PathWithFileName>
+      <PathWithFileName>Project\USER\src\laser_ranging.c</PathWithFileName>
       <FilenameWithoutPath>laser_ranging.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1047,7 +1047,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\USER\src\uart.c</PathWithFileName>
+      <PathWithFileName>Project\USER\src\uart.c</PathWithFileName>
       <FilenameWithoutPath>uart.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1056,7 +1056,7 @@
 
   <Group>
     <GroupName>user_h</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1067,7 +1067,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\USER\inc\isr.h</PathWithFileName>
+      <PathWithFileName>Project\USER\inc\isr.h</PathWithFileName>
       <FilenameWithoutPath>isr.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1087,7 +1087,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_components\seekfree_assistant.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_components\seekfree_assistant.c</PathWithFileName>
       <FilenameWithoutPath>seekfree_assistant.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1099,7 +1099,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_components\seekfree_assistant.h</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_components\seekfree_assistant.h</PathWithFileName>
       <FilenameWithoutPath>seekfree_assistant.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1111,7 +1111,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Libraries\seekfree_components\seekfree_assistant_inface.c</PathWithFileName>
+      <PathWithFileName>Libraries\seekfree_components\seekfree_assistant_inface.c</PathWithFileName>
       <FilenameWithoutPath>seekfree_assistant_inface.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>

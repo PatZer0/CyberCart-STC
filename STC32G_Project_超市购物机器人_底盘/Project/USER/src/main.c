@@ -1,67 +1,29 @@
+// 引脚定义写在文档中，不再使用注释备注
+
 #include "headfile.h"
-/*
- * 系统频率，可查看board.h中的 FOSC 宏定义修改。
- * board.h文件中FOSC的值设置为0,则程序自动设置系统频率为33.1776MHZ
- * 在board_init中,已经将P54引脚设置为复位
- * 如果需要使用P54引脚,可以在board.c文件中的board_init()函数中删除SET_P54_RESRT即可
- */
-
-#include "motor_driver_boards.h"     // 电机驱动板头文件
-/* -----------------------------------电机驱动板连接----------------------------------------
- * 电机驱动板1（X方向轮）接线：
- * PA <--> P60     PB <--> P62
- * A1 <--> P40     A2 <--> P41
- * B1 <--> P43     B2 <--> P42
-
- * 电机驱动板2（Y方向轮）接线：
- * PA <--> P64     PB <--> P66
- * A1 <--> P44     A2 <--> P45
- * B1 <--> P47     B2 <--> P46
-*/
-
-/* -----------------------------------SPI-OLED显示屏----------------------------------------
- *  - 连接屏幕默认使用端口为：
- *    D0 - P2.5(SCLK)
- *    D1 - P2.3(MOSI)
- *    CS - P2.2(CS)
- *    DC - P2.1(DC)
- *    RES - P2.0(RES)
-*/
-
-// #include "lsm303_sw.h"
-/* -----------------------------------LSM303传感器------------------------------------------
- *  - 连接传感器默认使用端口为：
- *    SCL - P32(SCL)
- *    SDA - P33(SDA)
-*/
-
 #include "laser_ranging.h"
-/* -----------------------------------激光雷达测距------------------------------------------
- *  - X方向激光雷达接线：
- *    TX - P4.3(RX)
- *    RX - P4.4(TX)
- *  - Y方向激光雷达接线：
- *    TX - P4.6(RX)
- *    RX - P4.7(TX)
-*/
-
+#include "motor_driver_boards.h"     // 电机驱动板头文件
+// #include "lsm303_sw.h"
 
 void gpio_init()
 {
-    gpio_mode(P4, GPO_PP);
-    gpio_mode(P6, GPO_PP);
+    gpio_mode(P6, GPO_PP);          // 配置 P6.0~P6.7 为推挽输出
+    gpio_mode(P1, GPO_PP);          // 配置 P1.0~P1.7 为推挽输出
 }
 
 void motor_drivers_pwm_init()
 {
-    pwm_init(PWMA_CH1P_P60, 30000, 1000);
-    pwm_init(PWMA_CH2P_P62, 30000, 1000);
-    pwm_init(PWMA_CH3P_P64, 30000, 1000);
-    pwm_init(PWMA_CH4P_P66, 30000, 1000);
+    // 参数：模块_端口, 频率, 占空比(÷10000)
+    pwm_init(PWMA_CH1P_P60, 30000, 1000);   // X方向驱动板PB, 3KHz, 10%占空比
+    pwm_init(PWMA_CH2N_P63, 30000, 1000);   // X方向驱动板PA，3KHz, 10%占空比
+    pwm_init(PWMA_CH3P_P14, 30000, 1000);   // Y方向驱动板PB, 3KHz, 10%占空比
+    pwm_init(PWMA_CH4N_P67, 30000, 1000);   // Y方向驱动板PA, 3KHz, 10%占空比
 }
 
 void lsm303_iic_init(void)
 {
+    float acc_x, acc_y, acc_z;
+    float mag_x, mag_y, mag_z;
     iic_init(IIC_4, IIC4_SCL_P32, IIC4_SDA_P33, 19);
     // 需要注意SEEKFREE LIBRARY默认提供的项目文件没有导入iic相关c文件
     // 需要手动在Keil中添加
@@ -75,9 +37,6 @@ void laser_ranging_uart_init()
 
 void main()
 {   
-    // float acc_x, acc_y, acc_z;
-    // float mag_x, mag_y, mag_z;
-
 	board_init();			        // 初始化寄存器,勿删除此句代码。
     gpio_init();                    // 初始化GPIO，使得P4和P6正确输出
     oled_init_spi();                // 初始化OLED显示屏

@@ -18,8 +18,6 @@ void uart_port_init(void)
 	P_SW2 |= 0x01;						//UART2/USART2: RxD2(P4.6), TxD2(P4.7)
 }
 
-}
-
 void uart_initialize(unsigned char uart_num)
 {
     switch(uart_num)
@@ -158,6 +156,9 @@ void uart2_isr(void) interrupt 8                                            // �
 		S2CON &= ~0x01;	                                                    // 清除串口2接收中断请求位
         uart2_rx_buffer[uart2_rx_counter] = S2BUF;                          // 接收数据存入缓冲区
         if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;    // 缓冲区满, 循环
+
+        // 以上为普通串口中断代码，以下是为激光测距仪设计的处理代码
+        laser_ranging_irqhandler('y');
 	}
 }
 

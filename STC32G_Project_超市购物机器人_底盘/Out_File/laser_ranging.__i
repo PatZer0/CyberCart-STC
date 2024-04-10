@@ -1,0 +1,1 @@
+"Project\USER\src\laser_ranging.c" XSMALL INTR2 WARNINGLEVEL (3) OPTIMIZE (0,SPEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\laser_ranging.lst) TABS (2) OBJECT(.\Out_File\laser_ranging.obj)
