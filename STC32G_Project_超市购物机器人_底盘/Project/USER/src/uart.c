@@ -97,6 +97,7 @@ void uart_sendcmd(unsigned char uart_num, unsigned char *bytes, unsigned char le
                 uart1_tx_busy = 1;
                 while(uart1_tx_busy);
             }
+            break;
         case 2:
             for (i = 0; i < length; i++)
             {
@@ -104,6 +105,7 @@ void uart_sendcmd(unsigned char uart_num, unsigned char *bytes, unsigned char le
                 uart2_tx_busy = 1;
                 while(uart2_tx_busy);
             }
+            break;
         case 3:
             for (i = 0; i < length; i++)
             {
@@ -111,6 +113,7 @@ void uart_sendcmd(unsigned char uart_num, unsigned char *bytes, unsigned char le
                 uart3_tx_busy = 1;
                 while(uart3_tx_busy);
             }
+            break;
         case 4:
             for (i = 0; i < length; i++)
             {
@@ -118,6 +121,7 @@ void uart_sendcmd(unsigned char uart_num, unsigned char *bytes, unsigned char le
                 uart4_tx_busy = 1;
                 while(uart4_tx_busy);
             }
+            break;
         default:
             break;
     }

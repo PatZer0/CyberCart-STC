@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  uart                                                               10/04/24  20:25:05  PAGE 1   
+C251 COMPILER V5.60.0,  uart                                                               10/04/24  20:56:40  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE uart
@@ -66,7 +66,7 @@ stmt  level    source
    53   2                  {
    54   3                      SBUF = *puts;
    55   3                      uart1_tx_busy = 1;
-C251 COMPILER V5.60.0,  uart                                                               10/04/24  20:25:05  PAGE 2   
+C251 COMPILER V5.60.0,  uart                                                               10/04/24  20:56:40  PAGE 2   
 
    56   3                      while(uart1_tx_busy);
    57   3                  }
@@ -112,167 +112,171 @@ stmt  level    source
    97   3                      uart1_tx_busy = 1;
    98   3                      while(uart1_tx_busy);
    99   3                  }
-  100   2              case 2:
-  101   2                  for (i = 0; i < length; i++)
-  102   2                  {
-  103   3                      S2BUF = bytes[i];
-  104   3                      uart2_tx_busy = 1;
-  105   3                      while(uart2_tx_busy);
-  106   3                  }
-  107   2              case 3:
-  108   2                  for (i = 0; i < length; i++)
-  109   2                  {
-  110   3                      S3BUF = bytes[i];
-  111   3                      uart3_tx_busy = 1;
-  112   3                      while(uart3_tx_busy);
-  113   3                  }
-  114   2              case 4:
-  115   2                  for (i = 0; i < length; i++)
-  116   2                  {
-  117   3                      S4BUF = bytes[i];
-  118   3                      uart4_tx_busy = 1;
-  119   3                      while(uart4_tx_busy);
-  120   3                  }
-  121   2              default:
-C251 COMPILER V5.60.0,  uart                                                               10/04/24  20:25:05  PAGE 3   
+  100   2                  break;
+  101   2              case 2:
+  102   2                  for (i = 0; i < length; i++)
+  103   2                  {
+  104   3                      S2BUF = bytes[i];
+  105   3                      uart2_tx_busy = 1;
+  106   3                      while(uart2_tx_busy);
+  107   3                  }
+  108   2                  break;
+  109   2              case 3:
+  110   2                  for (i = 0; i < length; i++)
+  111   2                  {
+  112   3                      S3BUF = bytes[i];
+  113   3                      uart3_tx_busy = 1;
+  114   3                      while(uart3_tx_busy);
+  115   3                  }
+  116   2                  break;
+  117   2              case 4:
+  118   2                  for (i = 0; i < length; i++)
+  119   2                  {
+  120   3                      S4BUF = bytes[i];
+  121   3                      uart4_tx_busy = 1;
+C251 COMPILER V5.60.0,  uart                                                               10/04/24  20:56:40  PAGE 3   
 
-  122   2                  break;
-  123   2          }
-  124   1      }
-  125          
-  126          void uart1_isr(void) interrupt 4
-  127          {
-  128   1        if (TI)
-  129   1        {
-  130   2          TI = 0;
-  131   2              uart1_tx_busy = 0;
-  132   2        }
-  133   1        if (RI)
-  134   1        {
-  135   2          RI = 0;
-  136   2              // uart1_rx_buffer[uart1_rx_counter++] = SBUF;
-  137   2              // if(uart1_rx_counter >= UART1_BUF_LENGTH) uart1_rx_counter = 0;    // 防止越界
-  138   2      
-  139   2              // 以上为普通串口中断代码，以下是为激光测距仪设计的处理代码
-  140   2              // laser_ranging_irqhandler('x');
-  141   2          }
-  142   1      }
-  143          
-  144          
-  145          void uart2_isr(void) interrupt 8                                            // 串口2的中断函数
-  146          {
-  147   1        if (S2CON & 0x02)                                                     // 检测串口2发送中断
-  148   1        {
-  149   2          S2CON &= ~0x02;                                                   // 清除串口2发送中断请求位
-  150   2              uart2_tx_busy = 0;                                                  // 发送空闲标志位
-  151   2        }
-  152   1        if (S2CON & 0x01)                                                     // 检测串口2接收中断
-  153   1        {
-  154   2          S2CON &= ~0x01;                                                     // 清除串口2接收中断请求�
+  122   3                      while(uart4_tx_busy);
+  123   3                  }
+  124   2                  break;
+  125   2              default:
+  126   2                  break;
+  127   2          }
+  128   1      }
+  129          
+  130          void uart1_isr(void) interrupt 4
+  131          {
+  132   1        if (TI)
+  133   1        {
+  134   2          TI = 0;
+  135   2              uart1_tx_busy = 0;
+  136   2        }
+  137   1        if (RI)
+  138   1        {
+  139   2          RI = 0;
+  140   2              // uart1_rx_buffer[uart1_rx_counter++] = SBUF;
+  141   2              // if(uart1_rx_counter >= UART1_BUF_LENGTH) uart1_rx_counter = 0;    // 防止越界
+  142   2      
+  143   2              // 以上为普通串口中断代码，以下是为激光测距仪设计的处理代码
+  144   2              // laser_ranging_irqhandler('x');
+  145   2          }
+  146   1      }
+  147          
+  148          
+  149          void uart2_isr(void) interrupt 8                                            // 串口2的中断函数
+  150          {
+  151   1        if (S2CON & 0x02)                                                     // 检测串口2发送中断
+  152   1        {
+  153   2          S2CON &= ~0x02;                                                   // 清除串口2发送中断请求位
+  154   2              uart2_tx_busy = 0;                                                  // 发送空闲标志位
+  155   2        }
+  156   1        if (S2CON & 0x01)                                                     // 检测串口2接收中断
+  157   1        {
+  158   2          S2CON &= ~0x01;                                                     // 清除串口2接收中断请求�
              -��
-  155   2              // uart2_rx_buffer[uart2_rx_counter] = S2BUF;                          // 接收数据存入缓�
+  159   2              // uart2_rx_buffer[uart2_rx_counter] = S2BUF;                          // 接收数据存入缓�
              -�区
-  156   2              // if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;    // 缓冲区满, 循环
-  157   2      
-  158   2              // 以上为普通串口中断代码，以下是为激光测距仪设计的处理代码
-  159   2              // laser_ranging_irqhandler('y');
-  160   2        }
-  161   1      }
-  162          
-  163          void uart3_isr(void) interrupt 17                                           // 串口3的中断函数
-  164          {
-  165   1        if (S3CON & 0x02)                                                     // 检测串口3发送中断
-  166   1        {
-  167   2          S3CON &= ~0x02;                                                     // 清除串口3发送中断请求�
+  160   2              // if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;    // 缓冲区满, 循环
+  161   2      
+  162   2              // 以上为普通串口中断代码，以下是为激光测距仪设计的处理代码
+  163   2              // laser_ranging_irqhandler('y');
+  164   2        }
+  165   1      }
+  166          
+  167          void uart3_isr(void) interrupt 17                                           // 串口3的中断函数
+  168          {
+  169   1        if (S3CON & 0x02)                                                     // 检测串口3发送中断
+  170   1        {
+  171   2          S3CON &= ~0x02;                                                     // 清除串口3发送中断请求�
              -��
-  168   2              uart3_tx_busy = 0;                                                  // 发送空闲标志位
-  169   2        }
-  170   1        if (S3CON & 0x01)                                                     // 检测串口3接收中断
-  171   1        {
-  172   2          S3CON &= ~0x01;                                                     // 清除串口3接收中断请求�
+  172   2              uart3_tx_busy = 0;                                                  // 发送空闲标志位
+  173   2        }
+  174   1        if (S3CON & 0x01)                                                     // 检测串口3接收中断
+  175   1        {
+  176   2          S3CON &= ~0x01;                                                     // 清除串口3接收中断请求�
              -��
-  173   2              uart3_rx_buffer[uart3_rx_counter] = S3BUF;                          // 接收数据存入缓冲�
+  177   2              uart3_rx_buffer[uart3_rx_counter] = S3BUF;                          // 接收数据存入缓冲�
              -�
-  174   2              if(++uart3_rx_counter >= UART3_BUF_LENGTH) uart3_rx_counter = 0;    // 缓冲区满, 循环
-  175   2        }
-  176   1      }
-  177          
-  178          void uart4_isr(void) interrupt 18                                           // 串口4的中断函数
-  179          {
-  180   1        if (S4CON & 0x02)                                                     // 检测串口4发送中断
-  181   1        {
-  182   2          S4CON &= ~0x02;                                                     // 清除串口4发送中断请求�
-C251 COMPILER V5.60.0,  uart                                                               10/04/24  20:25:05  PAGE 4   
+  178   2              if(++uart3_rx_counter >= UART3_BUF_LENGTH) uart3_rx_counter = 0;    // 缓冲区满, 循环
+  179   2        }
+  180   1      }
+  181          
+  182          void uart4_isr(void) interrupt 18                                           // 串口4的中断函数
+C251 COMPILER V5.60.0,  uart                                                               10/04/24  20:56:40  PAGE 4   
 
+  183          {
+  184   1        if (S4CON & 0x02)                                                     // 检测串口4发送中断
+  185   1        {
+  186   2          S4CON &= ~0x02;                                                     // 清除串口4发送中断请求�
              -��
-  183   2              uart4_tx_busy = 0;                                                  // 发送空闲标志位
-  184   2        }
-  185   1        if (S4CON & 0x01)                                                     // 检测串口4接收中断
-  186   1        {
-  187   2          S4CON &= ~0x01;                                                     // 清除串口4接收中断请求�
+  187   2              uart4_tx_busy = 0;                                                  // 发送空闲标志位
+  188   2        }
+  189   1        if (S4CON & 0x01)                                                     // 检测串口4接收中断
+  190   1        {
+  191   2          S4CON &= ~0x01;                                                     // 清除串口4接收中断请求�
              -��
-  188   2              uart4_rx_buffer[uart4_rx_counter] = S4BUF;                          // 接收数据存入缓冲�
+  192   2              uart4_rx_buffer[uart4_rx_counter] = S4BUF;                          // 接收数据存入缓冲�
              -�
-  189   2              if(++uart4_rx_counter >= UART4_BUF_LENGTH) uart4_rx_counter = 0;    // 缓冲区满, 循环
-  190   2        }
-  191   1      }
-  192          
-  193          void uart_running(unsigned char uart_num)
-  194          {
-  195   1          switch(uart_num)
-  196   1          {
-  197   2              case 1:
-  198   2                  if((uart1_tx_counter != uart1_rx_counter) && (!uart1_tx_busy))          // 收到数据, 发�
+  193   2              if(++uart4_rx_counter >= UART4_BUF_LENGTH) uart4_rx_counter = 0;    // 缓冲区满, 循环
+  194   2        }
+  195   1      }
+  196          
+  197          void uart_running(unsigned char uart_num)
+  198          {
+  199   1          switch(uart_num)
+  200   1          {
+  201   2              case 1:
+  202   2                  if((uart1_tx_counter != uart1_rx_counter) && (!uart1_tx_busy))          // 收到数据, 发�
              -��空闲
-  199   2                  {
-  200   3                      SBUF = uart1_rx_buffer[uart1_tx_counter];                           // 发送数据
-  201   3                      uart1_tx_busy = 1;                                                  // 标记忙
-  202   3                      if(++uart1_tx_counter >= UART1_BUF_LENGTH) uart1_tx_counter = 0;    // 循环
-  203   3                  }
-  204   2                  break;
-  205   2              case 2:
-  206   2                  if((uart2_tx_counter != uart2_rx_counter) && (!uart2_tx_busy))          // 收到数据, 发�
+  203   2                  {
+  204   3                      SBUF = uart1_rx_buffer[uart1_tx_counter];                           // 发送数据
+  205   3                      uart1_tx_busy = 1;                                                  // 标记忙
+  206   3                      if(++uart1_tx_counter >= UART1_BUF_LENGTH) uart1_tx_counter = 0;    // 循环
+  207   3                  }
+  208   2                  break;
+  209   2              case 2:
+  210   2                  if((uart2_tx_counter != uart2_rx_counter) && (!uart2_tx_busy))          // 收到数据, 发�
              -��空闲
-  207   2                  {
-  208   3                      S2BUF = uart2_rx_buffer[uart2_tx_counter];                          // 发送数据
-  209   3                      uart2_tx_busy = 1;                                                  // 标记忙
-  210   3                      if(++uart2_tx_counter >= UART2_BUF_LENGTH) uart2_tx_counter = 0;    // 循环
-  211   3                  }
-  212   2                  break;
-  213   2              case 3:
-  214   2                  if((uart3_tx_counter != uart3_rx_counter) && (!uart3_tx_busy))          // 收到数据, 发�
+  211   2                  {
+  212   3                      S2BUF = uart2_rx_buffer[uart2_tx_counter];                          // 发送数据
+  213   3                      uart2_tx_busy = 1;                                                  // 标记忙
+  214   3                      if(++uart2_tx_counter >= UART2_BUF_LENGTH) uart2_tx_counter = 0;    // 循环
+  215   3                  }
+  216   2                  break;
+  217   2              case 3:
+  218   2                  if((uart3_tx_counter != uart3_rx_counter) && (!uart3_tx_busy))          // 收到数据, 发�
              -��空闲
-  215   2                  {
-  216   3                      S3BUF = uart3_rx_buffer[uart3_tx_counter];                          // 发送数据
-  217   3                      uart3_tx_busy = 1;                                                  // 标记忙
-  218   3                      if(++uart3_tx_counter >= UART3_BUF_LENGTH) uart3_tx_counter = 0;    // 循环
-  219   3                  }
-  220   2                  break;
-  221   2              case 4:
-  222   2                  if((uart4_tx_counter != uart4_rx_counter) && (!uart4_tx_busy))          // 收到数据, 发�
+  219   2                  {
+  220   3                      S3BUF = uart3_rx_buffer[uart3_tx_counter];                          // 发送数据
+  221   3                      uart3_tx_busy = 1;                                                  // 标记忙
+  222   3                      if(++uart3_tx_counter >= UART3_BUF_LENGTH) uart3_tx_counter = 0;    // 循环
+  223   3                  }
+  224   2                  break;
+  225   2              case 4:
+  226   2                  if((uart4_tx_counter != uart4_rx_counter) && (!uart4_tx_busy))          // 收到数据, 发�
              -��空闲
-  223   2                  {
-  224   3                      S4BUF = uart4_rx_buffer[uart4_tx_counter];                          // 发送数据
-  225   3                      uart4_tx_busy = 1;                                                  // 标记忙
-  226   3                      if(++uart4_tx_counter >= UART4_BUF_LENGTH) uart4_tx_counter = 0;    // 循环
-  227   3                  }
-  228   2                  break;
-  229   2              default:
-  230   2                  break;
-  231   2          }
-  232   1      }
+  227   2                  {
+  228   3                      S4BUF = uart4_rx_buffer[uart4_tx_counter];                          // 发送数据
+  229   3                      uart4_tx_busy = 1;                                                  // 标记忙
+  230   3                      if(++uart4_tx_counter >= UART4_BUF_LENGTH) uart4_tx_counter = 0;    // 循环
+  231   3                  }
+  232   2                  break;
+  233   2              default:
+  234   2                  break;
+  235   2          }
+  236   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1005     ------
+  code size            =      1015     ------
   ecode size           =    ------     ------
+C251 COMPILER V5.60.0,  uart                                                               10/04/24  20:56:40  PAGE 5   
+
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
-C251 COMPILER V5.60.0,  uart                                                               10/04/24  20:25:05  PAGE 5   
-
   xdata-const size     =    ------     ------
   edata size           =        86     ------
   bit size             =         4     ------

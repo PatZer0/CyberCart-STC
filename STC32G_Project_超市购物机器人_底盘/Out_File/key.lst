@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  key                                                                10/04/24  20:21:03  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                10/04/24  20:57:41  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
@@ -53,7 +53,7 @@ stmt  level    source
    42   1          else                    // 关闭激光测距
    43   1          {
    44   2              oled_p6x8str_spi(6*18, 0, "OFF");
-   45   2              laser_ranging('x', &lrcmd_continous);
+   45   2              laser_ranging('x', &lrcmd_laseroff);
    46   2              laser_ranging('y', &lrcmd_laseroff);
    47   2          }
    48   1      }
@@ -66,7 +66,7 @@ stmt  level    source
    55   2              oled_p6x8str_spi(0, 7, ">1<");
    56   2          }
    57   1          if(key1 == 1 && key1_up_store == 0)
-C251 COMPILER V5.60.0,  key                                                                10/04/24  20:21:03  PAGE 2   
+C251 COMPILER V5.60.0,  key                                                                10/04/24  20:57:41  PAGE 2   
 
    58   1          {
    59   2              key1_up_store = 1; // 标记按键被释放
@@ -135,7 +135,7 @@ Module Information          Static   Overlayable
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
   ebitaddressable size =    ------     ------
-C251 COMPILER V5.60.0,  key                                                                10/04/24  20:21:03  PAGE 3   
+C251 COMPILER V5.60.0,  key                                                                10/04/24  20:57:41  PAGE 3   
 
   far data size        =    ------     ------
   huge data size       =    ------     ------

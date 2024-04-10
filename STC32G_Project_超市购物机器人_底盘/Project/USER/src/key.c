@@ -42,7 +42,7 @@ void key4_short_press()
     else                    // ¹Ø±Õ¼¤¹â²â¾à
     {
         oled_p6x8str_spi(6*18, 0, "OFF");
-        laser_ranging('x', &lrcmd_continous);
+        laser_ranging('x', &lrcmd_laseroff);
         laser_ranging('y', &lrcmd_laseroff);
     }
 }
