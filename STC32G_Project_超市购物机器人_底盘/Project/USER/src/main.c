@@ -30,11 +30,11 @@ void lsm303_iic_init(void)
     // 需要手动在Keil中添加
 }
 
-// void laser_ranging_uart_init()
-// {
-//     uart_init(UART_1, UART1_RX_P43, UART1_TX_P44, 9600, TIM_2);
-//     uart_init(UART_2, UART2_RX_P46, UART2_TX_P47, 9600, TIM_2);
-// }
+void laser_ranging_uart_init()
+{
+    uart_init(UART_1, UART1_RX_P43, UART1_TX_P44, 9600, TIM_2);
+    uart_init(UART_2, UART2_RX_P46, UART2_TX_P47, 9600, TIM_2);
+}
 
 void main()
 {   
@@ -47,12 +47,12 @@ void main()
     oled_p6x8str_spi(0, 1, "DIST:");
     // lsm303_iic_init();              // 初始化LSM303_IIC接口
     // lsm303_init_all();              // 初始化LSM303传感器
-    uart_port_init();               // 初始化UART端口
-    uart_initialize(1);             // 初始化UART1
-    uart_initialize(2);             // 初始化UART2
+    // uart_port_init();               // 初始化UART端口
+    // uart_initialize(1);             // 初始化UART1
+    // uart_initialize(2);             // 初始化UART2
     motor_drivers_pwm_init();	    // 初始化PWM
+    laser_ranging_uart_init();      // 初始化激光测距串口
     laser_ranging_init();           // 初始化激光测距
-    // laser_ranging_uart_init();      // 初始化激光测距串口
     while(1)
     {
         key1_check();
