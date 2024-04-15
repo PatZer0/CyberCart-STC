@@ -3,7 +3,7 @@
 
 #define UART1_BUF_LENGTH 16                        // 定义接收缓冲区长度
 #define UART2_BUF_LENGTH 16                        // 定义接收缓冲区长度
-#define UART3_BUF_LENGTH 16                        // 定义接收缓冲区长度
+#define UART3_BUF_LENGTH 64                        // 定义接收缓冲区长度
 #define UART4_BUF_LENGTH 16                        // 定义接收缓冲区长度
 
 extern unsigned char uart1_tx_counter, uart2_tx_counter, uart3_tx_counter, uart4_tx_counter;   // 发送计数

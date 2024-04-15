@@ -29,12 +29,14 @@
 ".\Out_File\SEEKFREE_VIRSCO.obj",
 ".\Out_File\SEEKFREE_WIRELESS.obj",
 ".\Out_File\SEEKFREE_WIRELESS_CH573.obj",
-".\Out_File\isr.obj",
 ".\Out_File\main.obj",
-".\Out_File\motor_driver_boards.obj",
-".\Out_File\laser_ranging.obj",
-".\Out_File\key.obj",
+".\Out_File\qmc5883.obj",
 ".\Out_File\uart.obj",
+".\Out_File\isr.obj",
+".\Out_File\key.obj",
+".\Out_File\host_comm.obj",
+".\Out_File\laser_ranging.obj",
+".\Out_File\motor_driver_boards.obj",
 ".\Out_File\seekfree_assistant.obj",
 ".\Out_File\seekfree_assistant_inface.obj" 
 TO ".\Out_File\SEEKFREE" 

@@ -14,10 +14,6 @@ extern unsigned char uart2_rx_buffer[UART2_BUF_LENGTH];                         
 extern unsigned char uart3_rx_buffer[UART3_BUF_LENGTH];                                        // 接收缓冲
 extern unsigned char uart4_rx_buffer[UART4_BUF_LENGTH];                                        // 接收缓冲
 
-extern int qmc5883_magx, qmc5883_magy, qmc5883_magz;
-extern float qmc5883_yaw;
-extern char qmc5883_char_magx[5], qmc5883_char_magy[5], qmc5883_char_magz[5], qmc5883_char_yaw[6];
-
 void uart_port_init(void);
 void uart_initialize(unsigned char uart_num);
 void uart_sendstring(unsigned char uart_num, unsigned char *puts);

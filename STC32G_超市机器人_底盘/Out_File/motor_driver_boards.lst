@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  motor_driver_boards                                                15/04/24  17:50:41  PAGE 1   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                15/04/24  18:38:55  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE motor_driver_boards
@@ -66,7 +66,7 @@ stmt  level    source
    54          
    55          void wheels_x_forward()
    56          {
-C251 COMPILER V5.60.0,  motor_driver_boards                                                15/04/24  17:50:41  PAGE 2   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                15/04/24  18:38:55  PAGE 2   
 
    57   1          // X 方向所有轮子正转
    58   1          wheel_x_front_forward();
@@ -134,7 +134,7 @@ stmt  level    source
   120   1          // Y 方向所有轮子正转
   121   1          wheel_y_front_forward();
   122   1          wheel_y_rear_forward();
-C251 COMPILER V5.60.0,  motor_driver_boards                                                15/04/24  17:50:41  PAGE 3   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                15/04/24  18:38:55  PAGE 3   
 
   123   1      }
   124          

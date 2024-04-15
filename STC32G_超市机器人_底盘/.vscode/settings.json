@@ -15,6 +15,7 @@
         "seekfree_oled.h": "c",
         "key.h": "c",
         "stdlib.h": "c",
-        "STDLIB.H": "cpp"
+        "STDLIB.H": "cpp",
+        "qmc5883.h": "c"
     }
 }

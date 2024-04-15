@@ -39,8 +39,8 @@ void laser_ranging_uart_init()
 
 void qmc5883_init()
 {
-    // 初始化串口，使用串口3，波特率460800
-    uart_init(UART_3, UART3_RX_P50, UART3_TX_P51, 460800, TIM_3);
+    // 初始化串口，使用串口3，波特率460800  
+    uart_init(UART_3, UART3_RX_P50, UART3_TX_P51, 115200, TIM_3);
 }
 
 void main()
@@ -49,17 +49,18 @@ void main()
     gpio_init();                    // 初始化GPIO，使得P4和P6正确输出
     oled_init_spi();                // 初始化OLED显示屏
     keys_ui_init();                 // 初始化按键UI
-    oled_p6x8str_spi(0, 0, "LASER RANGING");
-    oled_p6x8str_spi(0, 1, "DISX:");
-    oled_p6x8str_spi(0, 2, "DISY:");
-    // lsm303_iic_init();              // 初始化LSM303_IIC接口
-    // lsm303_init_all();              // 初始化LSM303传感器
-    // uart_port_init();               // 初始化UART端口
-    // uart_initialize(1);             // 初始化UART1
-    // uart_initialize(2);             // 初始化UART2
+
+    oled_p6x8str_spi(0, 0, "QMC5883L UART EXAMPLE");
+    oled_p6x8str_spi(0, 1, "-CYBER 3AXIS COMPASS-");
+    oled_p6x8str_spi(0, 2, "MagX:");
+    oled_p6x8str_spi(0, 3, "MagY:");
+    oled_p6x8str_spi(0, 4, "MagZ:");
+    oled_p6x8str_spi(0, 5, "Yaw:");
+
     motor_drivers_pwm_init();	    // 初始化PWM
-    laser_ranging_uart_init();      // 初始化激光测距串口
-    laser_ranging_init();           // 初始化激光测距
+    
+    // laser_ranging_uart_init();      // 初始化激光测距串口
+    // laser_ranging_init();           // 初始化激光测距
     
     qmc5883_init();                 // 初始化QMC5883L传感器
 

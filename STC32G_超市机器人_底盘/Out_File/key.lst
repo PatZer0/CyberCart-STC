@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  key                                                                15/04/24  17:50:40  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                15/04/24  19:33:04  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
@@ -66,7 +66,7 @@ stmt  level    source
    54   2              key1_up_store = 0; // 标记按键被按下
    55   2              oled_p6x8str_spi(0, 7, ">1<");
    56   2          }
-C251 COMPILER V5.60.0,  key                                                                15/04/24  17:50:40  PAGE 2   
+C251 COMPILER V5.60.0,  key                                                                15/04/24  19:33:04  PAGE 2   
 
    57   1          if(key1 == 1 && key1_up_store == 0)
    58   1          {
@@ -135,7 +135,7 @@ Module Information          Static   Overlayable
   bit size             =         1     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
-C251 COMPILER V5.60.0,  key                                                                15/04/24  17:50:40  PAGE 3   
+C251 COMPILER V5.60.0,  key                                                                15/04/24  19:33:04  PAGE 3   
 
   ebitaddressable size =    ------     ------
   far data size        =    ------     ------
