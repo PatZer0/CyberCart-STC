@@ -1,0 +1,223 @@
+C251 COMPILER V5.60.0,  isr                                                                15/04/24  17:50:40  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE isr
+OBJECT MODULE PLACED IN .\Out_File\isr.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\USER\src\isr.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,SPEED) 
+                    -BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\i
+                    -nc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\isr.lst) TABS(2) OBJECT(.\Out_File\isr.obj) 
+
+stmt  level    source
+
+    1          ///******************************************************************************************************
+             -***************
+    2          // * COPYRIGHT NOTICE
+    3          // * Copyright (c) 2020,逐飞科技
+    4          // * All rights reserved.
+    5          // * 技术讨论QQ群：一群：179029047(已满)  二群：244861897(已满)  三群：824575535
+    6          // *
+    7          // * 以下所有内容版权均属逐飞科技所有，未经允许不得用于商业用途，
+    8          // * 欢迎各位使用并传播本程序，修改内容时必须保留逐飞科技的版权声明。
+    9          // *
+   10          // * @file          isr
+   11          // * @company       成都逐飞科技有限公司
+   12          // * @author        逐飞科技(QQ790875685)
+   13          // * @version       查看doc内version文件 版本说明
+   14          // * @Software      MDK FOR C251 V5.60
+   15          // * @Target core   STC32G12K128
+   16          // * @Taobao        https://seekfree.taobao.com/
+   17          // * @date          2020-4-14
+   18          // ******************************************************************************************************
+             -**************/
+   19          #include "headfile.h"
+   20          
+   21          //UART1中断
+   22          // void UART1_Isr() interrupt 4
+   23          // {
+   24          //     uint8 res;
+   25          //  static uint8 dwon_count;
+   26          //     if(UART1_GET_TX_FLAG)
+   27          //     {
+   28          //         UART1_CLEAR_TX_FLAG;
+   29          //         busy[1] = 0;
+   30          //     }
+   31          //     if(UART1_GET_RX_FLAG)
+   32          //     {
+   33          //         UART1_CLEAR_RX_FLAG;
+   34          //         res = SBUF;
+   35          //         //程序自动下载
+   36          //         if(res == 0x7F)
+   37          //         {
+   38          //             if(dwon_count++ > 20)
+   39          //                 IAP_CONTR = 0x60;
+   40          //         }
+   41          //         else
+   42          //         {
+   43          //             dwon_count = 0;
+   44          //         }
+   45          //     }
+   46          // }
+   47          
+   48          // //UART2中断
+   49          // void UART2_Isr() interrupt 8
+   50          // {
+   51          //     if(UART2_GET_TX_FLAG)
+   52          //  {
+   53          //         UART2_CLEAR_TX_FLAG;
+   54          //    busy[2] = 0;
+   55          //  }
+C251 COMPILER V5.60.0,  isr                                                                15/04/24  17:50:40  PAGE 2   
+
+   56          //     if(UART2_GET_RX_FLAG)
+   57          //  {
+   58          //         UART2_CLEAR_RX_FLAG;
+   59          //    //接收数据寄存器为：S2BUF
+   60          
+   61          //  }
+   62          // }
+   63          
+   64          
+   65          // //UART3中断
+   66          // void UART3_Isr() interrupt 17
+   67          // {
+   68          //     if(UART3_GET_TX_FLAG)
+   69          //  {
+   70          //         UART3_CLEAR_TX_FLAG;
+   71          //    busy[3] = 0;
+   72          //  }
+   73          //     if(UART3_GET_RX_FLAG)
+   74          //  {
+   75          //         UART3_CLEAR_RX_FLAG;
+   76          //    //接收数据寄存器为：S3BUF
+   77          
+   78          //  }
+   79          // }
+   80          
+   81          
+   82          // //UART4中断
+   83          // void UART4_Isr() interrupt 18
+   84          // {
+   85          //     if(UART4_GET_TX_FLAG)
+   86          //  {
+   87          //         UART4_CLEAR_TX_FLAG;
+   88          //    busy[4] = 0;
+   89          //  }
+   90          //     if(UART4_GET_RX_FLAG)
+   91          //  {
+   92          //         UART4_CLEAR_RX_FLAG;
+   93          
+   94          //    //接收数据寄存器为：S4BUF;
+   95          //    if(wireless_type == WIRELESS_SI24R1)
+   96          //         {
+   97          //             wireless_uart_callback();           //无线转串口回调函数
+   98          //         }
+   99          //         else if(wireless_type == WIRELESS_CH9141)
+  100          //         {
+  101          //             bluetooth_ch9141_uart_callback();   //蓝牙转串口回调函数
+  102          //         }
+  103          //         else if(wireless_type == WIRELESS_CH573)
+  104          //         {
+  105          //             wireless_ch573_callback();          //CH573无线模块回调函数
+  106          //         }
+  107          //  }
+  108          // }
+  109          
+  110          // void INT0_Isr() interrupt 0
+  111          // {
+  112          //  LED = 0;  //点亮LED
+  113          // }
+  114          // void INT1_Isr() interrupt 2
+  115          // {
+  116          
+  117          // }
+  118          // void INT2_Isr() interrupt 10
+  119          // {
+  120          //  INT2_CLEAR_FLAG;  //清除中断标志
+  121          // }
+C251 COMPILER V5.60.0,  isr                                                                15/04/24  17:50:40  PAGE 3   
+
+  122          // void INT3_Isr() interrupt 11
+  123          // {
+  124          //  INT3_CLEAR_FLAG;  //清除中断标志
+  125          // }
+  126          
+  127          // void INT4_Isr() interrupt 16
+  128          // {
+  129          //  INT4_CLEAR_FLAG;  //清除中断标志
+  130          // }
+  131          
+  132          // void TM0_Isr() interrupt 1
+  133          // {
+  134          
+  135          // }
+  136          // void TM1_Isr() interrupt 3
+  137          // {
+  138          
+  139          // }
+  140          // void TM2_Isr() interrupt 12
+  141          // {
+  142          //  TIM2_CLEAR_FLAG;  //清除中断标志
+  143            
+  144          // }
+  145          // void TM3_Isr() interrupt 19
+  146          // {
+  147          //  TIM3_CLEAR_FLAG; //清除中断标志
+  148            
+  149          // }
+  150          
+  151          // void TM4_Isr() interrupt 20
+  152          // {
+  153          //  TIM4_CLEAR_FLAG; //清除中断标志
+  154          //  ccd_collect();   //CCD采集数据
+  155          
+  156          // }
+  157          
+  158          //void  INT0_Isr()  interrupt 0;
+  159          //void  TM0_Isr()   interrupt 1;
+  160          //void  INT1_Isr()  interrupt 2;
+  161          //void  TM1_Isr()   interrupt 3;
+  162          //void  UART1_Isr() interrupt 4;
+  163          //void  ADC_Isr()   interrupt 5;
+  164          //void  LVD_Isr()   interrupt 6;
+  165          //void  PCA_Isr()   interrupt 7;
+  166          //void  UART2_Isr() interrupt 8;
+  167          //void  SPI_Isr()   interrupt 9;
+  168          //void  INT2_Isr()  interrupt 10;
+  169          //void  INT3_Isr()  interrupt 11;
+  170          //void  TM2_Isr()   interrupt 12;
+  171          //void  INT4_Isr()  interrupt 16;
+  172          //void  UART3_Isr() interrupt 17;
+  173          //void  UART4_Isr() interrupt 18;
+  174          //void  TM3_Isr()   interrupt 19;
+  175          //void  TM4_Isr()   interrupt 20;
+  176          //void  CMP_Isr()   interrupt 21;
+  177          //void  I2C_Isr()   interrupt 24;
+  178          //void  USB_Isr()   interrupt 25;
+  179          //void  PWM1_Isr()  interrupt 26;
+  180          //void  PWM2_Isr()  interrupt 27;
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =    ------     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+C251 COMPILER V5.60.0,  isr                                                                15/04/24  17:50:40  PAGE 4   
+
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

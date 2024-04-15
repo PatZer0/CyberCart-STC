@@ -1,0 +1,55 @@
+C251 COMPILER V5.60.0,  qmc5883                                                            15/04/24  17:50:40  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE qmc5883
+OBJECT MODULE PLACED IN .\Out_File\qmc5883.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\CODE\qmc5883.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,SPEED) 
+                    -BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\i
+                    -nc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\qmc5883.lst) TABS(2) OBJECT(.\Out_File\qmc5883
+                    -.obj) 
+
+stmt  level    source
+
+    1          #include "qmc5883.h"
+    2          
+    3          char qmc5883_data[];
+    4          
+    5          
+    6                  // 接收Magx数据：
+    7                  if(uart3_rx_buffer[0] == 'M' && uart3_rx_buffer[1] == 'a' && uart3_rx_buffer[2] == 'g' && uart3_r
+             -x_buffer[3] == 'x' && uart3_rx_buffer[4] == ':')
+*** ERROR C25 IN LINE 7 OF Project\CODE\qmc5883.c: syntax error near 'if'
+*** ERROR C154 IN LINE 7 OF Project\CODE\qmc5883.c: cannot allocate an array of constant size 0
+*** ERROR C25 IN LINE 7 OF Project\CODE\qmc5883.c: syntax error near '=='
+*** ERROR C25 IN LINE 7 OF Project\CODE\qmc5883.c: syntax error near '=='
+*** ERROR C25 IN LINE 7 OF Project\CODE\qmc5883.c: syntax error near '=='
+*** ERROR C25 IN LINE 7 OF Project\CODE\qmc5883.c: syntax error near '=='
+*** ERROR C25 IN LINE 7 OF Project\CODE\qmc5883.c: syntax error near '=='
+    8                  {
+    9                      if(uart3_rx_buffer[uart3_rx_counter] != ',')
+*** ERROR C67 IN LINE 9 OF Project\CODE\qmc5883.c: 'uart3_rx_counter': undefined identifier
+*** ERROR C25 IN LINE 9 OF Project\CODE\qmc5883.c: syntax error near '!='
+   10                      {
+   11                          qmc5883_char_magx[uart3_rx_counter - 5] = uart3_rx_buffer[uart3_rx_counter];
+*** ERROR C67 IN LINE 11 OF Project\CODE\qmc5883.c: 'uart3_rx_counter': undefined identifier
+*** ERROR C67 IN LINE 11 OF Project\CODE\qmc5883.c: 'uart3_rx_counter': undefined identifier
+*** ERROR C67 IN LINE 11 OF Project\CODE\qmc5883.c: 'uart3_rx_buffer': undefined identifier
+   12                      }
+*** ERROR C25 IN LINE 12 OF Project\CODE\qmc5883.c: syntax error near '}'
+   13                      else
+   14                      {
+   15                          uart3_rx_counter = 0;
+*** ERROR C53 IN LINE 15 OF Project\CODE\qmc5883.c: redefinition of 'uart3_rx_counter': different basic types
+*** ERROR C73 IN LINE 15 OF Project\CODE\qmc5883.c: sizeof illegal operand taken
+   16                      }
+*** ERROR C25 IN LINE 16 OF Project\CODE\qmc5883.c: syntax error near '}'
+   17                  }
+   18                  // 接收Magy数据：
+   19                  if(uart3_rx_buffer[0] == 'M' && uart3_rx_buffer[1] == 'a' && uart3_rx_buffer[2] == 'g' && uart3_r
+             -x_buffer[3] == 'y' && uart3_rx_buffer[4] == ':')
+*** ERROR C154 IN LINE 19 OF Project\CODE\qmc5883.c: cannot allocate an array of constant size 0
+*** ERROR C25 IN LINE 19 OF Project\CODE\qmc5883.c: syntax error near '=='
+*** ERROR C25 IN LINE 19 OF Project\CODE\qmc5883.c: syntax error near '=='
+*** ERROR C7 IN LINE 19 OF Project\CODE\qmc5883.c: compilation aborted
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  20 ERROR(S)
