@@ -1,0 +1,148 @@
+C251 COMPILER V5.60.0,  main                                                               18/04/24  21:03:42  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE main
+OBJECT MODULE PLACED IN .\Out_File\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\USER\src\main.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,SPEED)
+                    - BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\
+                    -inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\main.lst) TABS(2) OBJECT(.\Out_File\main.obj)
+                    - 
+
+stmt  level    source
+
+    1          // 引脚定义写在文档中，不再使用注释备注
+    2          
+    3          #include "headfile.h"
+    4          #include "laser_ranging.h"
+    5          #include "motor_driver_boards.h"     // 电机驱动板头文件
+    6          #include "key.h"
+    7          #include "qmc5883.h"
+    8          
+    9          
+   10          void gpio_init()
+   11          {
+   12   1          gpio_mode(P6, GPO_PP);          // 配置 P6.0~P6.7 为推挽输出
+   13   1          gpio_mode(P1, GPO_PP);          // 配置 P1.0~P1.7 为推挽输出
+   14   1      }
+   15          
+   16          void motor_drivers_pwm_init()
+   17          {
+   18   1          // 参数：模块_端口, 频率, 占空比(÷10000)
+   19   1          pwm_init(PWMA_CH1P_P60, 30000, 1000);   // X方向驱动板PB, 3KHz, 10%占空比
+   20   1          pwm_init(PWMA_CH2N_P63, 30000, 1000);   // X方向驱动板PA，3KHz, 10%占空比
+   21   1          pwm_init(PWMA_CH4N_P67, 30000, 1000);   // Y方向驱动板PB, 3KHz, 10%占空比
+   22   1          pwm_init(PWMA_CH3P_P14, 30000, 1000);   // Y方向驱动板PA, 3KHz, 10%占空比
+   23   1      }
+   24          
+   25          void lsm303_iic_init(void)
+   26          {
+   27   1          // float acc_x, acc_y, acc_z;
+   28   1          // float mag_x, mag_y, mag_z;
+   29   1          iic_init(IIC_4, IIC4_SCL_P32, IIC4_SDA_P33, 19);
+   30   1          // 需要注意SEEKFREE LIBRARY默认提供的项目文件没有导入iic相关c文件
+   31   1          // 需要手动在Keil中添加
+   32   1      }
+   33          
+   34          void laser_ranging_uart_init()
+   35          {
+   36   1          uart_init(UART_1, UART1_RX_P43, UART1_TX_P44, 9600, TIM_2);
+   37   1          uart_init(UART_2, UART2_RX_P46, UART2_TX_P47, 9600, TIM_2);
+   38   1      }
+   39          
+   40          void qmc5883_init()
+   41          {
+   42   1          // 初始化串口，使用串口3，波特率460800
+   43   1          uart_init(UART_3, UART3_RX_P00, UART3_TX_P01, 115200, TIM_3);
+   44   1      }
+   45          
+   46          unsigned char tempcounter;
+   47          
+   48          void main()
+   49          {   
+   50   1        board_init();             // 初始化寄存器,勿删除此句代码。
+   51   1          gpio_init();                    // 初始化GPIO，使得P4和P6正确输出
+   52   1          oled_init_spi();                // 初始化OLED显示屏
+   53   1          keys_ui_init();                 // 初始化按键UI
+   54   1      
+   55   1          // qmc5883_init();              // 初始化QMC5883L传感器
+   56   1          // oled_p6x8str_spi(0, 0, "QMC5883L UART EXAMPLE");
+C251 COMPILER V5.60.0,  main                                                               18/04/24  21:03:42  PAGE 2   
+
+   57   1          // oled_p6x8str_spi(0, 1, "-CYBER 3AXIS COMPASS-");
+   58   1          // oled_p6x8str_spi(0, 2, "MagX:");
+   59   1          // oled_p6x8str_spi(0, 3, "MagY:");
+   60   1          // oled_p6x8str_spi(0, 4, "MagZ:");
+   61   1          // oled_p6x8str_spi(0, 5, "Yaw:");
+   62   1      
+   63   1          motor_drivers_pwm_init();     // 初始化PWM
+   64   1          wheel_adjust(X_ALL, 5000);
+   65   1          wheel_adjust(Y_ALL, 5000);
+   66   1      
+   67   1          // laser_ranging_uart_init();      // 初始化激光测距串口
+   68   1          // oled_p6x8str_spi(0, 0, "LASER RANGING EXAMPLE");
+   69   1          // oled_p6x8str_spi(0, 1, "- REALTIME RANGING -");
+   70   1          // oled_p6x8str_spi(0, 2, "DistX:");
+   71   1          // oled_p6x8str_spi(0, 3, "DistY:");
+   72   1          // delay_ms(255);
+   73   1          // laser_ranging_init();           // 初始化激光测距
+   74   1          // delay_ms(255);
+   75   1          // laser_ranging('x', &lrcmd_continous);
+   76   1          // laser_ranging('y', &lrcmd_continous);
+   77   1          while(1)
+   78   1          {
+   79   2              key1_check();
+   80   2              key2_check();
+   81   2              key3_check();
+   82   2              key4_check();
+   83   2              tempcounter++;
+   84   2              oled_printf_int32_spi(6*17, 7, tempcounter, 3);
+   85   2          }
+   86   1      }
+   87          
+   88          
+   89          /********************************************************************************************************
+             -*************
+   90           * COPYRIGHT NOTICE
+   91           * Copyright (c) 2020,逐飞科技
+   92           * All rights reserved.
+   93           * 技术讨论QQ群：一群：179029047(已满)  二群：244861897(已满)  三群：824575535
+   94           *
+   95           * 以下所有内容版权均属逐飞科技所有，未经允许不得用于商业用途，
+   96           * 欢迎各位使用并传播本程序，修改内容时必须保留逐飞科技的版权声明。
+   97           *
+   98           * @file          main
+   99           * @company       成都逐飞科技有限公司
+  100           * @author        逐飞科技(QQ790875685)
+  101           * @version       查看doc内version文件 版本说明
+  102           * @Software    MDK FOR C251 V5.60
+  103           * @Target core   STC32G12K128
+  104           * @Taobao      https://seekfree.taobao.com/
+  105           * @date          2020-12-18
+  106           ********************************************************************************************************
+             -************/
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       295     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =         1     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+C251 COMPILER V5.60.0,  main                                                               18/04/24  21:03:42  PAGE 3   
+
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

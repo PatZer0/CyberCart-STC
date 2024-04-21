@@ -1,0 +1,288 @@
+C251 COMPILER V5.60.0,  qmc5883                                                            21/04/24  18:32:24  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE qmc5883
+OBJECT MODULE PLACED IN .\Out_File\qmc5883.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\CODE\qmc5883.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,SPEED) 
+                    -BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\i
+                    -nc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\qmc5883.lst) TABS(2) OBJECT(.\Out_File\qmc5883
+                    -.obj) 
+
+stmt  level    source
+
+    1          #include "qmc5883.h"
+    2          #include "uart.h"
+    3          
+    4          char             qmc5883_data[64];
+    5          unsigned char    qmc5883_cmd_buf[32];
+    6          int              qmc5883_magx, qmc5883_magy, qmc5883_magz;
+    7          float            qmc5883_yaw;
+    8          char             qmc5883_char_magx[10], qmc5883_char_magy[10], qmc5883_char_magz[10], qmc5883_char_yaw[10
+             -];
+    9          
+   10          /*
+   11          指令                  功能                  回复内容格式
+   12          AT                      检测连接是否正常      OK
+   13          AT+UART=0             更改波特率为9600      OK
+   14          AT+UART=1             更改波特率为115200      OK
+   15          AT+UART=2             更改波特率为460800      OK
+   16          AT+ID=?                 查询模块ID（0—254）    +ID=<ID>
+   17          AT+ID=<0-254的数字>     更改设备地址          OK
+   18          AT+INIT                 磁场感器初始化          INIT SUCCES
+   19          AT+PRATE=0              设置为单次回传模式      OK Mag:<x轴，y轴，z轴磁场数据> Yaw:<z轴的角度>
+   20          AT+PRATE=<10-10000>     设置回传速度单位ms      OK Mag:<x轴，y轴，z轴磁场数据> Yaw:<z轴的角度>
+   21          AT+CALI=1             开始磁场校准          Calibrating
+   22          AT+CALI=0             结束磁场校准          Calibration completed
+   23          AT+CALI=2             清除磁场零偏          Reset mag offset param
+   24          AT+FILT=<0或1000>     关闭滤波              OK
+   25          AT+FILT=<1-999的数字> 设置滤波值              OK
+   26                                错误指令              ERROR
+   27          注：所有的AT指令以回车换行符结束（必须勾选“额外增加换行符”）    
+   28          */
+   29          
+   30          // 指令集
+   31          unsigned char qmccmd_check_connection[]             = {"AT"};
+   32          unsigned char qmccmd_set_uart_baudrate_9600[]       = {"AT+UART=0"};
+   33          unsigned char qmccmd_set_uart_baudrate_115200[]     = {"AT+UART=1"};
+   34          unsigned char qmccmd_set_uart_baudrate_460800[]     = {"AT+UART=2"};
+   35          unsigned char qmccmd_get_device_id[]                = {"AT+ID=?"};
+   36          unsigned char qmccmd_set_device_id[]                = {"AT+ID="};       // 需要补充参数
+   37          unsigned char qmccmd_init_sensor[]                  = {"AT+INIT"};
+   38          unsigned char qmccmd_set_single_measure_mode[]      = {"AT+PRATE=0"};
+   39          unsigned char qmccmd_set_measure_rate[]             = {"AT+PRATE="};    // 需要补充参数
+   40          unsigned char qmccmd_start_calibration[]            = {"AT+CALI=1"};
+   41          unsigned char qmccmd_stop_calibration[]             = {"AT+CALI=0"};
+   42          unsigned char qmccmd_clear_mag_offset[]             = {"AT+CALI=2"};
+   43          unsigned char qmccmd_disable_filter[]               = {"AT+FILT=0"};
+   44          unsigned char qmccmd_set_filter_value[]             = {"AT+FILT="};     // 需要补充参数
+   45          
+   46          
+   47          //-------------------------------------------------------------------------------------------------------
+             -------------
+   48          //  @brief      将字符串转换为整型(int)
+   49          //  @param      const char *str 字符串
+   50          //  @return     int 整型数
+   51          //  @since      v1.0 by PatZer0 on 2024.04.15
+   52          //  *example  int num = atoi("12345"); // num = 12345
+   53          //  *desc       该函数将字符串转换为整型数，用于将字符串数据转换为整型数据。
+   54          //              C251编译器没有atoi函数，因此需要自己实现。
+C251 COMPILER V5.60.0,  qmc5883                                                            21/04/24  18:32:24  PAGE 2   
+
+   55          //-------------------------------------------------------------------------------------------------------
+             -------------
+   56          int atoi(const char *str) 
+   57          {
+   58   1          int result = 0;  // 初始化结果为0
+   59   1          int sign = 1;    // 符号标记，默认为正数
+   60   1          int i = 0;
+   61   1      
+   62   1          // 检查是否为空字符串
+   63   1          if (str[0] == '\0') 
+   64   1          {
+   65   2              return 0;
+   66   2          }
+   67   1      
+   68   1          // 跳过前导空格（如果需要处理空格的情况）
+   69   1          while (str[i] == ' ') 
+   70   1          {
+   71   2              i++;
+   72   2          }
+   73   1      
+   74   1          // 检查符号
+   75   1          if (str[i] == '-') 
+   76   1          {
+   77   2              sign = -1;   // 如果是负号，设置符号为负
+   78   2              i++;         // 移动到下一个字符
+   79   2          } else if (str[i] == '+') 
+   80   1          {
+   81   2              i++;         // 如果是正号，仅移动到下一个字符（sign保持为1）
+   82   2          }
+   83   1      
+   84   1          // 遍历字符串直到遇到结束符'\0'
+   85   1          while (str[i] != '\0') 
+   86   1          {
+   87   2              if (str[i] >= '0' && str[i] <= '9') {  // 确保字符是数字
+   88   3                  result = result * 10 + (str[i] - '0');  // 将字符转换为相应的整数并加到结果中
+   89   3              } else {
+   90   3                  break; // 如果遇到非数字字符，停止解析
+   91   3              }
+   92   2              i++;
+   93   2          }
+   94   1      
+   95   1          return sign * result;  // 返回带有正确符号的结果
+   96   1      }
+   97          
+   98          //-------------------------------------------------------------------------------------------------------
+             -------------
+   99          //  @brief      将字符串转换为浮点型(double)
+  100          //  @param      const char *s 字符串
+  101          //  @return     double 浮点型数
+  102          //  @since      v1.0 by PatZer0 on 2024.04.15
+  103          //  *example  double num = atof("123.456"); // num = 123.456
+  104          //  *desc       该函数将字符串转换为浮点数。
+  105          //              C251编译器没有atof函数，因此需要自己实现。
+  106          //-------------------------------------------------------------------------------------------------------
+             -------------
+  107          double atof(const char *str) 
+  108          {
+  109   1          double integerPart = 0;
+  110   1          double decimalPart = 0;
+  111   1          double decimalPlace = 1;
+  112   1          int sign = 1;
+  113   1          int i = 0;
+  114   1          int state = 0; // 0代表整数部分，1代表小数部分
+  115   1      
+  116   1          while (str[i] == ' ') {
+  117   2              i++;
+C251 COMPILER V5.60.0,  qmc5883                                                            21/04/24  18:32:24  PAGE 3   
+
+  118   2          }
+  119   1      
+  120   1          if (str[i] == '-') {
+  121   2              sign = -1;
+  122   2              i++;
+  123   2          } else if (str[i] == '+') {
+  124   2              i++;
+  125   2          }
+  126   1      
+  127   1          for (; str[i]; i++) {
+  128   2              if (str[i] >= '0' && str[i] <= '9') {
+  129   3                  if (state == 0) {
+  130   4                      integerPart = integerPart * 10 + (str[i] - '0');
+  131   4                  } else {
+  132   4                      decimalPart = decimalPart * 10 + (str[i] - '0');
+  133   4                      decimalPlace *= 10;
+  134   4                  }
+  135   3              } else if (str[i] == '.' && state == 0) {
+  136   3                  state = 1;
+  137   3              } else {
+  138   3                  break;
+  139   3              }
+  140   2          }
+  141   1      
+  142   1          return sign * (integerPart + decimalPart / decimalPlace);
+  143   1      }
+  144          
+  145          //-------------------------------------------------------------------------------------------------------
+             -------------
+  146          //  @brief      解析从串口发回的QMC5883数据
+  147          //  @param      unsigned char dat[] 串口收到的数据
+  148          //  @return     void
+  149          //  @since      v1.0 by PatZer0 on 2024.04.15
+  150          //  *example    qmc5883_data_parse(qmc5883_data);
+  151          //  *desc       该函数解析从串口收到的QMC5883数据，并将其转换为相应的变量。
+  152          //              解析的数据保存在全局变量中，直接调用即可。
+  153          //-------------------------------------------------------------------------------------------------------
+             -------------
+  154          void qmc5883_data_parse(unsigned char dat[])
+  155          {
+  156   1          int i = 0, j = 0;
+  157   1          char counter = 0;
+  158   1      
+  159   1          for(i = 0; i < 64; i++)
+  160   1          {
+  161   2              if((dat[i] == ':') && (counter == 0))                   // 检测到第一个冒号
+  162   2              {
+  163   3                  counter++;
+  164   3                  for(j = i + 1; j < 100; j++)                        // 从冒号之后的第一个字符开始写入
+  165   3                  {
+  166   4                      if(dat[j] == ',')
+  167   4                      {
+  168   5                          qmc5883_char_magx[j - i - 1] = '\0';
+  169   5                          qmc5883_magx = atoi(qmc5883_char_magx);     // 转换为整型
+  170   5                          break;
+  171   5                      }
+  172   4                      qmc5883_char_magx[j - i - 1] = dat[j];          // 写入x轴磁场字符串
+  173   4                  }
+  174   3              }
+  175   2              else if((dat[i] == ':') && (counter == 1))              // 检测到第二个冒号
+  176   2              {
+  177   3                  counter++;
+  178   3                  for(j = i + 1; j < 100; j++)                        // 从冒号之后的第一个字符开始写入
+  179   3                  {
+  180   4                      if(dat[j] == ',')                               // 遇到逗号结束
+  181   4                      {
+C251 COMPILER V5.60.0,  qmc5883                                                            21/04/24  18:32:24  PAGE 4   
+
+  182   5                          qmc5883_char_magy[j - i - 1] = '\0';        // 字符串结束
+  183   5                          qmc5883_magy = atoi(qmc5883_char_magy);     // 转换为整型
+  184   5                          break;
+  185   5                      }
+  186   4                      qmc5883_char_magy[j - i - 1] = dat[j];          // 写入y轴磁场字符串
+  187   4                  }
+  188   3              }
+  189   2              else if((dat[i] == ':') && (counter == 2))              // 检测到第三个冒号
+  190   2              {
+  191   3                  counter++;
+  192   3                  for(j = i + 1; j < 100; j++)                        // 从冒号之后的第一个字符开始写入
+  193   3                  {
+  194   4                      if(dat[j] == ',')                               // 遇到逗号结束
+  195   4                      {
+  196   5                          qmc5883_char_magz[j - i - 1] = '\0';        // 字符串结束
+  197   5                          qmc5883_magz = atoi(qmc5883_char_magz);     // 转换为整型
+  198   5                          break;
+  199   5                      }
+  200   4                      qmc5883_char_magz[j - i - 1] = dat[j];          // 写入z轴磁场字符串
+  201   4                  }
+  202   3              }
+  203   2              else if((dat[i] == ':') && (counter == 3))              // 检测到第四个冒号
+  204   2              {
+  205   3                  counter++;                                          // 第四个冒号之后的数据为角度
+  206   3                  for(j = i + 1; j < 100; j++)                        // 从冒号之后的第一个字符开始写入)
+  207   3                  {
+  208   4                      if(dat[j] == '\r')                              // 遇到回车符结束
+  209   4                      {
+  210   5                          qmc5883_char_yaw[j - i - 1] = '\0';        // 字符串结束
+  211   5                          qmc5883_yaw = atof(qmc5883_char_yaw);        // 转换为浮点型
+  212   5                          break;
+  213   5                      }
+  214   4                      qmc5883_char_yaw[j - i - 1] = dat[j];           // 写入角度字符串
+  215   4                  }
+  216   3              }
+  217   2          }
+  218   1      }
+  219          
+  220          void qmc5883_irqhandler(void)
+  221          {
+  222   1          if((uart3_rx_buffer[uart3_rx_counter - 1] == 0x0D) && (uart3_rx_buffer[uart3_rx_counter] == 0x0A))
+  223   1          {
+  224   2              // 如果接收到'\r\n'字符代表一行数据接收完成，则将缓存全部保存并清空缓存区
+  225   2              memcpy(qmc5883_data, uart3_rx_buffer, sizeof(uart3_rx_buffer));     // 保存数据
+  226   2              uart3_rx_counter = 0;                                               // 清空缓存区
+  227   2              qmc5883_data_parse(qmc5883_data);                                   // 解析数据
+  228   2              // oled_p6x8str_spi(5*6, 2, qmc5883_char_magx);
+  229   2              // oled_p6x8str_spi(5*6, 3, qmc5883_char_magy);
+  230   2              // oled_p6x8str_spi(5*6, 4, qmc5883_char_magz);
+  231   2              // oled_p6x8str_spi(4*6, 5, qmc5883_char_yaw);
+  232   2              // oled_printf_int32_spi(5*6, 2, qmc5883_magx, 10);
+  233   2              // oled_printf_int32_spi(5*6, 3, qmc5883_magy, 10);
+  234   2              // oled_printf_int32_spi(5*6, 4, qmc5883_magz, 10);
+  235   2              // oled_printf_float_spi(4*6, 5, qmc5883_yaw, 4, 2);
+  236   2          }
+  237   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =      1480     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+C251 COMPILER V5.60.0,  qmc5883                                                            21/04/24  18:32:24  PAGE 5   
+
+  edata size           =       313     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =       182     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

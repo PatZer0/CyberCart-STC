@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "laser_ranging.h": "c"
+        "laser_ranging.h": "c",
+        "motor_driver_boards.h": "c",
+        "headfile.h": "c"
     }
 }

@@ -1,1 +1,0 @@
-"Libraries\seekfree_libraries\zf_spi.c" XSMALL INTR2 WARNINGLEVEL (3) OPTIMIZE (0,SPEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\zf_spi.lst) TABS (2) OBJECT(.\Out_File\zf_spi.obj)

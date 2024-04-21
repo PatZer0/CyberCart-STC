@@ -1,0 +1,148 @@
+C251 COMPILER V5.60.0,  key                                                                18/04/24  21:02:45  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE key
+OBJECT MODULE PLACED IN .\Out_File\key.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\CODE\key.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,SPEED) BROW
+                    -SE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\inc;P
+                    -roject\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\key.lst) TABS(2) OBJECT(.\Out_File\key.obj) 
+
+stmt  level    source
+
+    1          #include "key.h"
+    2          #include "laser_ranging.h"
+    3          #include "SEEKFREE_OLED.h"
+    4          
+    5          unsigned char key1_up_store = 1; // 按键1状态暂存
+    6          unsigned char key2_up_store = 1; // 按键2状态暂存
+    7          unsigned char key3_up_store = 1; // 按键3状态暂存
+    8          unsigned char key4_up_store = 1; // 按键4状态暂存
+    9          bit LaserRanging_State = 0; // 激光测距状态
+   10          
+   11          void keys_ui_init()
+   12          {
+   13   1          // 初始化按键
+   14   1          oled_p6x8str_spi(0, 7, "[1][2][3][4]");
+   15   1      }
+   16          
+   17          void key1_short_press()
+   18          {
+   19   1          // 短按键1功能
+   20   1      }
+   21          
+   22          void key2_short_press()
+   23          {
+   24   1          // 短按键2功能
+   25   1      }
+   26          
+   27          void key3_short_press()
+   28          {
+   29   1          // 短按键3功能
+   30   1      }
+   31          
+   32          void key4_short_press()
+   33          {
+   34   1          // 短按键4功能
+   35   1          LaserRanging_State = !LaserRanging_State;
+   36   1          if(LaserRanging_State)  // 打开激光测距
+   37   1          {
+   38   2              oled_p6x8str_spi(6*18, 0, " ON");
+   39   2              laser_ranging('x', &lrcmd_continous);                                                            
+             -            
+   40   2              laser_ranging('y', &lrcmd_continous);
+   41   2          }
+   42   1          else                    // 关闭激光测距
+   43   1          {
+   44   2              oled_p6x8str_spi(6*18, 0, "OFF");
+   45   2              laser_ranging('x', &lrcmd_laseroff);
+   46   2              laser_ranging('y', &lrcmd_laseroff);
+   47   2          }
+   48   1      }
+   49          
+   50          void key1_check() 
+   51          {
+   52   1          if(key1 == 0 && key1_up_store == 1)
+   53   1          {
+   54   2              key1_up_store = 0; // 标记按键被按下
+   55   2              oled_p6x8str_spi(0, 7, ">1<");
+   56   2          }
+C251 COMPILER V5.60.0,  key                                                                18/04/24  21:02:45  PAGE 2   
+
+   57   1          if(key1 == 1 && key1_up_store == 0)
+   58   1          {
+   59   2              key1_up_store = 1; // 标记按键被释放
+   60   2              key1_short_press(); // 触发短按键1功能
+   61   2              oled_p6x8str_spi(0, 7, "[1]");
+   62   2          }
+   63   1      }
+   64          
+   65          void key2_check()
+   66          {
+   67   1          if(key2 == 0 && key2_up_store == 1)
+   68   1          {
+   69   2              key2_up_store = 0; // 标记按键被按下
+   70   2              oled_p6x8str_spi(3*6, 7, ">2<");
+   71   2          }
+   72   1          if(key2 == 1 && key2_up_store == 0)
+   73   1          {
+   74   2              key2_up_store = 1; // 标记按键被释放
+   75   2              key2_short_press(); // 触发短按键2功能
+   76   2              oled_p6x8str_spi(3*6, 7, "[2]");
+   77   2          }
+   78   1      }
+   79          
+   80          void key3_check()
+   81          {
+   82   1          if(key3 == 0 && key3_up_store == 1)
+   83   1          {
+   84   2              key3_up_store = 0; // 标记按键被按下
+   85   2              oled_p6x8str_spi(6*6, 7, ">3<");
+   86   2          }
+   87   1          if(key3 == 1 && key3_up_store == 0)
+   88   1          {
+   89   2              key3_up_store = 1; // 标记按键被释放
+   90   2              key3_short_press(); // 触发短按键3功能
+   91   2              oled_p6x8str_spi(6*6, 7, "[3]");
+   92   2          }
+   93   1      }
+   94          
+   95          void key4_check()
+   96          {
+   97   1          if(key4 == 0 && key4_up_store == 1)
+   98   1          {
+   99   2              key4_up_store = 0; // 标记按键被按下
+  100   2              oled_p6x8str_spi(9*6, 7, ">4<");
+  101   2          }
+  102   1          if(key4 == 1 && key4_up_store == 0)
+  103   1          {
+  104   2              key4_up_store = 1; // 标记按键被释放
+  105   2              key4_short_press(); // 触发短按键4功能
+  106   2              oled_p6x8str_spi(9*6, 7, "[4]");
+  107   2          }
+  108   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       432     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =         4     ------
+  bit size             =         1     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+C251 COMPILER V5.60.0,  key                                                                18/04/24  21:02:45  PAGE 3   
+
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        73     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

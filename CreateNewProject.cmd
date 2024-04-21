@@ -41,7 +41,7 @@ xcopy /E /I /Q ".library\%repo_name%\Seekfree_STC32G12K128_Opensource_Library" "
 move "%new_project_name%\Project\MDK\SEEKFREE.uvproj" "%new_project_name%\SEEKFREE.uvproj"
 
 :: 替换字符串
-powershell -Command "(Get-Content '%new_project_name%\SEEKFREE.uvproj') -replace '\.\.\\', '' -replace '\.\.\\', 'Project\' | Set-Content '%new_project_name%\SEEKFREE.uvproj'"
+powershell -Command "(Get-Content '%new_project_name%\SEEKFREE.uvproj') -replace '\.\.\\\.\.\\', '' -replace '\.\.\\', 'Project\' | Set-Content '%new_project_name%\SEEKFREE.uvproj'"
 
 echo 已成功创建 %new_project_name%
 pause

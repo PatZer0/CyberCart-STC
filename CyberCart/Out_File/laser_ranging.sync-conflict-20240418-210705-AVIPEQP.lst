@@ -1,0 +1,237 @@
+C251 COMPILER V5.60.0,  laser_ranging                                                      18/04/24  21:02:45  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE laser_ranging
+OBJECT MODULE PLACED IN .\Out_File\laser_ranging.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\CODE\laser_ranging.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,S
+                    -PEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\
+                    -USER\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\laser_ranging.lst) TABS(2) OBJECT(.\Out_
+                    -File\laser_ranging.obj) 
+
+stmt  level    source
+
+    1          /*
+    2          ×¢Òâ£º  ±¾³ÌÐò´®¿ÚÍ¨ÐÅÊ¹ÓÃË½ÓÐ¿â£¬Ã»ÓÐÕë¶ÔSEEKFREE_LIBRARYÐÞ¸Ä£¬ÇëÎðÊ¹ÓÃSEEKFREE_LIBRARY¿âÖÐµÄ´®¿Úº¯Êý£¬Ò
+             -ÔÃâÔì³É³åÍ»
+    3                  º¯Êý½ö¶ÔÁ½¸ö¼¤¹âÄ£¿éÍ¬Ê±Ê¹ÓÃµÄÇé¿ö×öÁË´¦Àí£¬ÆäËûÇé¿öÐèÒª×ÔÐÐÐÞ¸Ä
+    4          */
+    5          #include <STDLIB.H>
+    6          #include "laser_ranging.h"
+    7          #include "SEEKFREE_OLED.h"
+    8          
+    9          unsigned char laser_ranging_cmd_arr_single[]                = {0x80, 0x06, 0x02, 0x78};             // µ¥
+             -´Î²âÁ¿
+   10          unsigned char laser_ranging_cmd_arr_continous[]             = {0x80, 0x06, 0x03, 0x77};             // Á¬
+             -Ðø²âÁ¿
+   11          unsigned char laser_ranging_cmd_arr_shutdown[]              = {0x80, 0x04, 0x02, 0x7A};             // ¹Ø
+             -»ú
+   12          unsigned char laser_ranging_cmd_arr_setfreq_1hz[]           = {0xFA, 0x04, 0x0A, 0x00, 0xF8};       // Éè
+             -ÖÃÆµÂÊ1hz
+   13          unsigned char laser_ranging_cmd_arr_setfreq_5hz[]           = {0xFA, 0x04, 0x0A, 0x05, 0xF3};       // Éè
+             -ÖÃÆµÂÊ5hz
+   14          unsigned char laser_ranging_cmd_arr_setfreq_10hz[]          = {0xFA, 0x04, 0x0A, 0x0A, 0xEE};       // Éè
+             -ÖÃÆµÂÊ10hz
+   15          unsigned char laser_ranging_cmd_arr_setfreq_20hz[]          = {0xFA, 0x04, 0x0A, 0x14, 0xE4};       // Éè
+             -ÖÃÆµÂÊ20hz
+   16          unsigned char laser_ranging_cmd_arr_setrange_5m[]           = {0xFA, 0x04, 0x09, 0x05, 0xF4};       // Éè
+             -ÖÃ¾àÀëÖµ5m
+   17          unsigned char laser_ranging_cmd_arr_setrange_10m[]          = {0xFA, 0x04, 0x09, 0x0A, 0xEF};       // Éè
+             -ÖÃ¾àÀëÖµ10m
+   18          unsigned char laser_ranging_cmd_arr_setrange_30m[]          = {0xFA, 0x04, 0x09, 0x1E, 0xDB};       // Éè
+             -ÖÃ¾àÀëÖµ30m
+   19          unsigned char laser_ranging_cmd_arr_setrange_50m[]          = {0xFA, 0x04, 0x09, 0x32, 0xC7};       // Éè
+             -ÖÃ¾àÀëÖµ50m
+   20          unsigned char laser_ranging_cmd_arr_setrange_80m[]          = {0xFA, 0x04, 0x09, 0x50, 0xA9};       // Éè
+             -ÖÃ¾àÀëÖµ80m
+   21          unsigned char laser_ranging_cmd_arr_setresolution_1mm[]     = {0xFA, 0x04, 0x0C, 0x01, 0xF5};       // Éè
+             -ÖÃ·Ö±æÂÊ1mm
+   22          unsigned char laser_ranging_cmd_arr_setresolution_0_1mm[]   = {0xFA, 0x04, 0x0C, 0x02, 0xF4};       // Éè
+             -ÖÃ·Ö±æÂÊ0.1mm
+   23          unsigned char laser_ranging_cmd_arr_single_broadcast[]      = {0xFA, 0x06, 0x06, 0xFA};             // µ¥
+             -´Î²âÁ¿£¨¹ã²¥£©
+   24          unsigned char laser_ranging_cmd_arr_readcache[]             = {0x80, 0x06, 0x07, 0x73};             // ¶Á
+             -È¡»º´æ
+   25          unsigned char laser_ranging_cmd_arr_laseron[]               = {0x80, 0x06, 0x05, 0x01, 0x74};       // ¿Ø
+             -ÖÆ¼¤¹â¿ªÆô
+   26          unsigned char laser_ranging_cmd_arr_laseroff[]              = {0x80, 0x06, 0x05, 0x00, 0x75};       // ¿Ø
+             -ÖÆ¼¤¹â¹Ø±Õ
+   27          
+   28          LASER_RANGING_CMD_DEF lrcmd_single              = {laser_ranging_cmd_arr_single,                4};
+   29          LASER_RANGING_CMD_DEF lrcmd_continous           = {laser_ranging_cmd_arr_continous,             4};
+   30          LASER_RANGING_CMD_DEF lrcmd_shutdown            = {laser_ranging_cmd_arr_shutdown,              5};
+   31          LASER_RANGING_CMD_DEF lrcmd_setfreq_1hz         = {laser_ranging_cmd_arr_setfreq_1hz,           5};
+   32          LASER_RANGING_CMD_DEF lrcmd_setfreq_5hz         = {laser_ranging_cmd_arr_setfreq_5hz,           5};
+   33          LASER_RANGING_CMD_DEF lrcmd_setfreq_10hz        = {laser_ranging_cmd_arr_setfreq_10hz,          5};
+   34          LASER_RANGING_CMD_DEF lrcmd_setfreq_20hz        = {laser_ranging_cmd_arr_setfreq_20hz,          5};
+   35          LASER_RANGING_CMD_DEF lrcmd_setrange_5m         = {laser_ranging_cmd_arr_setrange_5m,           5};
+   36          LASER_RANGING_CMD_DEF lrcmd_setrange_10m        = {laser_ranging_cmd_arr_setrange_10m,          5};
+   37          LASER_RANGING_CMD_DEF lrcmd_setrange_30m        = {laser_ranging_cmd_arr_setrange_30m,          5};
+C251 COMPILER V5.60.0,  laser_ranging                                                      18/04/24  21:02:45  PAGE 2   
+
+   38          LASER_RANGING_CMD_DEF lrcmd_setrange_50m        = {laser_ranging_cmd_arr_setrange_50m,          5};
+   39          LASER_RANGING_CMD_DEF lrcmd_setrange_80m        = {laser_ranging_cmd_arr_setrange_80m,          5};
+   40          LASER_RANGING_CMD_DEF lrcmd_setresolution_1mm   = {laser_ranging_cmd_arr_setresolution_1mm,     5};
+   41          LASER_RANGING_CMD_DEF lrcmd_setresolution_0_1mm = {laser_ranging_cmd_arr_setresolution_0_1mm,   5};
+   42          LASER_RANGING_CMD_DEF lrcmd_single_broadcast    = {laser_ranging_cmd_arr_single_broadcast,      4};
+   43          LASER_RANGING_CMD_DEF lrcmd_readcache           = {laser_ranging_cmd_arr_readcache,             4};
+   44          LASER_RANGING_CMD_DEF lrcmd_laseron             = {laser_ranging_cmd_arr_laseron,               5};
+   45          LASER_RANGING_CMD_DEF lrcmd_laseroff            = {laser_ranging_cmd_arr_laseroff,              5};
+   46          
+   47          LASER_RANGING_DATA_DEF lrdata;   // ´æ´¢²â¾àÖµ, µ÷ÓÃ·½·¨£ºlrdata.x/y.valuedata/chardata
+   48          
+   49          void laser_ranging_irqhandler(unsigned char lr_axis)
+   50          {
+   51   1          unsigned int i;
+   52   1          switch (lr_axis)
+   53   1          {
+   54   2          case 'x':
+   55   2              if (uart1_rx_buffer[0] == 0x80)
+   56   2              {
+   57   3                  if(uart1_rx_counter > 2)
+   58   3                  {
+   59   4                      if(uart1_rx_buffer[1] == 0x06 && uart1_rx_buffer[2] == 0x83)
+   60   4                      {
+   61   5                          if(uart1_rx_counter >= 11)
+   62   5                          {
+   63   6                              uart1_rx_counter=0;
+   64   6                              if( (uart1_rx_buffer[3]<0x34) && (uart1_rx_buffer[3]!='E') && (uart1_rx_buffer[4]
+             -!='R') && (uart1_rx_buffer[5]!='R') && (uart1_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart1_rx_buffer[3]+uart1
+             -_rx_buffer[4]+uart1_rx_buffer[5]+0x2E+uart1_rx_buffer[7]+uart1_rx_buffer[8]+uart1_rx_buffer[9])+1)) ) 
+   65   6                              {
+   66   7                                  // laser_ranging_value = (uart1_rx_buffer[4]-0x30)*10000+(uart1_rx_buffer[5]-
+             -0x30)*1000 + (uart1_rx_buffer[7]-0x30)*100 + (uart1_rx_buffer[8]-0x30)*10 + (uart1_rx_buffer[9]-0x30);                 
+   67   7                                  // sprintf(laser_ranging_char, "%f", laser_ranging_value);
+   68   7                                  // ½«uart1_rx_buffer[3]~uart1_rx_buffer[10]´æ´¢µ½laser_ranging_charÊý×éÖÐ
+   69   7                                  for(i=3;i<11;i++)
+   70   7                                  {
+   71   8                                      lrdata.x.chardata[i-3] = uart1_rx_buffer[i];
+   72   8                                  }
+   73   7                                  // lrdata.x.valuedata = atof(lrdata.x.chardata);
+   74   7                                  // oled_printf_float_spi(6*6, 2, lrdata.x.valuedata, 2, 5);
+   75   7                                  // oled_printf_float_spi(6*6, 2, 0.1, 2, 5);
+   76   7                                  oled_p6x8str_spi(6*6, 2, lrdata.x.chardata);
+   77   7                              }
+   78   6                              else
+   79   6                              {
+   80   7                                  lrdata.x.valuedata = -1.0;
+   81   7                                  lrdata.x.chardata[0] = 'E';
+   82   7                                  lrdata.x.chardata[1] = 'R';
+   83   7                                  lrdata.x.chardata[2] = 'R';
+   84   7                              }
+   85   6                          }
+   86   5                      }
+   87   4                  }
+   88   3              }
+   89   2      
+   90   2              break;
+   91   2          case 'y':
+   92   2              if (uart2_rx_buffer[0] == 0x80)
+   93   2              {
+   94   3                  if(uart2_rx_counter > 2)
+   95   3                  {
+   96   4                      if(uart2_rx_buffer[1] == 0x06 && uart2_rx_buffer[2] == 0x83)
+   97   4                      {
+   98   5                          if(uart2_rx_counter >= 11)
+   99   5                          {
+  100   6                              uart2_rx_counter=0;
+C251 COMPILER V5.60.0,  laser_ranging                                                      18/04/24  21:02:45  PAGE 3   
+
+  101   6      
+  102   6                              if( (uart2_rx_buffer[3]<0x34) && (uart2_rx_buffer[3]!='E') && (uart2_rx_buffer[4]
+             -!='R') && (uart2_rx_buffer[5]!='R') && (uart2_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart2_rx_buffer[3]+uart2
+             -_rx_buffer[4]+uart2_rx_buffer[5]+0x2E+uart2_rx_buffer[7]+uart2_rx_buffer[8]+uart2_rx_buffer[9])+1)) ) 
+  103   6                              {
+  104   7                                  // laser_ranging_value = (uart2_rx_buffer[4]-0x30)*10000+(uart2_rx_buffer[5]-
+             -0x30)*1000 + (uart2_rx_buffer[7]-0x30)*100 + (uart2_rx_buffer[8]-0x30)*10 + (uart2_rx_buffer[9]-0x30);                 
+  105   7                                  // sprintf(laser_ranging_char, "%f", laser_ranging_value);
+  106   7                                  // ½«uart2_rx_buffer[3]~uart2_rx_buffer[10]´æ´¢µ½laser_ranging_charÊý×éÖÐ
+  107   7                                  for(i=3;i<11;i++)
+  108   7                                  {
+  109   8                                      lrdata.y.chardata[i-3+16] = uart2_rx_buffer[i];
+  110   8                                  }
+  111   7                                  lrdata.y.valuedata = atof(lrdata.y.chardata);
+  112   7                                  // oled_printf_float_spi(6*6, 3, lrdata.y.valuedata, 2, 5);
+  113   7                                  // oled_p6x8str_spi(6*6, 3, lrdata.y.chardata);
+  114   7                              }
+  115   6                              else
+  116   6                              {
+  117   7                                  lrdata.x.valuedata = -1.0;
+  118   7                                  lrdata.x.chardata[0] = 'E';
+  119   7                                  lrdata.x.chardata[1] = 'R';
+  120   7                                  lrdata.x.chardata[2] = 'R';
+  121   7                              }
+  122   6                          }
+  123   5                      }
+  124   4                  }
+  125   3              }
+  126   2              break;
+  127   2          default:
+  128   2              break;
+  129   2          }
+  130   1      }
+  131          
+  132          // ²ÎÊý£ºlr_axis ·½Ïò£¬'x'¡¢'y'¡¢'z'
+  133          // ·µ»Ø£º¸÷¸ö·½Ïò¶¨ÒåµÄ¼¤¹â²â¾àUART´®¿ÚºÅ
+  134          unsigned char laser_ranging_get_uart_value(unsigned char lr_axis)
+  135          {
+  136   1          switch (lr_axis)
+  137   1          {
+  138   2          case 'x':
+  139   2              return 1;
+  140   2              break;
+  141   2          
+  142   2          case 'y':
+  143   2              return 2;
+  144   2              break;
+  145   2          
+  146   2          case 'z':
+  147   2              return 3;
+  148   2              break;
+  149   2          
+  150   2          default:
+  151   2              return 1;
+  152   2              break;
+  153   2          }
+  154   1      }
+  155          
+  156          // ²ÎÊý£ºlr_axis ·½Ïò£¬'x'¡¢'y'¡¢'z'£» specific_cmd ÌØ¶¨ÃüÁî½á¹¹Ìå
+  157          void laser_ranging(unsigned char lr_axis, LASER_RANGING_CMD_DEF *specific_cmd)
+  158          {
+  159   1          uart_sendcmd(laser_ranging_get_uart_value(lr_axis), specific_cmd->command, specific_cmd->length);
+  160   1      }
+  161          
+  162          void laser_ranging_init()
+  163          {
+C251 COMPILER V5.60.0,  laser_ranging                                                      18/04/24  21:02:45  PAGE 4   
+
+  164   1          laser_ranging('x', &lrcmd_setfreq_5hz);
+  165   1          laser_ranging('x', &lrcmd_setrange_80m);
+  166   1          laser_ranging('x', &lrcmd_setresolution_0_1mm);
+  167   1          laser_ranging('y', &lrcmd_setfreq_5hz);
+  168   1          laser_ranging('y', &lrcmd_setrange_80m);
+  169   1          laser_ranging('y', &lrcmd_setresolution_0_1mm);
+  170   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       741     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =       224     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =       319     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

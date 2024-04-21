@@ -1,0 +1,338 @@
+C251 COMPILER V5.60.0,  motor_driver_boards                                                18/04/24  21:04:11  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE motor_driver_boards
+OBJECT MODULE PLACED IN .\Out_File\motor_driver_boards.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\CODE\motor_driver_boards.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMI
+                    -ZE(0,SPEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Pr
+                    -oject\USER\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\motor_driver_boards.lst) TABS(2) O
+                    -BJECT(.\Out_File\motor_driver_boards.obj) 
+
+stmt  level    source
+
+    1          #include "motor_driver_boards.h"
+    2          
+    3          // 使用时建议将此函数复制到main.c中，并在初始化函数中调用
+    4          // 这样修改引脚只需要修改main.c即可
+    5          // 如果需要使用，记得要去.h中取消注释
+    6          // void motor_drivers_pwm_init()
+    7          // {
+    8          //     pwm_init(PWMA_CH1P_P60, 30000, 1000);
+    9          //     pwm_init(PWMA_CH2P_P62, 30000, 1000);
+   10          //     pwm_init(PWMA_CH3P_P64, 30000, 1000);
+   11          //     pwm_init(PWMA_CH4P_P66, 30000, 1000);
+   12          // }
+   13          
+   14          
+   15          //-------------------------------------------------------------------------------------------------------
+             -------------
+   16          //  @brief      调整轮子方向
+   17          //  @param      <X/Y>_<FRONT/REAR/ALL>      指定轮子
+   18          //  @param      <FORWARD/BACKWARD/STOP>     指定方向
+   19          //  @return     void
+   20          //  @since      v1.0 by PatZer0 on 2024.04.18
+   21          //  *example  wheel_direction(X_FRONT, FORWARD); // X方向前轮正转
+   22          //  *desc       无补充描述
+   23          //-------------------------------------------------------------------------------------------------------
+             -------------
+   24          void wheel_direction(WHEEL_SEL_enum wheel_select, WHEEL_DIR_enum wheel_direction)
+   25          {
+   26   1          switch (wheel_select)
+   27   1          {
+   28   2              case X_FRONT:
+   29   2                  if (wheel_direction == FORWARD)
+   30   2                  {
+   31   3                      gpio_wheel_x_front_forward = 1;
+   32   3                      gpio_wheel_x_front_backward = 0;
+   33   3                  }
+   34   2                  else if (wheel_direction == BACKWARD)
+   35   2                  {
+   36   3                      gpio_wheel_x_front_forward = 0;
+   37   3                      gpio_wheel_x_front_backward = 1;
+   38   3                  }
+   39   2                  else if (wheel_direction == STOP)
+   40   2                  {
+   41   3                      gpio_wheel_x_front_forward = 0;
+   42   3                      gpio_wheel_x_front_backward = 0;
+   43   3                  }
+   44   2                  break;
+   45   2              case X_REAR:
+   46   2                  if (wheel_direction == FORWARD)
+   47   2                  {
+   48   3                      gpio_wheel_x_rear_forward = 1;
+   49   3                      gpio_wheel_x_rear_backward = 0;
+   50   3                  }
+   51   2                  else if (wheel_direction == BACKWARD)
+   52   2                  {
+   53   3                      gpio_wheel_x_rear_forward = 0;
+   54   3                      gpio_wheel_x_rear_backward = 1;
+C251 COMPILER V5.60.0,  motor_driver_boards                                                18/04/24  21:04:11  PAGE 2   
+
+   55   3                  }
+   56   2                  else if (wheel_direction == STOP)
+   57   2                  {
+   58   3                      gpio_wheel_x_rear_forward = 0;
+   59   3                      gpio_wheel_x_rear_backward = 0;
+   60   3                  }
+   61   2                  break;
+   62   2              case X_ALL:
+   63   2                  if (wheel_direction == FORWARD)
+   64   2                  {
+   65   3                      gpio_wheel_x_front_forward = 1;
+   66   3                      gpio_wheel_x_front_backward = 0;
+   67   3                      gpio_wheel_x_rear_forward = 1;
+   68   3                      gpio_wheel_x_rear_backward = 0;
+   69   3                  }
+   70   2                  else if (wheel_direction == BACKWARD)
+   71   2                  {
+   72   3                      gpio_wheel_x_front_forward = 0;
+   73   3                      gpio_wheel_x_front_backward = 1;
+   74   3                      gpio_wheel_x_rear_forward = 0;
+   75   3                      gpio_wheel_x_rear_backward = 1;
+   76   3                  }
+   77   2                  else if (wheel_direction == STOP)
+   78   2                  {
+   79   3                      gpio_wheel_x_front_forward = 0;
+   80   3                      gpio_wheel_x_front_backward = 0;
+   81   3                      gpio_wheel_x_rear_forward = 0;
+   82   3                      gpio_wheel_x_rear_backward = 0;
+   83   3                  }
+   84   2                  break;
+   85   2              case Y_FRONT:
+   86   2                  if (wheel_direction == FORWARD)
+   87   2                  {
+   88   3                      gpio_wheel_y_front_forward = 1;
+   89   3                      gpio_wheel_y_front_backward = 0;
+   90   3                  }
+   91   2                  else if (wheel_direction == BACKWARD)
+   92   2                  {
+   93   3                      gpio_wheel_y_front_forward = 0;
+   94   3                      gpio_wheel_y_front_backward = 1;
+   95   3                  }
+   96   2                  else if (wheel_direction == STOP)
+   97   2                  {
+   98   3                      gpio_wheel_y_front_forward = 0;
+   99   3                      gpio_wheel_y_front_backward = 0;
+  100   3                  }
+  101   2                  break;
+  102   2              case Y_REAR:
+  103   2                  if (wheel_direction == FORWARD)
+  104   2                  {
+  105   3                      gpio_wheel_y_rear_forward = 1;
+  106   3                      gpio_wheel_y_rear_backward = 0;
+  107   3                  }
+  108   2                  else if (wheel_direction == BACKWARD)
+  109   2                  {
+  110   3                      gpio_wheel_y_rear_forward = 0;
+  111   3                      gpio_wheel_y_rear_backward = 1;
+  112   3                  }
+  113   2                  else if (wheel_direction == STOP)
+  114   2                  {
+  115   3                      gpio_wheel_y_rear_forward = 0;
+  116   3                      gpio_wheel_y_rear_backward = 0;
+  117   3                  }
+  118   2                  break;
+  119   2              case Y_ALL:
+  120   2                  if (wheel_direction == FORWARD)
+C251 COMPILER V5.60.0,  motor_driver_boards                                                18/04/24  21:04:11  PAGE 3   
+
+  121   2                  {
+  122   3                      gpio_wheel_y_front_forward = 1;
+  123   3                      gpio_wheel_y_front_backward = 0;
+  124   3                      gpio_wheel_y_rear_forward = 1;
+  125   3                      gpio_wheel_y_rear_backward = 0;
+  126   3                  }
+  127   2                  else if (wheel_direction == BACKWARD)
+  128   2                  {
+  129   3                      gpio_wheel_y_front_forward = 0;
+  130   3                      gpio_wheel_y_front_backward = 1;
+  131   3                      gpio_wheel_y_rear_forward = 0;
+  132   3                      gpio_wheel_y_rear_backward = 1;
+  133   3                  }
+  134   2                  else if (wheel_direction == STOP)
+  135   2                  {
+  136   3                      gpio_wheel_y_front_forward = 0;
+  137   3                      gpio_wheel_y_front_backward = 0;
+  138   3                      gpio_wheel_y_rear_forward = 0;
+  139   3                      gpio_wheel_y_rear_backward = 0;
+  140   3                  }
+  141   2                  break;
+  142   2              case ALL:
+  143   2                  if (wheel_direction == FORWARD)
+  144   2                  {
+  145   3                      gpio_wheel_x_front_forward = 1;
+  146   3                      gpio_wheel_x_front_backward = 0;
+  147   3                      gpio_wheel_x_rear_forward = 1;
+  148   3                      gpio_wheel_x_rear_backward = 0;
+  149   3                      gpio_wheel_y_front_forward = 1;
+  150   3                      gpio_wheel_y_front_backward = 0;
+  151   3                      gpio_wheel_y_rear_forward = 1;
+  152   3                      gpio_wheel_y_rear_backward = 0;
+  153   3                  }
+  154   2                  else if (wheel_direction == BACKWARD)
+  155   2                  {
+  156   3                      gpio_wheel_x_front_forward = 0;
+  157   3                      gpio_wheel_x_front_backward = 1;
+  158   3                      gpio_wheel_x_rear_forward = 0;
+  159   3                      gpio_wheel_x_rear_backward = 1;
+  160   3                      gpio_wheel_y_front_forward = 0;
+  161   3                      gpio_wheel_y_front_backward = 1;
+  162   3                      gpio_wheel_y_rear_forward = 0;
+  163   3                      gpio_wheel_y_rear_backward = 1;
+  164   3                  }
+  165   2                  else if (wheel_direction == STOP)
+  166   2                  {
+  167   3                      gpio_wheel_x_front_forward = 0;
+  168   3                      gpio_wheel_x_front_backward = 0;
+  169   3                      gpio_wheel_x_rear_forward = 0;
+  170   3                      gpio_wheel_x_rear_backward = 0;
+  171   3                      gpio_wheel_y_front_forward = 0;
+  172   3                      gpio_wheel_y_front_backward = 0;
+  173   3                      gpio_wheel_y_rear_forward = 0;
+  174   3                      gpio_wheel_y_rear_backward = 0;
+  175   3                  }
+  176   2                  break;
+  177   2              default:
+  178   2                  break;
+  179   2          }
+  180   1      }
+  181          
+  182          //-------------------------------------------------------------------------------------------------------
+             -------------
+  183          //  @brief      调整电机转速和方向
+  184          //  @param      <X/Y>_<FRONT/REAR/ALL>      指定轮子
+  185          //  @param      speed                       转速值，范围负10000~正10000
+C251 COMPILER V5.60.0,  motor_driver_boards                                                18/04/24  21:04:11  PAGE 4   
+
+  186          //  @return     void
+  187          //  @since      v1.0 by PatZer0 on 2024.04.18
+  188          //  *example  wheel_adjust(X_FRONT, 5000); // X方向前轮向前转, 转速50%
+  189          //  *desc       一般情况下，直接使用此函数即可，除非需要保持转速调整方向，�
+             -�则不需要使用换向函数
+  190          //-------------------------------------------------------------------------------------------------------
+             -------------
+  191          void wheel_adjust(WHEEL_SEL_enum wheel_select, int speed)
+  192          {
+  193   1          unsigned int pwm_duty_value;
+  194   1      
+  195   1          // 更改轮子方向
+  196   1          if      (speed > 0) wheel_direction(wheel_select, FORWARD);
+  197   1          else if (speed < 0) wheel_direction(wheel_select, BACKWARD);
+  198   1          else                wheel_direction(wheel_select, STOP);
+  199   1      
+  200   1          // 确定PWM占空比
+  201   1          if (speed >= 0) pwm_duty_value = speed;
+  202   1          else pwm_duty_value = -speed;
+  203   1      
+  204   1          // 校准速度输入量，限制在范围内
+  205   1          if (speed > 10000) speed = 10000;
+  206   1          else if (speed < -10000) speed = -10000;
+  207   1      
+  208   1          switch (wheel_select)
+  209   1          {
+  210   2              case X_FRONT:
+  211   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
+  212   2                  break;
+  213   2              case X_REAR:
+  214   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  215   2                  break;
+  216   2              case X_ALL:
+  217   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
+  218   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  219   2                  break;
+  220   2              case Y_FRONT:
+  221   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  222   2                  break;
+  223   2              case Y_REAR:
+  224   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  225   2                  break;
+  226   2              case Y_ALL:
+  227   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  228   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  229   2                  break;
+  230   2              case ALL:
+  231   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
+  232   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  233   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  234   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  235   2                  break;
+  236   2              default:
+  237   2                  break;
+  238   2          }
+  239   1      }
+  240          
+  241          //-------------------------------------------------------------------------------------------------------
+             -------------
+  242          //  @brief      调整电机转速
+  243          //  @param      <X/Y>_<FRONT/REAR/ALL>      指定轮子
+  244          //  @param      speed                       转速值，范围0~10000
+  245          //  @return     void
+  246          //  @since      v1.0 by PatZer0 on 2024.04.18
+  247          //  *example  wheel_speed(X_FRONT, 5000); // X方向前轮向前转, 转速50%
+  248          //  *desc       一般情况下，直接使用此函数即可，除非需要保持转速调整方向，�
+C251 COMPILER V5.60.0,  motor_driver_boards                                                18/04/24  21:04:11  PAGE 5   
+
+             -�则不需要使用换向函数
+  249          //-------------------------------------------------------------------------------------------------------
+             -------------
+  250          void wheel_speed(WHEEL_SEL_enum wheel_select, unsigned int speed)
+  251          {
+  252   1          unsigned int pwm_duty_value;
+  253   1          if (speed > 10000) pwm_duty_value = 10000;
+  254   1      
+  255   1          switch (wheel_select)
+  256   1          {
+  257   2              case X_FRONT:
+  258   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
+  259   2                  break;
+  260   2              case X_REAR:
+  261   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  262   2                  break;
+  263   2              case X_ALL:
+  264   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
+  265   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  266   2                  break;
+  267   2              case Y_FRONT:
+  268   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  269   2                  break;
+  270   2              case Y_REAR:
+  271   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  272   2                  break;
+  273   2              case Y_ALL:
+  274   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  275   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  276   2                  break;
+  277   2              case ALL:
+  278   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
+  279   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  280   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  281   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  282   2                  break;
+  283   2              default:
+  284   2                  break;
+  285   2          }
+  286   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =      1172     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        16     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

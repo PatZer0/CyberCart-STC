@@ -1,0 +1,49 @@
+{
+    "configurations": [
+        {
+            "name": "STC32G12K128",
+            "includePath": [
+                "e:\\RoboContest\\#CyberCartMCU\\CyberCart\\Libraries\\libraries",
+                "e:\\RoboContest\\#CyberCartMCU\\CyberCart\\Libraries\\seekfree_libraries",
+                "e:\\RoboContest\\#CyberCartMCU\\CyberCart\\Libraries\\seekfree_peripheral",
+                "e:\\RoboContest\\#CyberCartMCU\\CyberCart\\Project\\CODE",
+                "e:\\RoboContest\\#CyberCartMCU\\CyberCart\\Project\\USER\\inc",
+                "e:\\RoboContest\\#CyberCartMCU\\CyberCart\\Project\\USER\\src",
+                "e:\\RoboContest\\#CyberCartMCU\\CyberCart\\Libraries\\seekfree_components",
+                "C:\\Keil_v5\\C251\\INC",
+                "C:\\Keil_v5\\C251\\INC\\STC",
+                "e:\\RoboContest\\#CyberCartMCU\\CyberCart\\Libraries\\doc",
+                "${default}",
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "__C251__",
+                "__VSCODE_C251__",
+                "reentrant=",
+                "compact=",
+                "small=",
+                "large=",
+                "data=",
+                "idata=",
+                "pdata=",
+                "bdata=",
+                "edata=",
+                "xdata=",
+                "code=",
+                "bit=char",
+                "sbit=char",
+                "sfr=char",
+                "sfr16=int",
+                "sfr32=int",
+                "interrupt=",
+                "using=",
+                "far=",
+                "_at_=",
+                "_priority_=",
+                "_task_="
+            ],
+            "intelliSenseMode": "${default}"
+        }
+    ],
+    "version": 4
+}
