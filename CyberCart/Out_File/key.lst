@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  key                                                                21/04/24  18:32:24  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                21/04/24  19:21:58  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
@@ -11,7 +11,7 @@ stmt  level    source
 
     1          #include "key.h"
     2          #include "laser_ranging.h"
-    3          #include "SEEKFREE_OLED.h"
+    3          #include "qmc5883.h"
     4          
     5          unsigned char key1_up_store = 1; // 按键1状态暂存
     6          unsigned char key2_up_store = 1; // 按键2状态暂存
@@ -66,7 +66,7 @@ stmt  level    source
    54   1          {
    55   2              key1_up_store = 0; // 标记按键被按下
    56   2              oled_p6x8str_spi(0, 7, ">1<");
-C251 COMPILER V5.60.0,  key                                                                21/04/24  18:32:24  PAGE 2   
+C251 COMPILER V5.60.0,  key                                                                21/04/24  19:21:58  PAGE 2   
 
    57   2          }
    58   1          if(key1 == 1 && key1_up_store == 0)
@@ -135,7 +135,7 @@ Module Information          Static   Overlayable
   edata size           =         4     ------
   bit size             =         1     ------
   ebit size            =    ------     ------
-C251 COMPILER V5.60.0,  key                                                                21/04/24  18:32:24  PAGE 3   
+C251 COMPILER V5.60.0,  key                                                                21/04/24  19:21:58  PAGE 3   
 
   bitaddressable size  =    ------     ------
   ebitaddressable size =    ------     ------

@@ -1,13 +1,13 @@
 #include "motor_driver_boards.h"
 
-void motor_drivers_pwm_init()
-{
-    // 参数：模块_端口, 频率, 占空比(÷10000)
-    pwm_init(PWMA_CH1P_P60, 30000, 1000);   // X方向驱动板PB, 3KHz, 10%占空比
-    pwm_init(PWMA_CH2N_P63, 30000, 1000);   // X方向驱动板PA，3KHz, 10%占空比
-    pwm_init(PWMA_CH4N_P67, 30000, 1000);   // Y方向驱动板PB, 3KHz, 10%占空比
-    pwm_init(PWMA_CH3P_P14, 30000, 1000);   // Y方向驱动板PA, 3KHz, 10%占空比
-}
+// void motor_drivers_pwm_init()
+// {
+//     // 参数：模块_端口, 频率, 占空比(÷10000)
+//     pwm_init(PWMA_CH1P_P60, 30000, 1000);   // X方向驱动板PB, 3KHz, 10%占空比
+//     pwm_init(PWMA_CH2N_P63, 30000, 1000);   // X方向驱动板PA，3KHz, 10%占空比
+//     pwm_init(PWMA_CH4N_P67, 30000, 1000);   // Y方向驱动板PB, 3KHz, 10%占空比
+//     pwm_init(PWMA_CH3P_P14, 30000, 1000);   // Y方向驱动板PA, 3KHz, 10%占空比
+// }
 
 //-------------------------------------------------------------------------------------------------------------------
 //  @brief      调整轮子方向

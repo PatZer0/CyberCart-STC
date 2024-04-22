@@ -1,6 +1,6 @@
 #include "key.h"
 #include "laser_ranging.h"
-#include "SEEKFREE_OLED.h"
+#include "qmc5883.h"
 
 unsigned char key1_up_store = 1; // °´¼ü1×´Ì¬ÔÝ´æ
 unsigned char key2_up_store = 1; // °´¼ü2×´Ì¬ÔÝ´æ

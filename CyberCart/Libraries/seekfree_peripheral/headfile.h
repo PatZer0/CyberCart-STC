@@ -1,12 +1,6 @@
 #ifndef __HEADFILE_H_
 #define __HEADFILE_H_
 
-//------私有库头文件
-#include "ui.h"
-#include "key.h"
-#include "qmc5883.h"
-#include "laser_ranging.h"
-#include "motor_driver_boards.h"
 
 #include "isr.h"
 #include <string.h>

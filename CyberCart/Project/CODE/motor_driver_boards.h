@@ -39,7 +39,7 @@ typedef enum
 }WHEEL_DIR_enum;
 
 // 初始化电机驱动板
-void motor_drivers_pwm_init();                                                      // 初始化电机驱动板
+// void motor_drivers_pwm_init();                                                      // 初始化电机驱动板
 void wheel_adjust(WHEEL_SEL_enum wheel_select, int speed);                          // 同时设置电机转动速度和方向
 void wheel_direction(WHEEL_SEL_enum wheel_select, WHEEL_DIR_enum wheel_direction);  // 设置电机转动方向
 void wheel_speed(WHEEL_SEL_enum wheel_select, unsigned int speed);                  // 设置电机转动速度

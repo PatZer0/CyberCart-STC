@@ -1,0 +1,11 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "laser_ranging.h": "c",
+        "headfile.h": "c",
+        "string.h": "c",
+        "seekfree_tsl1401.h": "c",
+        "seekfree_assistant.h": "c",
+        "STRING.H": "cpp"
+    }
+}

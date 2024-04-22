@@ -1,7 +1,7 @@
 #include "headfile.h"
+#include "ui.h"
 
 unsigned char ui_loading_index = 0;
-unsigned char ui_loading_char[4] = {'/', '-', '\\', '|'};
 
 void ui_init()
 {
@@ -10,7 +10,13 @@ void ui_init()
     oled_p6x8str_spi(6*18, 0, "VER");
     oled_p6x8str_spi(6*18, 1, "1.0");
     
-    keys_ui_init();                 // 初始化按键UI
+    ui_keys_init();                 // 初始化按键UI
+}
+
+void ui_keys_init()
+{
+    // 初始化按键UI
+    oled_p6x8str_spi(0, 7, "[1][2][3][4]");
 }
 
 void ui_running_init_timer()
@@ -35,5 +41,21 @@ void ui_running()
 {
     ui_loading_index++;
     if(ui_loading_index > 3) ui_loading_index = 0;
-    oled_p6x8str_spi(7, 20*6, ui_loading_char[ui_loading_index]);
+    switch (ui_loading_index)
+    {
+    case 0:
+        oled_p6x8str_spi(20*6, 7, '1');
+        break;
+    case 1:
+        oled_p6x8str_spi(20*6, 7, '2');
+        break;
+    case 2:
+        oled_p6x8str_spi(20*6, 7, '3');
+        break;
+    case 3:
+        oled_p6x8str_spi(20*6, 7, '4');
+        break;
+    default:
+        break;
+    }
 }

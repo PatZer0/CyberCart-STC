@@ -1,7 +1,6 @@
 #ifndef __QMC5883_H__
 #define __QMC5883_H__
 
-#include "headfile.h"
 
 extern char             qmc5883_data[64];
 extern unsigned char    qmc5883_cmd_buf[32];

@@ -1,4 +1,6 @@
-#include "headfile.h"
+#include "uart.h"
+#include "laser_ranging.h"
+#include "qmc5883.h"
 
 unsigned char uart1_tx_counter, uart2_tx_counter, uart3_tx_counter, uart4_tx_counter;   // 发送计数
 unsigned char uart1_rx_counter, uart2_rx_counter, uart3_rx_counter, uart4_rx_counter;   // 接收计数
@@ -127,6 +129,35 @@ void uart_sendcmd(unsigned char uart_num, unsigned char *bytes, unsigned char le
     }
 }
 
+void uart_sendbyte(unsigned char uart_num, unsigned char byte)
+{
+    switch(uart_num)
+    {
+        case 1:
+            SBUF = byte;
+            uart1_tx_busy = 1;
+            while(uart1_tx_busy);
+            break;
+        case 2:
+            S2BUF = byte;
+            uart2_tx_busy = 1;
+            while(uart2_tx_busy);
+            break;
+        case 3:
+            S3BUF = byte;
+            uart3_tx_busy = 1;
+            while(uart3_tx_busy);
+            break;
+        case 4:
+            S4BUF = byte;
+            uart4_tx_busy = 1;
+            while(uart4_tx_busy);
+            break;
+        default:
+            break;
+    }
+}
+
 void uart1_isr(void) interrupt 4
 {
 	if (TI)
@@ -172,9 +203,28 @@ void uart3_isr(void) interrupt 17                                           // �
 	{
 		S3CON &= ~0x01;	                                                    // 清除串口3接收中断请求位
         uart3_rx_buffer[uart3_rx_counter] = S3BUF;                          // 接收数据存入缓冲区
-        if(uart3_rx_counter >= UART3_BUF_LENGTH) uart3_rx_counter = 0;      // 缓冲区满, 循环
-        // ---------------- 放置专用串口中断处理代码函数 ------------------
-        qmc5883_irqhandler();
+
+        // 其他为普通串口中断代码，以下是为QMC5883磁力传感器设计的处理代码                                                                  
+        if((uart3_rx_buffer[uart3_rx_counter - 1] == 0x0D) && (uart3_rx_buffer[uart3_rx_counter] == 0x0A))
+        {
+            // 如果接收到'\r\n'字符代表一行数据接收完成，则将缓存全部保存并清空缓存区
+            memcpy(qmc5883_data, uart3_rx_buffer, sizeof(uart3_rx_buffer));     // 保存数据
+            uart3_rx_counter = 0;                                               // 清空缓存区
+            qmc5883_data_parse(qmc5883_data);                                   // 解析数据
+            // oled_p6x8str_spi(5*6, 2, qmc5883_char_magx);
+            // oled_p6x8str_spi(5*6, 3, qmc5883_char_magy);
+            // oled_p6x8str_spi(5*6, 4, qmc5883_char_magz);
+            // oled_p6x8str_spi(4*6, 5, qmc5883_char_yaw);
+            oled_printf_int32_spi(5*6, 2, qmc5883_magx, 10);
+            oled_printf_int32_spi(5*6, 3, qmc5883_magy, 10);
+            oled_printf_int32_spi(5*6, 4, qmc5883_magz, 10);
+            oled_printf_float_spi(4*6, 5, qmc5883_yaw, 4, 2);
+        }
+        // 专用代码结束
+
+        if(++uart3_rx_counter >= UART3_BUF_LENGTH) uart3_rx_counter = 0;    // 缓冲区满, 循环
+
+
 	}
 }
 
@@ -191,7 +241,7 @@ void uart4_isr(void) interrupt 18                                           // �
         uart4_rx_buffer[uart4_rx_counter] = S4BUF;                          // 接收数据存入缓冲区
         if(uart4_rx_counter >= UART4_BUF_LENGTH) uart4_rx_counter = 0;      // 缓冲区满, 循环
         // ---------------- 放置专用串口中断处理代码函数 ------------------
-        laser_ranging_irqhandler('x');
+        // laser_ranging_irqhandler('x');
 	}
 }
 

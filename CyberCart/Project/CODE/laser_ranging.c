@@ -3,12 +3,12 @@
         函数仅对两个激光模块同时使用的情况做了处理，其他情况需要自行修改
 */
 #include <STDLIB.H>
-#include "headfile.h"
+#include "laser_ranging.h"
+#include "uart.h"
 
 unsigned char laser_ranging_cmd_arr_single[]                = {0x80, 0x06, 0x02, 0x78};             // 单次测量
 unsigned char laser_ranging_cmd_arr_continous[]             = {0x80, 0x06, 0x03, 0x77};             // 连续测量
 unsigned char laser_ranging_cmd_arr_shutdown[]              = {0x80, 0x04, 0x02, 0x7A};             // 关机
-unsigned char laser_ranging_cmd_arr_setfreq_1hz[]           = {0xFA, 0x04, 0x0A, 0x00, 0xF8};       // 设置频率1hz
 unsigned char laser_ranging_cmd_arr_setfreq_5hz[]           = {0xFA, 0x04, 0x0A, 0x05, 0xF3};       // 设置频率5hz
 unsigned char laser_ranging_cmd_arr_setfreq_10hz[]          = {0xFA, 0x04, 0x0A, 0x0A, 0xEE};       // 设置频率10hz
 unsigned char laser_ranging_cmd_arr_setfreq_20hz[]          = {0xFA, 0x04, 0x0A, 0x14, 0xE4};       // 设置频率20hz
@@ -27,7 +27,6 @@ unsigned char laser_ranging_cmd_arr_laseroff[]              = {0x80, 0x06, 0x05,
 LASER_RANGING_CMD_DEF lrcmd_single              = {laser_ranging_cmd_arr_single,                4};
 LASER_RANGING_CMD_DEF lrcmd_continous           = {laser_ranging_cmd_arr_continous,             4};
 LASER_RANGING_CMD_DEF lrcmd_shutdown            = {laser_ranging_cmd_arr_shutdown,              5};
-LASER_RANGING_CMD_DEF lrcmd_setfreq_1hz         = {laser_ranging_cmd_arr_setfreq_1hz,           5};
 LASER_RANGING_CMD_DEF lrcmd_setfreq_5hz         = {laser_ranging_cmd_arr_setfreq_5hz,           5};
 LASER_RANGING_CMD_DEF lrcmd_setfreq_10hz        = {laser_ranging_cmd_arr_setfreq_10hz,          5};
 LASER_RANGING_CMD_DEF lrcmd_setfreq_20hz        = {laser_ranging_cmd_arr_setfreq_20hz,          5};

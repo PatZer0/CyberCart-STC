@@ -16,11 +16,11 @@ extern unsigned char uart2_rx_buffer[UART2_BUF_LENGTH];                         
 extern unsigned char uart3_rx_buffer[UART3_BUF_LENGTH];                                        // 接收缓冲
 extern unsigned char uart4_rx_buffer[UART4_BUF_LENGTH];                                        // 接收缓冲
 
-
 void uart_port_init(void);
 void uart_initialize(unsigned char uart_num);
 void uart_sendstring(unsigned char uart_num, unsigned char *puts);
 void uart_sendcmd(unsigned char uart_num, unsigned char *bytes, unsigned char length);
+void uart_sendbyte(unsigned char uart_num, unsigned char byte);
 void uart_running(unsigned char uart_num);
 
 #endif

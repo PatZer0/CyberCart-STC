@@ -1,3 +1,4 @@
+#include "headfile.h"
 #include "qmc5883.h"
 #include "uart.h"
 
@@ -217,21 +218,21 @@ void qmc5883_data_parse(unsigned char dat[])
     }
 }
 
-void qmc5883_irqhandler(void)
-{
-    if((uart3_rx_buffer[uart3_rx_counter - 1] == 0x0D) && (uart3_rx_buffer[uart3_rx_counter] == 0x0A))
-    {
-        // 如果接收到'\r\n'字符代表一行数据接收完成，则将缓存全部保存并清空缓存区
-        memcpy(qmc5883_data, uart3_rx_buffer, sizeof(uart3_rx_buffer));     // 保存数据
-        uart3_rx_counter = 0;                                               // 清空缓存区
-        qmc5883_data_parse(qmc5883_data);                                   // 解析数据
-        // oled_p6x8str_spi(5*6, 2, qmc5883_char_magx);
-        // oled_p6x8str_spi(5*6, 3, qmc5883_char_magy);
-        // oled_p6x8str_spi(5*6, 4, qmc5883_char_magz);
-        // oled_p6x8str_spi(4*6, 5, qmc5883_char_yaw);
-        // oled_printf_int32_spi(5*6, 2, qmc5883_magx, 10);
-        // oled_printf_int32_spi(5*6, 3, qmc5883_magy, 10);
-        // oled_printf_int32_spi(5*6, 4, qmc5883_magz, 10);
-        // oled_printf_float_spi(4*6, 5, qmc5883_yaw, 4, 2);
-    }
-}
+// void qmc5883_irqhandler(void)
+// {
+//     if((uart3_rx_buffer[uart3_rx_counter - 1] == 0x0D) && (uart3_rx_buffer[uart3_rx_counter] == 0x0A))
+//     {
+//         // 如果接收到'\r\n'字符代表一行数据接收完成，则将缓存全部保存并清空缓存区
+//         memcpy(qmc5883_data, uart3_rx_buffer, sizeof(uart3_rx_buffer));     // 保存数据
+//         uart3_rx_counter = 0;                                               // 清空缓存区
+//         qmc5883_data_parse(qmc5883_data);                                   // 解析数据
+//         // oled_p6x8str_spi(5*6, 2, qmc5883_char_magx);
+//         // oled_p6x8str_spi(5*6, 3, qmc5883_char_magy);
+//         // oled_p6x8str_spi(5*6, 4, qmc5883_char_magz);
+//         // oled_p6x8str_spi(4*6, 5, qmc5883_char_yaw); 
+//         oled_printf_int32_spi(5*6, 2, qmc5883_magx, 10);
+//         oled_printf_int32_spi(5*6, 3, qmc5883_magy, 10);
+//         oled_printf_int32_spi(5*6, 4, qmc5883_magz, 10);
+//         oled_printf_float_spi(4*6, 5, qmc5883_yaw, 4, 2);
+//     }
+// }
