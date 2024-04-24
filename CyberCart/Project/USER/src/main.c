@@ -4,6 +4,7 @@
 #include "key.h"
 #include "qmc5883.h"
 #include "laser_ranging.h"
+#include "host_comm.h"
 #include "motor_driver_boards.h"
 
 void gpio_init()
@@ -14,18 +15,15 @@ void gpio_init()
     P6M0 = 0xbf; P6M1 = 0x00; // 将LED使用的IO口配置为双向口
 }
 
-void host_comm_uart_init()
-{
-    uart_init(UART_1, UART1_RX_P30, UART1_TX_P31, 921600, TIM_1);    // 初始化主机通信串口, 921600波特率
-}
-
 void motor_drivers_pwm_init()
 {
     // 参数：模块_端口, 频率, 占空比(÷10000)
-    pwm_init(PWMA_CH1P_P60, 30000, 1000);   // X方向驱动板PB, 3KHz, 10%占空比
-    pwm_init(PWMA_CH2N_P63, 30000, 1000);   // X方向驱动板PA，3KHz, 10%占空比
-    pwm_init(PWMA_CH4N_P67, 30000, 1000);   // Y方向驱动板PB, 3KHz, 10%占空比
-    pwm_init(PWMA_CH3P_P14, 30000, 1000);   // Y方向驱动板PA, 3KHz, 10%占空比
+    pwm_init(PWMA_CH1P_P60, 30000, 0);   // X方向驱动板PB, 30KHz, 10%占空比
+    pwm_init(PWMA_CH2N_P63, 30000, 0);   // X方向驱动板PA，30KHz, 10%占空比
+    pwm_init(PWMA_CH4N_P67, 30000, 0);   // Y方向驱动板PB, 30KHz, 10%占空比
+    pwm_init(PWMA_CH3P_P14, 30000, 0);   // Y方向驱动板PA, 30KHz, 10%占空比
+    wheel_adjust(X_ALL, 0);
+    wheel_adjust(Y_ALL, 0);
 }
 
 void laser_ranging_uart_init()
@@ -38,6 +36,8 @@ void qmc5883_init()
 {
     //初始化串口，使用串口3，波特率460800
     uart_init(UART_3, UART3_RX_P50, UART3_TX_P51, 115200, TIM_2);
+    delay_ms(100);
+    uart_sendstring(3, "AT+PRATE=10\r\n");
 }
 
 void servo_chassis_pwm_init()
@@ -68,17 +68,14 @@ void main()
     led_3 = 0;
 
 	board_init();			        // 初始化寄存器,勿删除此句代码。
+    motor_drivers_pwm_init();	    // 初始化PWM
     gpio_init();                    // 初始化GPIO
     oled_init_spi();                // 初始化OLED显示屏
     ui_init();                      // 初始化UI
     qmc5883_init();                 // 初始化QMC5883L传感器
     oled_p6x8str_spi(0, 5, "Yaw:");
 
-    host_comm_uart_init();          // 初始化主机通信串口
-    motor_drivers_pwm_init();	    // 初始化PWM
 
-    // wheel_adjust(X_ALL, 2000);
-    // wheel_adjust(Y_ALL, 2000);
 
     // laser_ranging_uart_init();      // 初始化激光测距串口
     // oled_p6x8str_spi(0, 0, "LASER RANGING EXAMPLE");
@@ -91,7 +88,14 @@ void main()
     // laser_ranging('x', &lrcmd_continous);
     // laser_ranging('y', &lrcmd_continous);
     
+    // 步进电机测试代码
+    P32 = 1;
+    P35 = 1;
+    pwm_init(PWMB_CH3_P33, 5000, 0);
+    gpio_mode(P3_5, GPO_PP);
+    gpio_mode(P3_2, GPO_PP);
 
+    host_comm_uart_init();
 
     while(1)
     {
@@ -99,8 +103,8 @@ void main()
         key2_check();
         key3_check();
         key4_check();
-        uart_sendstring(1, "Hi!");
         // ui_running();
+        host_comm_sender();
     }
 }
 

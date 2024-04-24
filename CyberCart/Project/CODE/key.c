@@ -1,6 +1,8 @@
+
 #include "key.h"
 #include "laser_ranging.h"
 #include "qmc5883.h"
+#include "motor_driver_boards.h"
 
 unsigned char key1_up_store = 1; // 按键1状态暂存
 unsigned char key2_up_store = 1; // 按键2状态暂存
@@ -18,34 +20,26 @@ void key1_short_press()
 {
     // 短按键1功能
     led_1 = !led_1; // 切换
+    P35 = !P35; // 切换
+    wheel_adjust(X_ALL, 0);
 }
 
 void key2_short_press()
 {
     // 短按键2功能
+    wheel_adjust(X_ALL, 1000);
 }
 
 void key3_short_press()
 {
     // 短按键3功能
+    wheel_adjust(X_ALL, 5000);
 }
 
 void key4_short_press()
 {
     // 短按键4功能
-    LaserRanging_State = !LaserRanging_State;
-    if(LaserRanging_State)  // 打开激光测距
-    {
-        oled_p6x8str_spi(6*18, 0, " ON");
-        laser_ranging('x', &lrcmd_continous);                                                                        
-        laser_ranging('y', &lrcmd_continous);
-    }
-    else                    // 关闭激光测距
-    {
-        oled_p6x8str_spi(6*18, 0, "OFF");
-        laser_ranging('x', &lrcmd_laseroff);
-        laser_ranging('y', &lrcmd_laseroff);
-    }
+    wheel_adjust(X_ALL, 9800);
 }
 
 void key1_check() 

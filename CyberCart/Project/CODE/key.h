@@ -3,12 +3,6 @@
 
 #include "headfile.h"
 
-// 定义按键引脚
-// sbit key1 = P3^4;
-// sbit key2 = P3^5;
-// sbit key3 = P3^6;
-// sbit key4 = P3^7;
-
 sbit key4 = P4^0;
 sbit key3 = P4^1;
 sbit key2 = P4^2;

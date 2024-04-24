@@ -11,6 +11,7 @@
                 "e:\\RoboContest\\#CyberCartMCU\\STC32G_TEST_P30P31板载USB转串口通信\\Project\\USER\\src",
                 "e:\\RoboContest\\#CyberCartMCU\\STC32G_TEST_P30P31板载USB转串口通信\\Libraries\\seekfree_components",
                 "C:\\Keil_v5\\C251\\INC",
+                "C:\\Keil_v5\\C251\\INC\\STC",
                 "e:\\RoboContest\\#CyberCartMCU\\STC32G_TEST_P30P31板载USB转串口通信\\Libraries\\doc",
                 "${default}",
                 "${workspaceFolder}/**"

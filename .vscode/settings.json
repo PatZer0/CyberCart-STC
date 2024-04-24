@@ -2,6 +2,9 @@
     "files.associations": {
         "laser_ranging.h": "c",
         "motor_driver_boards.h": "c",
-        "headfile.h": "c"
+        "headfile.h": "c",
+        "uart.h": "c",
+        "qmc5883.h": "c",
+        "host_comm.h": "c"
     }
 }

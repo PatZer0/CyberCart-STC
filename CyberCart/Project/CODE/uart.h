@@ -1,12 +1,10 @@
 #ifndef __UART_H__
 #define __UART_H__
 
-#include "headfile.h"
-
-#define UART1_BUF_LENGTH 32                        // 定义接收缓冲区长度
-#define UART2_BUF_LENGTH 32                        // 定义接收缓冲区长度
+#define UART1_BUF_LENGTH 64                        // 定义接收缓冲区长度
+#define UART2_BUF_LENGTH 64                        // 定义接收缓冲区长度
 #define UART3_BUF_LENGTH 64                        // 定义接收缓冲区长度
-#define UART4_BUF_LENGTH 16                        // 定义接收缓冲区长度
+#define UART4_BUF_LENGTH 64                        // 定义接收缓冲区长度
 
 extern unsigned char uart1_tx_counter, uart2_tx_counter, uart3_tx_counter, uart4_tx_counter;   // 发送计数
 extern unsigned char uart1_rx_counter, uart2_rx_counter, uart3_rx_counter, uart4_rx_counter;   // 接收计数
@@ -15,6 +13,7 @@ extern unsigned char uart1_rx_buffer[UART1_BUF_LENGTH];                         
 extern unsigned char uart2_rx_buffer[UART2_BUF_LENGTH];                                        // 接收缓冲
 extern unsigned char uart3_rx_buffer[UART3_BUF_LENGTH];                                        // 接收缓冲
 extern unsigned char uart4_rx_buffer[UART4_BUF_LENGTH];                                        // 接收缓冲
+extern bit           uart1_rx_rdy, uart2_rx_rdy, uart3_rx_rdy, uart4_rx_rdy;                   // 接收数据准备好标志
 
 void uart_port_init(void);
 void uart_initialize(unsigned char uart_num);

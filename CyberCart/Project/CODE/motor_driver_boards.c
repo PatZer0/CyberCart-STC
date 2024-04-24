@@ -1,5 +1,7 @@
 #include "motor_driver_boards.h"
 
+int    wheel_x_front_speed = 0, wheel_x_rear_speed = 0, wheel_y_front_speed = 0, wheel_y_rear_speed = 0;
+
 // void motor_drivers_pwm_init()
 // {
 //     // 参数：模块_端口, 频率, 占空比(÷10000)
