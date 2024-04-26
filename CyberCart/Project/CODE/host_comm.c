@@ -3,11 +3,20 @@
 #include "uart.h"
 #include "qmc5883.h"
 #include "key.h"
+#include "motor_driver_boards.h"
 
 #define HOST_COMM_BUFFER_SIZE 64
 
 bit     sendok = 0;
 bit     senderr = 0;
+bit     sendwrongcmd = 0;
+bit     sendwheelok = 0;
+bit     sendwheelwarnexceed = 0;
+
+int wheel_speed_parser(const char *speed_char)
+{
+
+}
 
 void host_comm_uart_init(void)
 {
@@ -22,60 +31,110 @@ void host_comm_uart_init(void)
 	ET1 = 0;			//禁止定时器中断
 	TR1 = 1;			//定时器1开始计时
 	ES = 1;				//使能
+
+    uart_sendstring(1, "STC32G12K128 READY. \r\n");
 }
 
 void host_comm_irqhandler()
 {
-    uint8 i;
-    uint8 oled_row;
-    uint8 oled_txt[64];
+    unsigned int i;
+    unsigned int oled_row;
+    unsigned int oled_txt[64];
+    unsigned char wheel_speed_buffer[6];
+    int wheel_speed;
 
-    if ((uart1_rx_buffer[0] == 'A') && (uart1_rx_buffer[1] == 'T'))   // 接收到AT命令
+    if ((uart1_rx_buffer[uart1_rx_counter] == '\n'))
     {
-        led_1 = !led_1;
-        if((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'Y') && (uart1_rx_buffer[5] == 'S'))
+        // 接收到AT命令
+        if ((uart1_rx_buffer[0] == 'A') && (uart1_rx_buffer[1] == 'T'))   
         {
-            if(uart1_rx_buffer[7] == '?') // 接收到SYS?命令
+            led_1 = !led_1;
+            // 接收到SYS命令
+            if((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'Y') && (uart1_rx_buffer[5] == 'S'))
             {
-                sendok = 1;
+                // 接收到SYS?命令
+                if(uart1_rx_buffer[6] == '?') sendok = 1;
+                else sendwrongcmd = 1;
             }
-            else senderr = 1;
-        }
-        else if((uart1_rx_buffer[3] == 'O') && (uart1_rx_buffer[4] == 'L') && (uart1_rx_buffer[5] == 'E') && (uart1_rx_buffer[6] == 'D')) // 接收到OLED命令
-        {
-            if((uart1_rx_buffer[8] == 'T') && (uart1_rx_buffer[9] == 'X') && (uart1_rx_buffer[10] == 'T')) // 接收到TXT命令
+            // 接收到WHL命令
+            else if((uart1_rx_buffer[3] == 'W') && (uart1_rx_buffer[4] == 'H') && (uart1_rx_buffer[5] == 'L'))
             {
-                // 第13个字节代表写入的行号，第13个字节是"="
-                oled_row = uart1_rx_buffer[12];
-                // 从第14个字节开始，写入oled_txt直到uart1_rx_counter
-                for (i == 0; i < uart1_rx_counter - 13; i++)
+                if(uart1_rx_buffer[7] == 'X')
                 {
-                    oled_txt[i] = uart1_rx_buffer[13 + i];
+                    // if(uart1_rx_buffer[8] == '=')
+                    // {
+                    //     // 从index=9开始，写入wheel_speed_buffer
+                    //     for (i = 0; i < 6; i++)
+                    //     {
+                    //         if(uart1_rx_buffer[9 + i] == '\r') break;
+                    //         wheel_speed_buffer[i] = uart1_rx_buffer[9 + i];
+                    //     }
+                    //     wheel_speed = atoi(wheel_speed_buffer);
+                    //     wheel_x_front_speed = wheel_speed;
+                    //     wheel_x_rear_speed = wheel_speed;
+                    //     // 发送OK
+                    //     sendwheelok = 1;
+                    // }
+                    // else
+                    // {
+                    //     // 从index=10开始，写入wheel_speed_buffer
+                    //     for (i = 0; i < 6; i++)
+                    //     {
+                    //         wheel_speed_buffer[i] = uart1_rx_buffer[10 + i];
+                    //     }
+                    //     wheel_speed = atoi(wheel_speed_buffer);
+                    //     if(uart1_rx_buffer[8] == 'F')
+                    //     {
+                    //         wheel_x_front_speed = wheel_speed;
+                    //         sendwheelok = 1;
+                    //     }
+                    //     else if (uart1_rx_buffer[8] == 'R')
+                    //     {
+                    //         wheel_x_rear_speed = wheel_speed;
+                    //         sendwheelok = 1;
+                    //     }
+                    //     else sendwrongcmd = 1;
+                    // }
                 }
-                // 显示oled_txt
-                oled_p6x8str_spi(0, oled_row, oled_txt);
-                // 发送OK
-                sendok = 1;
             }
-            else senderr = 1;
+            else sendwrongcmd = 1;
         }
-        else senderr == 1;
-        sendok = 1;
+        else sendwrongcmd = 1;
     }
-    else senderr = 1;
+    else sendwrongcmd = 1;
 }
 
 void host_comm_sender(void)
 {
     if (sendok)
     {
-        uart_sendstring(1, "OK\r\n");
+        uart_sendstring(1, "OK:SYS\r\n");
         sendok = 0;
+        uart1_rx_counter = 0;
     }
     if (senderr)
     {
         uart_sendstring(1, "ERROR\r\n");
         senderr = 0;
+        uart1_rx_counter = 0;
+    }
+    if(sendwrongcmd)
+    {
+        uart_sendstring(1, "ERROR:CMD\r\n");
+        sendwrongcmd = 0;
+        uart1_rx_counter = 0;
+    }
+    if(sendwheelok)
+    {
+        uart_sendstring(1, "OK:WHEEL\r\n");
+        sendwheelok = 0;
+        uart1_rx_counter = 0;
+    }
+    if(sendwheelwarnexceed)
+    {
+        uart_sendstring(1, "WARNING:WHEEL_SPEED_EXCEEDED\r\n");
+        sendwheelwarnexceed = 0;
+        uart1_rx_counter = 0;
     }
     // 发送QMC5883L数据
     // if(uart3_rx_rdy)

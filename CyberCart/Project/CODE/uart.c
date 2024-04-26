@@ -171,13 +171,22 @@ void uart1_isr(void) interrupt 4
 	if (RI)
 	{
 		RI = 0;
-        uart1_rx_buffer[uart1_rx_counter++] = SBUF;
+        uart1_rx_buffer[uart1_rx_counter] = SBUF;
 
         // ---------------- 放置专用串口中断处理代码函数 ------------------
-        host_comm_irqhandler();
+        if((uart1_rx_buffer[uart1_rx_counter - 1] == 'A') && (uart1_rx_buffer[uart1_rx_counter] == 'T'))
+        {
+            memset(uart1_rx_buffer, '\0', sizeof(uart1_rx_buffer));
+            uart1_rx_buffer[0] = 'A';
+            uart1_rx_buffer[1] = 'T';
+            uart1_rx_counter = 1;       // 重置计数器，从缓冲区头部开始写入剩余的命令
+        }
+        if((uart1_rx_buffer[uart1_rx_counter - 1] == '\r') && (uart1_rx_buffer[uart1_rx_counter] == '\n'))
+        {
+            host_comm_irqhandler();     // 当检测到\r\n代表命令接收完毕，调用host_comm_irqhandler()处理命令
+        }
         // ------------------------ 专用代码结束 --------------------------
-
-        if(++uart1_rx_counter >= UART1_BUF_LENGTH) uart1_rx_counter = 0;      // 缓冲区满, 循环
+        if(++uart1_rx_counter >= UART1_BUF_LENGTH) uart1_rx_counter = 0;     // 缓冲区满, 循环
     }
 }
 
@@ -193,9 +202,9 @@ void uart2_isr(void) interrupt 8                                            // �
 	{
 		S2CON &= ~0x01;	                                                    // 清除串口2接收中断请求位
         uart2_rx_buffer[uart2_rx_counter] = S2BUF;                          // 接收数据存入缓冲区
-        if(uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;      // 缓冲区满, 循环
         // ---------------- 放置专用串口中断处理代码函数 ------------------
         // laser_ranging_irqhandler('y');
+        if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;      // 缓冲区满, 循环
 	}
 }
 

@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  ui                                                                 21/04/24  19:30:00  PAGE 1   
+C251 COMPILER V5.60.0,  ui                                                                 26/04/24  17:20:22  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE ui
@@ -30,23 +30,23 @@ stmt  level    source
    19   1          oled_p6x8str_spi(0, 7, "[1][2][3][4]");
    20   1      }
    21          
-   22          void ui_running_init_timer()
-   23          {                           //500毫秒@33.1776MHz
-   24   1        TM0PS = 0x15;     //设置定时器时钟预分频 ( 注意:并非所有系列都有此寄存器,详情请查看数据手册 )
-   25   1        AUXR &= 0x7F;     //定时器时钟12T模式
-   26   1        TMOD &= 0xF0;     //设置定时器模式
-   27   1        TL0 = 0x8C;       //设置定时初始值
-   28   1        TH0 = 0x0A;       //设置定时初始值
-   29   1        TF0 = 0;        //清除TF0标志
-   30   1        TR0 = 1;        //定时器0开始计时
-   31   1        ET0 = 1;        //使能定时器0中断
-   32   1      }
+   22          // void ui_running_init_timer()
+   23          // {                           //500毫秒@33.1776MHz
+   24          //  TM0PS = 0x15;     //设置定时器时钟预分频 ( 注意:并非所有系列都有此寄存器,详情请查看数据手册 )
+   25          //  AUXR &= 0x7F;     //定时器时钟12T模式
+   26          //  TMOD &= 0xF0;     //设置定时器模式
+   27          //  TL0 = 0x8C;       //设置定时初始值
+   28          //  TH0 = 0x0A;       //设置定时初始值
+   29          //  TF0 = 0;        //清除TF0标志
+   30          //  TR0 = 1;        //定时器0开始计时
+   31          //  ET0 = 1;        //使能定时器0中断
+   32          // }
    33          
    34          
-   35          void ui_running_timer_isr() interrupt 1
-   36          {
-   37   1          ui_running();
-   38   1      }
+   35          // void ui_running_timer_isr() interrupt 1
+   36          // {
+   37          //     ui_running();
+   38          // }
    39          
    40          void ui_running()
    41          {
@@ -66,7 +66,7 @@ stmt  level    source
    55   2          case 3:
    56   2              oled_p6x8str_spi(20*6, 7, '4');
    57   2              break;
-C251 COMPILER V5.60.0,  ui                                                                 21/04/24  19:30:00  PAGE 2   
+C251 COMPILER V5.60.0,  ui                                                                 26/04/24  17:20:22  PAGE 2   
 
    58   2          default:
    59   2              break;
@@ -76,7 +76,7 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       268     ------
+  code size            =       180     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

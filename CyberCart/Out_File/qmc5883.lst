@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  qmc5883                                                            23/04/24  21:16:33  PAGE 1   
+C251 COMPILER V5.60.0,  qmc5883                                                            25/04/24  20:42:11  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE qmc5883
@@ -66,13 +66,13 @@ stmt  level    source
    52          //  @return     int 整型数
    53          //  @since      v1.0 by PatZer0 on 2024.04.15
    54          //  *example  int num = atoi("12345"); // num = 12345
-C251 COMPILER V5.60.0,  qmc5883                                                            23/04/24  21:16:33  PAGE 2   
+C251 COMPILER V5.60.0,  qmc5883                                                            25/04/24  20:42:11  PAGE 2   
 
    55          //  *desc       该函数将字符串转换为整型数，用于将字符串数据转换为整型数据。
    56          //              C251编译器没有atoi函数，因此需要自己实现。
    57          //-------------------------------------------------------------------------------------------------------
              -------------
-   58          int atoi(const char *str) 
+   58          int atoi(const char *str)
    59          {
    60   1          int result = 0;  // 初始化结果为0
    61   1          int sign = 1;    // 符号标记，默认为正数
@@ -134,7 +134,7 @@ stmt  level    source
   115   1          int i = 0;
   116   1          int state = 0; // 0代表整数部分，1代表小数部分
   117   1      
-C251 COMPILER V5.60.0,  qmc5883                                                            23/04/24  21:16:33  PAGE 3   
+C251 COMPILER V5.60.0,  qmc5883                                                            25/04/24  20:42:11  PAGE 3   
 
   118   1          while (str[i] == ' ') {
   119   2              i++;
@@ -202,7 +202,7 @@ stmt  level    source
   179   3                  counter++;
   180   3                  for(j = i + 1; j < 100; j++)                        // 从冒号之后的第一个字符开始写入
   181   3                  {
-C251 COMPILER V5.60.0,  qmc5883                                                            23/04/24  21:16:33  PAGE 4   
+C251 COMPILER V5.60.0,  qmc5883                                                            25/04/24  20:42:11  PAGE 4   
 
   182   4                      if(dat[j] == ',')                               // 遇到逗号结束
   183   4                      {
@@ -271,7 +271,7 @@ Module Information          Static   Overlayable
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
-C251 COMPILER V5.60.0,  qmc5883                                                            23/04/24  21:16:33  PAGE 5   
+C251 COMPILER V5.60.0,  qmc5883                                                            25/04/24  20:42:11  PAGE 5   
 
   pdata size           =    ------     ------
   xdata size           =    ------     ------

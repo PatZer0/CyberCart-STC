@@ -105,6 +105,8 @@ void main()
         key4_check();
         // ui_running();
         host_comm_sender();
+        wheel_dynamic_adjusting();
+        wheel_yaw_calibrating();
     }
 }
 

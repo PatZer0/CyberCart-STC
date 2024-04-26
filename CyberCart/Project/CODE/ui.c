@@ -19,23 +19,23 @@ void ui_keys_init()
     oled_p6x8str_spi(0, 7, "[1][2][3][4]");
 }
 
-void ui_running_init_timer()
-{                           //500毫秒@33.1776MHz
-	TM0PS = 0x15;			//设置定时器时钟预分频 ( 注意:并非所有系列都有此寄存器,详情请查看数据手册 )
-	AUXR &= 0x7F;			//定时器时钟12T模式
-	TMOD &= 0xF0;			//设置定时器模式
-	TL0 = 0x8C;				//设置定时初始值
-	TH0 = 0x0A;				//设置定时初始值
-	TF0 = 0;				//清除TF0标志
-	TR0 = 1;				//定时器0开始计时
-	ET0 = 1;				//使能定时器0中断
-}
+// void ui_running_init_timer()
+// {                           //500毫秒@33.1776MHz
+// 	TM0PS = 0x15;			//设置定时器时钟预分频 ( 注意:并非所有系列都有此寄存器,详情请查看数据手册 )
+// 	AUXR &= 0x7F;			//定时器时钟12T模式
+// 	TMOD &= 0xF0;			//设置定时器模式
+// 	TL0 = 0x8C;				//设置定时初始值
+// 	TH0 = 0x0A;				//设置定时初始值
+// 	TF0 = 0;				//清除TF0标志
+// 	TR0 = 1;				//定时器0开始计时
+// 	ET0 = 1;				//使能定时器0中断
+// }
 
 
-void ui_running_timer_isr() interrupt 1
-{
-    ui_running();
-}
+// void ui_running_timer_isr() interrupt 1
+// {
+//     ui_running();
+// }
 
 void ui_running()
 {

@@ -21,25 +21,73 @@ void key1_short_press()
     // 短按键1功能
     led_1 = !led_1; // 切换
     P35 = !P35; // 切换
-    wheel_adjust(X_ALL, 0);
+    wheel_x_front_speed = 0;
+    wheel_y_front_speed = 0;
+    wheel_x_rear_speed = 0;
+    wheel_y_rear_speed = 0;
 }
 
 void key2_short_press()
 {
     // 短按键2功能
-    wheel_adjust(X_ALL, 1000);
+    wheel_y_front_speed = 5000;
+    wheel_y_rear_speed = 5000;
 }
 
 void key3_short_press()
 {
     // 短按键3功能
-    wheel_adjust(X_ALL, 5000);
+    wheel_yaw_calibrating_flag = 1;
+    wheel_target_yaw = qmc5883_yaw + 90.0;
 }
+
+// int timer0_counter_temp;
+
+// void Timer0_Isr(void) interrupt 1
+// {
+//     timer0_counter_temp++;
+// }
+
+// void Timer0_Init(void)		//1毫秒@33.1776MHz
+// {
+// 	AUXR |= 0x80;			//定时器时钟1T模式
+// 	TMOD &= 0xF0;			//设置定时器模式
+// 	TL0 = 0x66;				//设置定时初始值
+// 	TH0 = 0x7E;				//设置定时初始值
+// 	TF0 = 0;				//清除TF0标志
+// 	TR0 = 1;				//定时器0开始计时
+// 	ET0 = 1;				//使能定时器0中断
+// }
 
 void key4_short_press()
 {
     // 短按键4功能
-    wheel_adjust(X_ALL, 9800);
+    wheel_x_front_speed = 5000;
+    wheel_x_rear_speed = 5000;
+    wheel_dynamic_adjusting();
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    wheel_x_front_speed = 0;
+    wheel_x_rear_speed = 0;
+    wheel_y_front_speed = 5000;
+    wheel_y_rear_speed = 5000;
+    wheel_dynamic_adjusting();
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    delay_ms(255);
+    wheel_y_front_speed =0;
+    wheel_y_rear_speed = 0;
 }
 
 void key1_check() 

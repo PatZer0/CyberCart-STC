@@ -8,7 +8,12 @@
 #define WHEEL_Y_FRONT_PWMCH PWMA_CH3P_P14
 #define WHEEL_Y_REAR_PWMCH  PWMA_CH4N_P67
 
+#define WHEEL_PWM_MAX_VAL 9800
+
 extern int    wheel_x_front_speed, wheel_x_rear_speed, wheel_y_front_speed, wheel_y_rear_speed;
+extern float  wheel_target_yaw;
+extern bit    wheel_yaw_calibrating_flag;
+
 
 // 电机驱动板1：X方向前轮、后轮
 sbit gpio_wheel_x_front_forward     = P6^1;     // X 方向前轮顺时针转动信号
@@ -40,9 +45,13 @@ typedef enum
     STOP,
 }WHEEL_DIR_enum;
 
-// 初始化电机驱动板
+
 // void motor_drivers_pwm_init();                                                   // 初始化电机驱动板
 void wheel_adjust(WHEEL_SEL_enum wheel_select, int speed);                          // 同时设置电机转动速度和方向
 void wheel_direction(WHEEL_SEL_enum wheel_select, WHEEL_DIR_enum wheel_direction);  // 设置电机转动方向
 void wheel_speed(WHEEL_SEL_enum wheel_select, unsigned int speed);                  // 设置电机转动速度
+void wheel_dynamic_adjusting();                                                     // 动态调整电机转动速度和方向
+void wheel_dynamic_calibrating();                                                   // 动态校准电机转动速度和方向
+void wheel_yaw_calibrating();                                                       // 校准电机转动方向
+
 #endif // MOTOR_DRIVER_BOARDS_H

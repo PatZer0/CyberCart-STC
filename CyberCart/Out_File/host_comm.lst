@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  host_comm                                                          23/04/24  21:38:07  PAGE 1   
+C251 COMPILER V5.60.0,  host_comm                                                          26/04/24  17:12:33  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE host_comm
@@ -15,114 +15,178 @@ stmt  level    source
     3          #include "uart.h"
     4          #include "qmc5883.h"
     5          #include "key.h"
-    6          
-    7          #define HOST_COMM_BUFFER_SIZE 64
-    8          
-    9          bit     sendok = 0;
-   10          bit     senderr = 0;
-   11          
-   12          void host_comm_uart_init(void)
-   13          {
-   14   1          // 写入寄存器，设置串口1使用TIMER1，波特率921600
-   15   1      
-   16   1          SCON = 0x50;    //8位数据,可变波特率
-   17   1        AUXR |= 0x40;   //定时器时钟1T模式
-   18   1        AUXR &= 0xFE;   //串口1选择定时器1为波特率发生器
-   19   1        TMOD &= 0x0F;   //设置定时器模式
-   20   1        TL1 = 0xF7;     //设置定时初始值
-   21   1        TH1 = 0xFF;     //设置定时初始值
-   22   1        ET1 = 0;      //禁止定时器中断
-   23   1        TR1 = 1;      //定时器1开始计时
-   24   1        ES = 1;       //使能
-   25   1      }
-   26          
-   27          void host_comm_irqhandler()
-   28          {
-   29   1          uint8 i;
-   30   1          uint8 oled_row;
-   31   1          uint8 oled_txt[64];
-   32   1      
-   33   1          if ((uart1_rx_buffer[0] == 'A') && (uart1_rx_buffer[1] == 'T'))   // 接收到AT命令
-   34   1          {
-   35   2              led_1 = !led_1;
-   36   2              if((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'Y') && (uart1_rx_buffer[5] == 'S'))
-   37   2              {
-   38   3                  if(uart1_rx_buffer[7] == '?') // 接收到SYS?命令
-   39   3                  {
-   40   4                      sendok = 1;
-   41   4                  }
-   42   3                  else senderr = 1;
-   43   3              }
-   44   2              else if((uart1_rx_buffer[3] == 'O') && (uart1_rx_buffer[4] == 'L') && (uart1_rx_buffer[5] == 'E')
-             - && (uart1_rx_buffer[6] == 'D')) // 接收到OLED命令
-   45   2              {
-   46   3                  if((uart1_rx_buffer[8] == 'T') && (uart1_rx_buffer[9] == 'X') && (uart1_rx_buffer[10] == 'T')
-             -) // 接收到TXT命令
-   47   3                  {
-   48   4                      // 第13个字节代表写入的行号，第13个字节是"="
-   49   4                      oled_row = uart1_rx_buffer[12];
-   50   4                      // 从第14个字节开始，写入oled_txt直到uart1_rx_counter
-   51   4                      for (i == 0; i < uart1_rx_counter - 13; i++)
-   52   4                      {
-   53   5                          oled_txt[i] = uart1_rx_buffer[13 + i];
-   54   5                      }
-C251 COMPILER V5.60.0,  host_comm                                                          23/04/24  21:38:07  PAGE 2   
+    6          #include "motor_driver_boards.h"
+    7          
+    8          #define HOST_COMM_BUFFER_SIZE 64
+    9          
+   10          bit     sendok = 0;
+   11          bit     senderr = 0;
+   12          bit     sendwrongcmd = 0;
+   13          bit     sendwheelok = 0;
+   14          bit     sendwheelwarnexceed = 0;
+   15          
+   16          int wheel_speed_parser(const char *speed_char)
+   17          {
+   18   1          
+   19   1      }
+*** WARNING C47 IN LINE 16 OF Project\CODE\host_comm.c: 'speed_char': unreferenced parameter
+   20          
+   21          void host_comm_uart_init(void)
+   22          {
+   23   1          // 写入寄存器，设置串口1使用TIMER1，波特率921600
+   24   1      
+   25   1          SCON = 0x50;    //8位数据,可变波特率
+   26   1        AUXR |= 0x40;   //定时器时钟1T模式
+   27   1        AUXR &= 0xFE;   //串口1选择定时器1为波特率发生器
+   28   1        TMOD &= 0x0F;   //设置定时器模式
+   29   1        TL1 = 0xF7;     //设置定时初始值
+   30   1        TH1 = 0xFF;     //设置定时初始值
+   31   1        ET1 = 0;      //禁止定时器中断
+   32   1        TR1 = 1;      //定时器1开始计时
+   33   1        ES = 1;       //使能
+   34   1      
+   35   1          uart_sendstring(1, "STC32G12K128 READY. \r\n");
+   36   1      }
+   37          
+   38          void host_comm_irqhandler()
+   39          {
+   40   1          unsigned int i;
+   41   1          unsigned int oled_row;
+   42   1          unsigned int oled_txt[64];
+   43   1          unsigned char wheel_speed_buffer[6];
+   44   1          int wheel_speed;
+   45   1      
+   46   1          if ((uart1_rx_buffer[uart1_rx_counter] == '\n'))
+   47   1          {
+   48   2              // 接收到AT命令
+   49   2              if ((uart1_rx_buffer[0] == 'A') && (uart1_rx_buffer[1] == 'T'))   
+   50   2              {
+   51   3                  led_1 = !led_1;
+   52   3                  // 接收到SYS命令
+   53   3                  if((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'Y') && (uart1_rx_buffer[5] == 'S'))
+   54   3                  {
+   55   4                      // 接收到SYS?命令
+C251 COMPILER V5.60.0,  host_comm                                                          26/04/24  17:12:33  PAGE 2   
 
-   55   4                      // 显示oled_txt
-   56   4                      oled_p6x8str_spi(0, oled_row, oled_txt);
-   57   4                      // 发送OK
-   58   4                      sendok = 1;
-   59   4                  }
-   60   3                  else senderr = 1;
-   61   3              }
-   62   2              else senderr == 1;
-*** WARNING C138 IN LINE 62 OF Project\CODE\host_comm.c: expression with possibly no effect
-   63   2              sendok = 1;
-   64   2          }
-   65   1          else senderr = 1;
-   66   1      }
-   67          
-   68          void host_comm_sender(void)
-   69          {
-   70   1          if (sendok)
-   71   1          {
-   72   2              uart_sendstring(1, "OK\r\n");
-   73   2              sendok = 0;
-   74   2          }
-   75   1          if (senderr)
-   76   1          {
-   77   2              uart_sendstring(1, "ERROR\r\n");
-   78   2              senderr = 0;
-   79   2          }
-   80   1          // 发送QMC5883L数据
-   81   1          // if(uart3_rx_rdy)
-   82   1          // {
-   83   1          //     uart_sendstring(1, qmc5883_char_yaw);
-   84   1          //     uart_sendstring(1, "\r\n");
-   85   1          //     uart3_rx_rdy = 0;
-   86   1          // }
-   87   1      }
+   56   4                      if(uart1_rx_buffer[6] == '?') sendok = 1;
+   57   4                      else sendwrongcmd = 1;
+   58   4                  }
+   59   3                  // 接收到WHL命令
+   60   3                  else if((uart1_rx_buffer[3] == 'W') && (uart1_rx_buffer[4] == 'H') && (uart1_rx_buffer[5] == 
+             -'L'))
+   61   3                  {
+   62   4                      if(uart1_rx_buffer[7] == 'X')
+   63   4                      {
+   64   5                          if(uart1_rx_buffer[8] == '=')
+   65   5                          {
+   66   6                              // 从index=9开始，写入wheel_speed_buffer
+   67   6                              for (i = 0; i < 6; i++)
+   68   6                              {
+   69   7                                  if(uart1_rx_buffer[9 + i] == '\r') break;
+   70   7                                  wheel_speed_buffer[i] = uart1_rx_buffer[9 + i];
+   71   7                              }
+   72   6                              wheel_speed = atoi(wheel_speed_buffer);
+   73   6                              wheel_x_front_speed = wheel_speed;
+   74   6                              wheel_x_rear_speed = wheel_speed;
+   75   6                              // 发送OK
+   76   6                              sendwheelok = 1;
+   77   6                          }
+   78   5                          else
+   79   5                          {
+   80   6                              // 从index=10开始，写入wheel_speed_buffer
+   81   6                              for (i = 0; i < 6; i++)
+   82   6                              {
+   83   7                                  wheel_speed_buffer[i] = uart1_rx_buffer[10 + i];
+   84   7                              }
+   85   6                              wheel_speed = atoi(wheel_speed_buffer);
+   86   6                              if(uart1_rx_buffer[8] == 'F')
+   87   6                              {
+   88   7                                  wheel_x_front_speed = wheel_speed;
+   89   7                                  sendwheelok = 1;
+   90   7                              }
+   91   6                              else if (uart1_rx_buffer[8] == 'R')
+   92   6                              {
+   93   7                                  wheel_x_rear_speed = wheel_speed;
+   94   7                                  sendwheelok = 1;
+   95   7                              }
+   96   6                              else sendwrongcmd = 1;
+   97   6                          }
+   98   5                      }
+   99   4                  }
+  100   3                  else sendwrongcmd = 1;
+  101   3              }
+  102   2              else sendwrongcmd = 1;
+  103   2          }
+  104   1          else sendwrongcmd = 1;
+  105   1      }
+*** WARNING C47 IN LINE 41 OF Project\CODE\host_comm.c: 'oled_row': unreferenced local variable
+*** WARNING C47 IN LINE 42 OF Project\CODE\host_comm.c: 'oled_txt': unreferenced local variable
+  106          
+  107          void host_comm_sender(void)
+  108          {
+  109   1          if (sendok)
+  110   1          {
+  111   2              uart_sendstring(1, "OK:SYS\r\n");
+  112   2              sendok = 0;
+  113   2              uart1_rx_counter = 0;
+  114   2          }
+  115   1          if (senderr)
+  116   1          {
+  117   2              uart_sendstring(1, "ERROR\r\n");
+  118   2              senderr = 0;
+C251 COMPILER V5.60.0,  host_comm                                                          26/04/24  17:12:33  PAGE 3   
+
+  119   2              uart1_rx_counter = 0;
+  120   2          }
+  121   1          if(sendwrongcmd)
+  122   1          {
+  123   2              uart_sendstring(1, "ERROR:CMD\r\n");
+  124   2              sendwrongcmd = 0;
+  125   2              uart1_rx_counter = 0;
+  126   2          }
+  127   1          if(sendwheelok)
+  128   1          {
+  129   2              uart_sendstring(1, "OK:WHEEL\r\n");
+  130   2              sendwheelok = 0;
+  131   2              uart1_rx_counter = 0;
+  132   2          }
+  133   1          if(sendwheelwarnexceed)
+  134   1          {
+  135   2              uart_sendstring(1, "WARNING:WHEEL_SPEED_EXCEEDED\r\n");
+  136   2              sendwheelwarnexceed = 0;
+  137   2              uart1_rx_counter = 0;
+  138   2          }
+  139   1          // 发送QMC5883L数据
+  140   1          // if(uart3_rx_rdy)
+  141   1          // {
+  142   1          //     uart_sendstring(1, qmc5883_char_yaw);
+  143   1          //     uart_sendstring(1, "\r\n");
+  144   1          //     uart3_rx_rdy = 0;
+  145   1          // }
+  146   1      }
+*** WARNING C135 IN LINE 19 OF Project\CODE\host_comm.c: 'wheel_speed_parser': no return value
+*** WARNING C135 IN LINE 19 OF Project\CODE\host_comm.c: 'wheel_speed_parser': no return value
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       345     ------
+  code size            =       578     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =        66     ------
-  bit size             =         2     ------
+  edata size           =        10     ------
+  bit size             =         5     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
   ebitaddressable size =    ------     ------
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        13     ------
+  hconst size          =        94     ------
 End of Module Information.
 
 
-C251 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
+C251 COMPILATION COMPLETE.  5 WARNING(S),  0 ERROR(S)
