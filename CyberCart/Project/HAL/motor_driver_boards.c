@@ -212,29 +212,36 @@ void wheel_adjust(WHEEL_SEL_enum wheel_select, int speed)
         case X_FRONT:
             pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
             break;
+
         case X_REAR:
             pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
             break;
+
         case X_ALL:
             pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
             pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
             break;
+
         case Y_FRONT:
             pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
             break;
+
         case Y_REAR:
             pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
             break;
+
         case Y_ALL:
             pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
             pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
             break;
+
         case ALL:
             pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
             pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
             pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
             pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
             break;
+            
         default:
             break;
     }
@@ -305,6 +312,22 @@ void wheel_dynamic_adjusting()
 void wheel_dynamic_calibrating()
 {
     
+}
+
+void wheel_oled_init()
+{
+    oled_p6x8str_spi(0, 2, "XF");
+    oled_p6x8str_spi(6*8, 2, "YF");
+    oled_p6x8str_spi(0, 3, "XR");
+    oled_p6x8str_spi(6*8, 3, "YR");
+}
+
+void wheel_oled_update()
+{
+    oled_printf_int32_spi(2*6, 2, wheel_x_front_speed, 4);
+    oled_printf_int32_spi(2*6, 3, wheel_x_rear_speed, 4);
+    oled_printf_int32_spi(10*6, 2, wheel_y_front_speed, 4);
+    oled_printf_int32_spi(10*6, 3, wheel_y_rear_speed, 4);
 }
 
 #define WHEEL_YAW_CALIBRATING_THRESHOLD 0.5

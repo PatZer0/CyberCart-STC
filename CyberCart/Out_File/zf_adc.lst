@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  zf_adc                                                             21/04/24  18:32:21  PAGE 1   
+C251 COMPILER V5.60.0,  zf_adc                                                             30/04/24  13:29:24  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE zf_adc
 OBJECT MODULE PLACED IN .\Out_File\zf_adc.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Libraries\seekfree_libraries\zf_adc.c XSMALL INTR2 WARNINGLEVEL(3) OPT
                     -IMIZE(0,SPEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE
-                    -;Project\USER\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\zf_adc.lst) TABS(2) OBJECT(.\Ou
-                    -t_File\zf_adc.obj) 
+                    -;Project\USER\inc;Project\USER\src;Libraries\seekfree_components;.\Project\HAL) DEBUG PRINT(.\Out_File\zf_adc.lst) TABS(
+                    -2) OBJECT(.\Out_File\zf_adc.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    49   2            P1M1 |= (1 << (adcn & 0x07));
    50   2        }
    51   1      
-C251 COMPILER V5.60.0,  zf_adc                                                             21/04/24  18:32:21  PAGE 2   
+C251 COMPILER V5.60.0,  zf_adc                                                             30/04/24  13:29:24  PAGE 2   
 
    52   1        ADCCFG |= speed&0x0F;     //ADCÊ±ÖÓÆµÂÊSYSclk/2/speed&0x0F;
    53   1        

@@ -33,10 +33,10 @@
           <SFDFile></SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
-          <BinPath></BinPath>
+          <BinPath>C:\Keil_v5\C251\BIN\</BinPath>
           <IncludePath></IncludePath>
           <LibPath></LibPath>
-          <RegisterFilePath>STC\</RegisterFilePath>
+          <RegisterFilePath></RegisterFilePath>
           <DBRegisterFilePath>STC\</DBRegisterFilePath>
           <TargetStatus>
             <Error>0</Error>
@@ -139,7 +139,7 @@
           <Target>
             <UseTarget>1</UseTarget>
             <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>0</RunToMain>
+            <RunToMain>1</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
             <RestoreWatchpoints>1</RestoreWatchpoints>
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
@@ -149,7 +149,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>0</TargetSelection>
+          <TargetSelection>1</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -163,21 +163,21 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\MON251.DLL</Driver>
+            <Driver>BIN\STCMON251.DLL</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
           <Flash1>
-            <UseTargetDll>0</UseTargetDll>
+            <UseTargetDll>1</UseTargetDll>
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
-            <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
+            <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
             <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>0</bUseTDR>
           <Flash2>BIN\STCMON251.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -272,7 +272,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\inc;Project\USER\src;Libraries\seekfree_components</IncludePath>
+              <IncludePath>Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\inc;Project\USER\src;Libraries\seekfree_components;.\Project\HAL</IncludePath>
             </VariousControls>
           </C251>
           <Ax51>
@@ -680,11 +680,6 @@
               <FilePath>Project\USER\src\main.c</FilePath>
             </File>
             <File>
-              <FileName>qmc5883.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Project\CODE\qmc5883.c</FilePath>
-            </File>
-            <File>
               <FileName>uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Project\CODE\uart.c</FilePath>
@@ -700,21 +695,6 @@
               <FilePath>.\Project\CODE\key.c</FilePath>
             </File>
             <File>
-              <FileName>host_comm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Project\CODE\host_comm.c</FilePath>
-            </File>
-            <File>
-              <FileName>laser_ranging.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Project\CODE\laser_ranging.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor_driver_boards.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Project\CODE\motor_driver_boards.c</FilePath>
-            </File>
-            <File>
               <FileName>ui.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Project\CODE\ui.c</FilePath>
@@ -728,6 +708,11 @@
               <FileName>isr.h</FileName>
               <FileType>5</FileType>
               <FilePath>Project\USER\inc\isr.h</FilePath>
+            </File>
+            <File>
+              <FileName>hal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Project\USER\src\hal.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -748,6 +733,46 @@
               <FileName>seekfree_assistant_inface.c</FileName>
               <FileType>1</FileType>
               <FilePath>Libraries\seekfree_components\seekfree_assistant_inface.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_hal</GroupName>
+          <Files>
+            <File>
+              <FileName>host_comm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Project\HAL\host_comm.c</FilePath>
+            </File>
+            <File>
+              <FileName>laser_ranging.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Project\HAL\laser_ranging.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor_driver_boards.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Project\HAL\motor_driver_boards.c</FilePath>
+            </File>
+            <File>
+              <FileName>qmc5883.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Project\HAL\qmc5883.c</FilePath>
+            </File>
+            <File>
+              <FileName>servo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Project\HAL\servo.c</FilePath>
+            </File>
+            <File>
+              <FileName>stepper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Project\HAL\stepper.c</FilePath>
+            </File>
+            <File>
+              <FileName>wt61.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Project\HAL\wt61.c</FilePath>
             </File>
           </Files>
         </Group>

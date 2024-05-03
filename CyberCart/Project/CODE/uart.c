@@ -1,19 +1,22 @@
 #include "headfile.h"
-#include "uart.h"
-#include "laser_ranging.h"
-#include "host_comm.h"
-#include "qmc5883.h"
+#include "hal.h"
 
-unsigned char uart1_tx_counter, uart2_tx_counter, uart3_tx_counter, uart4_tx_counter;   // 发送计数
-unsigned char uart1_rx_counter, uart2_rx_counter, uart3_rx_counter, uart4_rx_counter;   // 接收计数
-bit           uart1_tx_busy, uart2_tx_busy, uart3_tx_busy, uart4_tx_busy;               // 发送忙标志
-unsigned char uart1_rx_buffer[UART1_BUF_LENGTH];                                        // 接收缓冲
-unsigned char uart2_rx_buffer[UART2_BUF_LENGTH];                                        // 接收缓冲
-unsigned char uart3_rx_buffer[UART3_BUF_LENGTH];                                        // 接收缓冲
-unsigned char uart4_rx_buffer[UART4_BUF_LENGTH];                                        // 接收缓冲
-bit           uart1_cr, uart2_cr, uart3_cr, uart4_cr;                                   // 回车标志
-bit           uart1_lf, uart2_lf, uart3_lf, uart4_lf;                                   // 换行标志
-bit           uart1_rx_rdy, uart2_rx_rdy, uart3_rx_rdy, uart4_rx_rdy;                   // 接收数据准备好标志
+unsigned char   uart1_tx_counter, uart2_tx_counter, uart3_tx_counter, uart4_tx_counter;   // 发送计数
+unsigned char   uart1_rx_counter, uart2_rx_counter, uart3_rx_counter, uart4_rx_counter;   // 接收计数
+bit             uart1_tx_busy, uart2_tx_busy, uart3_tx_busy, uart4_tx_busy;               // 发送忙标志
+unsigned char   uart1_tx_buffer_from_uart2[16], 
+                uart1_tx_buffer_from_uart3[16], 
+                uart1_tx_buffer_from_uart4[16]; // 发送缓冲
+unsigned char   uart1_tx_buffer_from_uart2_index, 
+                uart1_tx_buffer_from_uart3_index, 
+                uart1_tx_buffer_from_uart4_index; // 发送缓冲索引
+unsigned char   uart1_rx_buffer[UART1_BUF_LENGTH];                                        // 接收缓冲
+unsigned char   uart2_rx_buffer[UART2_BUF_LENGTH];                                        // 接收缓冲
+unsigned char   uart3_rx_buffer[UART3_BUF_LENGTH];                                        // 接收缓冲
+unsigned char   uart4_rx_buffer[UART4_BUF_LENGTH];                                        // 接收缓冲
+bit             uart1_cr, uart2_cr, uart3_cr, uart4_cr;                                   // 回车标志
+bit             uart1_lf, uart2_lf, uart3_lf, uart4_lf;                                   // 换行标志
+bit             uart1_rx_rdy, uart2_rx_rdy, uart3_rx_rdy, uart4_rx_rdy;                   // 接收数据准备好标志
 
 void uart_port_init(void)
 {
@@ -201,9 +204,19 @@ void uart2_isr(void) interrupt 8                                            // �
 	if (S2CON & 0x01)	                                                    // 检测串口2接收中断
 	{
 		S2CON &= ~0x01;	                                                    // 清除串口2接收中断请求位
-        uart2_rx_buffer[uart2_rx_counter] = S2BUF;                          // 接收数据存入缓冲区
+        uart2_rx_buffer[uart2_rx_counter] = S2BUF;                          // 接收数据存入缓冲区        
+        
         // ---------------- 放置专用串口中断处理代码函数 ------------------
-        // laser_ranging_irqhandler('y');
+        // laser_ranging_irqhandler('x');
+        if(uart2_rx_buffer[uart2_rx_counter] == 0x80)
+        {
+            uart1_tx_buffer_from_uart2[0] = 0x91;
+            uart1_tx_buffer_from_uart2[1] = uart2_rx_buffer[uart2_rx_counter];
+            uart1_tx_buffer_from_uart2_index = 2;
+        }
+        uart1_tx_buffer_from_uart2[uart1_tx_buffer_from_uart2_index++] = S2BUF;
+        // ------------------------ 专用代码结束 --------------------------
+
         if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;      // 缓冲区满, 循环
 	}
 }
@@ -221,7 +234,14 @@ void uart3_isr(void) interrupt 17                                           // �
         uart3_rx_buffer[uart3_rx_counter] = S3BUF;                          // 接收数据存入缓冲区
 
         // ---------------- 放置专用串口中断处理代码函数 ------------------
-        qmc5883_irqhandler();
+        // laser_ranging_irqhandler('y');
+        if(uart3_rx_buffer[uart3_rx_counter] == 0x80)
+        {
+            uart1_tx_buffer_from_uart3[0] = 0x92;
+            uart1_tx_buffer_from_uart3[1] = uart3_rx_buffer[uart3_rx_counter];
+            uart1_tx_buffer_from_uart3_index = 2;
+        }
+        uart1_tx_buffer_from_uart3[uart1_tx_buffer_from_uart3_index++] = S3BUF;
         // ------------------------ 专用代码结束 --------------------------
 
         if(++uart3_rx_counter >= UART3_BUF_LENGTH) uart3_rx_counter = 0;    // 缓冲区满, 循环
@@ -239,12 +259,21 @@ void uart4_isr(void) interrupt 18                                           // �
 	{
 		S4CON &= ~0x01;	                                                    // 清除串口4接收中断请求位
         uart4_rx_buffer[uart4_rx_counter] = S4BUF;                          // 接收数据存入缓冲区
-
         // ---------------- 放置专用串口中断处理代码函数 ------------------
-        // laser_ranging_irqhandler('x');
+        // uart1_tx_buffer_from_uart4 = S4BUF;
+        if(uart4_rx_buffer[uart4_rx_counter] == 0x55)
+        {
+            memset(uart4_rx_buffer, '\0', sizeof(uart4_rx_buffer));
+            uart4_rx_buffer[0] = 0x55;
+            uart4_rx_counter = 0;       // 重置计数器，写入剩余的数据
+        }
+        if(uart4_rx_counter == 11)
+        {
+            led_1 = 1;
+            wt61_data_parse(uart4_rx_buffer);
+        }
         // ------------------------ 专用代码结束 --------------------------
         if(++uart4_rx_counter >= UART4_BUF_LENGTH) uart4_rx_counter = 0;      // 缓冲区满, 循环
-        
 	}
 }
 
@@ -287,4 +316,24 @@ void uart_running(unsigned char uart_num)
         default:
             break;
     }
+}
+
+void uart_tx_send_buffer()
+{
+    if(uart1_tx_buffer_from_uart2_index >= 12)
+    {
+        uart_sendstring(1, uart1_tx_buffer_from_uart2);
+        // uart1_tx_buffer_from_uart2 = [];
+    }
+
+    if(uart1_tx_buffer_from_uart3_index >= 12)
+    {
+        uart_sendstring(1, uart1_tx_buffer_from_uart3);
+    }
+
+    // if(uart1_tx_buffer_from_uart4)
+    // {
+    //     uart_sendbyte(1, uart1_tx_buffer_from_uart4);
+    //     uart1_tx_buffer_from_uart4 = 0;
+    // }
 }

@@ -318,3 +318,125 @@
 --------------------
 [2024-04-26 17:28:47] : End
 --------------------------------------------------
+[2024-04-26 18:43:54] : Begin
+--------------------
+*MCUTYPE* : STC32G12K128
+*FILENAME* : E:\RoboContest\#CyberCartMCU\CyberCart\Out_File\SEEKFREE.hex
+*FILETIME* : 2024年04月26日, 18:43:52
+*FILESIZE* : 97896 (0x017E68)
+*CODESIZE* : 99305 (0x0183E9)
+*CHECKSUM* : 0x0126A5C1
+*ISPMODE* : 2
+*ISPRESULT* : 3
+--------------------
+[2024-04-26 18:44:05] : End
+--------------------------------------------------
+[2024-04-26 18:44:11] : Begin
+--------------------
+*MCUTYPE* : STC32G12K128
+*MCUID* : F7E3C91F00B7B6
+*FILENAME* : E:\RoboContest\#CyberCartMCU\CyberCart\Out_File\SEEKFREE.hex
+*FILETIME* : 2024年04月26日, 18:43:52
+*FILESIZE* : 97896 (0x017E68)
+*CODESIZE* : 99305 (0x0183E9)
+*CHECKSUM* : 0x0126A5C1
+*ISPMODE* : 2
+*ISPRESULT* : 0
+--------------------
+[2024-04-26 18:44:22] : End
+--------------------------------------------------
+[2024-04-26 18:45:05] : Begin
+--------------------
+*MCUTYPE* : STC32G12K128
+*MCUID* : F7E3C91F00B7B6
+*FILENAME* : E:\RoboContest\#CyberCartMCU\CyberCart\Out_File\SEEKFREE.hex
+*FILETIME* : 2024年04月26日, 18:45:04
+*FILESIZE* : 97896 (0x017E68)
+*CODESIZE* : 99305 (0x0183E9)
+*CHECKSUM* : 0x0126A5C1
+*ISPMODE* : 2
+*ISPRESULT* : 0
+--------------------
+[2024-04-26 18:45:17] : End
+--------------------------------------------------
+[2024-04-26 18:53:20] : Begin
+--------------------
+*MCUTYPE* : STC32G12K128
+*MCUID* : F7E3C91F00B7B6
+*FILENAME* : E:\RoboContest\#CyberCartMCU\CyberCart\Out_File\SEEKFREE.hex
+*FILETIME* : 2024年04月26日, 18:53:18
+*FILESIZE* : 97980 (0x017EBC)
+*CODESIZE* : 99334 (0x018406)
+*CHECKSUM* : 0x0126C5EB
+*ISPMODE* : 2
+*ISPRESULT* : 0
+--------------------
+[2024-04-26 18:53:30] : End
+--------------------------------------------------
+[2024-04-26 18:56:40] : Begin
+--------------------
+*MCUTYPE* : STC32G12K128
+*FILENAME* : E:\RoboContest\#CyberCartMCU\CyberCart\Out_File\SEEKFREE.hex
+*FILETIME* : 2024年04月26日, 18:56:39
+*FILESIZE* : 98577 (0x018111)
+*CODESIZE* : 99548 (0x0184DC)
+*CHECKSUM* : 0x012708AA
+*ISPMODE* : 2
+*ISPRESULT* : 3
+--------------------
+[2024-04-26 18:56:54] : End
+--------------------------------------------------
+[2024-04-26 18:57:00] : Begin
+--------------------
+*MCUTYPE* : STC32G12K128
+*FILENAME* : E:\RoboContest\#CyberCartMCU\CyberCart\Out_File\SEEKFREE.hex
+*FILETIME* : 2024年04月26日, 18:56:58
+*FILESIZE* : 98577 (0x018111)
+*CODESIZE* : 99548 (0x0184DC)
+*CHECKSUM* : 0x012708AA
+*ISPMODE* : 2
+*ISPRESULT* : 2
+--------------------
+[2024-04-26 18:57:05] : End
+--------------------------------------------------
+[2024-04-26 19:11:48] : Begin
+--------------------
+*MCUTYPE* : STC32G12K128
+*FILENAME* : E:\RoboContest\#CyberCartMCU\CyberCart\Out_File\SEEKFREE.hex
+*FILETIME* : 2024年04月26日, 19:11:46
+*FILESIZE* : 98583 (0x018117)
+*CODESIZE* : 99551 (0x0184DF)
+*CHECKSUM* : 0x01270CEA
+*ISPMODE* : 2
+*ISPRESULT* : 2
+--------------------
+[2024-04-26 19:11:53] : End
+--------------------------------------------------
+[2024-04-26 19:22:31] : Begin
+--------------------
+*MCUTYPE* : STC32G12K128
+*MCUID* : F7E3C91F00B7B6
+*FILENAME* : E:\RoboContest\#CyberCartMCU\CyberCart\Out_File\SEEKFREE.hex
+*FILETIME* : 2024年04月26日, 19:22:29
+*FILESIZE* : 98583 (0x018117)
+*CODESIZE* : 99551 (0x0184DF)
+*CHECKSUM* : 0x01270CEA
+*ISPMODE* : 2
+*ISPRESULT* : 0
+--------------------
+[2024-04-26 19:22:43] : End
+--------------------------------------------------
+[2024-04-26 19:35:19] : Begin
+--------------------
+*MCUTYPE* : STC32G12K128
+*MCUID* : F7E3C91F00B7B6
+*FILENAME* : E:\RoboContest\#CyberCartMCU\CyberCart\Out_File\SEEKFREE.hex
+*FILETIME* : 2024年04月26日, 19:35:17
+*FILESIZE* : 98583 (0x018117)
+*CODESIZE* : 99551 (0x0184DF)
+*CHECKSUM* : 0x01275DDB
+*ISPMODE* : 2
+*ISPRESULT* : 0
+--------------------
+[2024-04-26 19:35:32] : End
+--------------------------------------------------

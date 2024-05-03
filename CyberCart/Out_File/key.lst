@@ -1,34 +1,35 @@
-C251 COMPILER V5.60.0,  key                                                                26/04/24  17:23:18  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                02/05/24  17:36:08  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
 OBJECT MODULE PLACED IN .\Out_File\key.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\CODE\key.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,SPEED) BROW
                     -SE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\inc;P
-                    -roject\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\key.lst) TABS(2) OBJECT(.\Out_File\key.obj) 
+                    -roject\USER\src;Libraries\seekfree_components;.\Project\HAL) DEBUG PRINT(.\Out_File\key.lst) TABS(2) OBJECT(.\Out_File\k
+                    -ey.obj) 
 
 stmt  level    source
 
     1          
     2          #include "key.h"
-    3          #include "laser_ranging.h"
-    4          #include "qmc5883.h"
-    5          #include "motor_driver_boards.h"
-    6          
-    7          unsigned char key1_up_store = 1; // 按键1状态暂存
-    8          unsigned char key2_up_store = 1; // 按键2状态暂存
-    9          unsigned char key3_up_store = 1; // 按键3状态暂存
-   10          unsigned char key4_up_store = 1; // 按键4状态暂存
-   11          bit LaserRanging_State = 0; // 激光测距状态
-   12          
-   13          void keys_ui_init()
-   14          {
-   15   1          // 初始化按键
-   16   1          oled_p6x8str_spi(0, 7, "[1][2][3][4]");
-   17   1      }
-   18          
-   19          void key1_short_press()
-   20          {
+    3          #include "hal.h"
+    4          
+    5          unsigned char key1_up_store = 1; // 按键1状态暂存
+    6          unsigned char key2_up_store = 1; // 按键2状态暂存
+    7          unsigned char key3_up_store = 1; // 按键3状态暂存
+    8          unsigned char key4_up_store = 1; // 按键4状态暂存
+    9          bit LaserRanging_State = 0; // 激光测距状态
+   10          
+   11          void keys_ui_init()
+   12          {
+   13   1          // 初始化按键
+   14   1          oled_p6x8str_spi(0, 7, "[1][2][3][4]");
+   15   1      }
+   16          
+   17          void key1_short_press()
+   18          {
+   19   1          unsigned char str[10];
+   20   1      
    21   1          // 短按键1功能
    22   1          led_1 = !led_1; // 切换
    23   1          P35 = !P35; // 切换
@@ -36,146 +37,156 @@ stmt  level    source
    25   1          wheel_y_front_speed = 0;
    26   1          wheel_x_rear_speed = 0;
    27   1          wheel_y_rear_speed = 0;
-   28   1      }
-   29          
-   30          void key2_short_press()
-   31          {
-   32   1          // 短按键2功能
-   33   1          wheel_y_front_speed = 5000;
-   34   1          wheel_y_rear_speed = 5000;
-   35   1      }
-   36          
-   37          void key3_short_press()
-   38          {
-   39   1          // 短按键3功能
-   40   1          wheel_yaw_calibrating_flag = 1;
-   41   1          wheel_target_yaw = qmc5883_yaw + 90.0;
-   42   1      }
-   43          
-   44          // int timer0_counter_temp;
+   28   1          laser_ranging('x', &lrcmd_continous);
+   29   1          // 将x_roll数据转换成字符串，发送给串口
+   30   1          sprintf(str, "%d", x_roll);
+   31   1          uart_sendstring(1, str);
+   32   1      }
+   33          
+   34          void key2_short_press()
+   35          {
+   36   1          // 短按键2功能
+   37   1          wheel_y_rear_speed = -5000;
+   38   1      }
+   39          
+   40          void key3_short_press()
+   41          {
+   42   1          // 短按键3功能
+   43   1          wheel_y_rear_speed = 5000;
+   44   1      }
    45          
-   46          // void Timer0_Isr(void) interrupt 1
-   47          // {
-   48          //     timer0_counter_temp++;
-   49          // }
-   50          
-   51          // void Timer0_Init(void)   //1毫秒@33.1776MHz
-   52          // {
-   53          //  AUXR |= 0x80;     //定时器时钟1T模式
-   54          //  TMOD &= 0xF0;     //设置定时器模式
-   55          //  TL0 = 0x66;       //设置定时初始值
-   56          //  TH0 = 0x7E;       //设置定时初始值
-   57          //  TF0 = 0;        //清除TF0标志
-C251 COMPILER V5.60.0,  key                                                                26/04/24  17:23:18  PAGE 2   
+   46          void key4_short_press()
+   47          {
+   48   1          // 短按键4功能
+   49   1          wheel_x_front_speed = 5000;
+   50   1          wheel_dynamic_adjusting();
+   51   1          delay_ms(255);
+   52   1          delay_ms(255);
+   53   1          delay_ms(255);
+   54   1          delay_ms(255);
+   55   1          wheel_x_front_speed = -5000;
+   56   1          wheel_dynamic_adjusting();
+C251 COMPILER V5.60.0,  key                                                                02/05/24  17:36:08  PAGE 2   
 
-   58          //  TR0 = 1;        //定时器0开始计时
-   59          //  ET0 = 1;        //使能定时器0中断
-   60          // }
-   61          
-   62          void key4_short_press()
-   63          {
-   64   1          // 短按键4功能
-   65   1          wheel_x_front_speed = 5000;
-   66   1          wheel_x_rear_speed = 5000;
-   67   1          wheel_dynamic_adjusting();
-   68   1          delay_ms(255);
-   69   1          delay_ms(255);
+   57   1          delay_ms(255);
+   58   1          delay_ms(255);
+   59   1          delay_ms(255);
+   60   1          delay_ms(255);
+   61   1          wheel_x_front_speed = 0;
+   62   1          wheel_x_rear_speed = 5000;
+   63   1          wheel_dynamic_adjusting();
+   64   1          delay_ms(255);
+   65   1          delay_ms(255);
+   66   1          delay_ms(255);
+   67   1          delay_ms(255);
+   68   1          wheel_x_rear_speed = -5000;
+   69   1          wheel_dynamic_adjusting();
    70   1          delay_ms(255);
    71   1          delay_ms(255);
    72   1          delay_ms(255);
    73   1          delay_ms(255);
-   74   1          delay_ms(255);
-   75   1          delay_ms(255);
-   76   1          wheel_x_front_speed = 0;
-   77   1          wheel_x_rear_speed = 0;
-   78   1          wheel_y_front_speed = 5000;
-   79   1          wheel_y_rear_speed = 5000;
-   80   1          wheel_dynamic_adjusting();
-   81   1          delay_ms(255);
-   82   1          delay_ms(255);
+   74   1          wheel_x_rear_speed = 0;
+   75   1          wheel_y_front_speed = 5000;
+   76   1          wheel_dynamic_adjusting();
+   77   1          delay_ms(255);
+   78   1          delay_ms(255);
+   79   1          delay_ms(255);
+   80   1          delay_ms(255);
+   81   1          wheel_y_front_speed = -5000;
+   82   1          wheel_dynamic_adjusting();
    83   1          delay_ms(255);
    84   1          delay_ms(255);
    85   1          delay_ms(255);
    86   1          delay_ms(255);
-   87   1          delay_ms(255);
-   88   1          delay_ms(255);
-   89   1          wheel_y_front_speed =0;
-   90   1          wheel_y_rear_speed = 0;
-   91   1      }
-   92          
-   93          void key1_check() 
-   94          {
-   95   1          if(key1 == 0 && key1_up_store == 1)
-   96   1          {
-   97   2              key1_up_store = 0; // 标记按键被按下
-   98   2              oled_p6x8str_spi(0, 7, ">1<");
-   99   2          }
-  100   1          if(key1 == 1 && key1_up_store == 0)
-  101   1          {
-  102   2              key1_up_store = 1; // 标记按键被释放
-  103   2              key1_short_press(); // 触发短按键1功能
-  104   2              oled_p6x8str_spi(0, 7, "[1]");
-  105   2          }
-  106   1      }
-  107          
-  108          void key2_check()
-  109          {
-  110   1          if(key2 == 0 && key2_up_store == 1)
+   87   1          wheel_y_front_speed = 0;
+   88   1          wheel_y_rear_speed = 5000;
+   89   1          wheel_dynamic_adjusting();
+   90   1          delay_ms(255);
+   91   1          delay_ms(255);
+   92   1          delay_ms(255);
+   93   1          delay_ms(255);
+   94   1          wheel_y_rear_speed = -5000;
+   95   1          wheel_dynamic_adjusting();
+   96   1          delay_ms(255);
+   97   1          delay_ms(255);
+   98   1          delay_ms(255);
+   99   1          delay_ms(255);
+  100   1          wheel_y_rear_speed = 0;
+  101   1      }
+  102          
+  103          void key1_check() 
+  104          {
+  105   1          if(key1 == 0 && key1_up_store == 1)
+  106   1          {
+  107   2              key1_up_store = 0; // 标记按键被按下
+  108   2              oled_p6x8str_spi(0, 7, ">1<");
+  109   2          }
+  110   1          if(key1 == 1 && key1_up_store == 0)
   111   1          {
-  112   2              key2_up_store = 0; // 标记按键被按下
-  113   2              oled_p6x8str_spi(3*6, 7, ">2<");
-  114   2          }
-  115   1          if(key2 == 1 && key2_up_store == 0)
-  116   1          {
-  117   2              key2_up_store = 1; // 标记按键被释放
-  118   2              key2_short_press(); // 触发短按键2功能
-  119   2              oled_p6x8str_spi(3*6, 7, "[2]");
-  120   2          }
-  121   1      }
-  122          
-  123          void key3_check()
-C251 COMPILER V5.60.0,  key                                                                26/04/24  17:23:18  PAGE 3   
+  112   2              key1_up_store = 1; // 标记按键被释放
+  113   2              key1_short_press(); // 触发短按键1功能
+  114   2              oled_p6x8str_spi(0, 7, "[1]");
+  115   2          }
+  116   1      }
+  117          
+  118          void key2_check()
+  119          {
+  120   1          if(key2 == 0 && key2_up_store == 1)
+  121   1          {
+  122   2              key2_up_store = 0; // 标记按键被按下
+C251 COMPILER V5.60.0,  key                                                                02/05/24  17:36:08  PAGE 3   
 
-  124          {
-  125   1          if(key3 == 0 && key3_up_store == 1)
+  123   2              oled_p6x8str_spi(3*6, 7, ">2<");
+  124   2          }
+  125   1          if(key2 == 1 && key2_up_store == 0)
   126   1          {
-  127   2              key3_up_store = 0; // 标记按键被按下
-  128   2              oled_p6x8str_spi(6*6, 7, ">3<");
-  129   2          }
-  130   1          if(key3 == 1 && key3_up_store == 0)
-  131   1          {
-  132   2              key3_up_store = 1; // 标记按键被释放
-  133   2              key3_short_press(); // 触发短按键3功能
-  134   2              oled_p6x8str_spi(6*6, 7, "[3]");
-  135   2          }
-  136   1      }
-  137          
-  138          void key4_check()
-  139          {
-  140   1          if(key4 == 0 && key4_up_store == 1)
+  127   2              key2_up_store = 1; // 标记按键被释放
+  128   2              key2_short_press(); // 触发短按键2功能
+  129   2              oled_p6x8str_spi(3*6, 7, "[2]");
+  130   2          }
+  131   1      }
+  132          
+  133          void key3_check()
+  134          {
+  135   1          if(key3 == 0 && key3_up_store == 1)
+  136   1          {
+  137   2              key3_up_store = 0; // 标记按键被按下
+  138   2              oled_p6x8str_spi(6*6, 7, ">3<");
+  139   2          }
+  140   1          if(key3 == 1 && key3_up_store == 0)
   141   1          {
-  142   2              key4_up_store = 0; // 标记按键被按下
-  143   2              oled_p6x8str_spi(9*6, 7, ">4<");
-  144   2          }
-  145   1          if(key4 == 1 && key4_up_store == 0)
-  146   1          {
-  147   2              key4_up_store = 1; // 标记按键被释放
-  148   2              key4_short_press(); // 触发短按键4功能
-  149   2              oled_p6x8str_spi(9*6, 7, "[4]");
-  150   2          }
-  151   1      }
+  142   2              key3_up_store = 1; // 标记按键被释放
+  143   2              key3_short_press(); // 触发短按键3功能
+  144   2              oled_p6x8str_spi(6*6, 7, "[3]");
+  145   2          }
+  146   1      }
+  147          
+  148          void key4_check()
+  149          {
+  150   1          if(key4 == 0 && key4_up_store == 1)
+  151   1          {
+  152   2              key4_up_store = 0; // 标记按键被按下
+  153   2              oled_p6x8str_spi(9*6, 7, ">4<");
+  154   2          }
+  155   1          if(key4 == 1 && key4_up_store == 0)
+  156   1          {
+  157   2              key4_up_store = 1; // 标记按键被释放
+  158   2              key4_short_press(); // 触发短按键4功能
+  159   2              oled_p6x8str_spi(9*6, 7, "[4]");
+  160   2          }
+  161   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       604     ------
+  code size            =       787     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =         4     ------
+  edata size           =        14     ------
   bit size             =         1     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -183,7 +194,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        65     ------
+  hconst size          =        68     ------
 End of Module Information.
 
 

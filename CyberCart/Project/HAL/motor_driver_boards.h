@@ -5,8 +5,8 @@
 
 #define WHEEL_X_FRONT_PWMCH PWMA_CH1P_P60
 #define WHEEL_X_REAR_PWMCH  PWMA_CH2N_P63
-#define WHEEL_Y_FRONT_PWMCH PWMA_CH3P_P14
-#define WHEEL_Y_REAR_PWMCH  PWMA_CH4N_P67
+#define WHEEL_Y_FRONT_PWMCH PWMA_CH4N_P67
+#define WHEEL_Y_REAR_PWMCH  PWMA_CH3P_P14
 
 #define WHEEL_PWM_MAX_VAL 9800
 
@@ -16,8 +16,8 @@ extern bit    wheel_yaw_calibrating_flag;
 
 
 // 电机驱动板1：X方向前轮、后轮
-sbit gpio_wheel_x_front_forward     = P6^1;     // X 方向前轮顺时针转动信号
-sbit gpio_wheel_x_front_backward    = P6^2;     // X 方向前轮逆时针转动信号
+sbit gpio_wheel_x_front_forward     = P6^2;     // X 方向前轮顺时针转动信号
+sbit gpio_wheel_x_front_backward    = P6^1;     // X 方向前轮逆时针转动信号
 sbit gpio_wheel_x_rear_forward      = P6^4;     // X 方向后轮顺时针转动信号
 sbit gpio_wheel_x_rear_backward     = P6^5;     // X 方向后轮逆时针转动信号
 
@@ -53,5 +53,6 @@ void wheel_speed(WHEEL_SEL_enum wheel_select, unsigned int speed);              
 void wheel_dynamic_adjusting();                                                     // 动态调整电机转动速度和方向
 void wheel_dynamic_calibrating();                                                   // 动态校准电机转动速度和方向
 void wheel_yaw_calibrating();                                                       // 校准电机转动方向
-
+void wheel_oled_init();
+void wheel_oled_update();
 #endif // MOTOR_DRIVER_BOARDS_H

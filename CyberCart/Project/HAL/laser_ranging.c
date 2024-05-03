@@ -50,28 +50,28 @@ void laser_ranging_irqhandler(unsigned char lr_axis)
     switch (lr_axis)
     {
     case 'x':
-        if (uart1_rx_buffer[0] == 0x80)
+        if (uart2_rx_buffer[0] == 0x80)
         {
-            if(uart1_rx_counter > 2)
+            if(uart2_rx_counter > 2)
             {
-                if(uart1_rx_buffer[1] == 0x06 && uart1_rx_buffer[2] == 0x83)
+                if(uart2_rx_buffer[1] == 0x06 && uart2_rx_buffer[2] == 0x83)
                 {
-                    if(uart1_rx_counter >= 11)
+                    if(uart2_rx_counter >= 11)
                     {
-                        uart1_rx_counter=0;
-                        if( (uart1_rx_buffer[3]<0x34) && (uart1_rx_buffer[3]!='E') && (uart1_rx_buffer[4]!='R') && (uart1_rx_buffer[5]!='R') && (uart1_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart1_rx_buffer[3]+uart1_rx_buffer[4]+uart1_rx_buffer[5]+0x2E+uart1_rx_buffer[7]+uart1_rx_buffer[8]+uart1_rx_buffer[9])+1)) ) 
+                        uart2_rx_counter=0;
+                        if( (uart2_rx_buffer[3]<0x34) && (uart2_rx_buffer[3]!='E') && (uart2_rx_buffer[4]!='R') && (uart2_rx_buffer[5]!='R') && (uart2_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart2_rx_buffer[3]+uart2_rx_buffer[4]+uart2_rx_buffer[5]+0x2E+uart2_rx_buffer[7]+uart2_rx_buffer[8]+uart2_rx_buffer[9])+1)) ) 
                         {
-                            // laser_ranging_value = (uart1_rx_buffer[4]-0x30)*10000+(uart1_rx_buffer[5]-0x30)*1000 + (uart1_rx_buffer[7]-0x30)*100 + (uart1_rx_buffer[8]-0x30)*10 + (uart1_rx_buffer[9]-0x30);                 
+                            // laser_ranging_value = (uart2_rx_buffer[4]-0x30)*10000+(uart2_rx_buffer[5]-0x30)*1000 + (uart2_rx_buffer[7]-0x30)*100 + (uart2_rx_buffer[8]-0x30)*10 + (uart2_rx_buffer[9]-0x30);                 
                             // sprintf(laser_ranging_char, "%f", laser_ranging_value);
-                            // 将uart1_rx_buffer[3]~uart1_rx_buffer[10]存储到laser_ranging_char数组中
+                            // 将uart2_rx_buffer[3]~uart2_rx_buffer[10]存储到laser_ranging_char数组中
                             for(i=3;i<11;i++)
                             {
-                                lrdata.x.chardata[i-3] = uart1_rx_buffer[i];
+                                lrdata.x.chardata[i-3] = uart2_rx_buffer[i];
                             }
-                            // lrdata.x.valuedata = atof(lrdata.x.chardata);
-                            // oled_printf_float_spi(6*6, 2, lrdata.x.valuedata, 2, 5);
+                            lrdata.x.valuedata = atof(lrdata.x.chardata);
+                            oled_printf_float_spi(6*6, 2, lrdata.x.valuedata, 2, 5);
                             // oled_printf_float_spi(6*6, 2, 0.1, 2, 5);
-                            oled_p6x8str_spi(6*6, 2, lrdata.x.chardata);
+                            // oled_p6x8str_spi(6*6, 2, lrdata.x.chardata);
                         }
                         else
                         {
@@ -87,35 +87,36 @@ void laser_ranging_irqhandler(unsigned char lr_axis)
 
         break;
     case 'y':
-        if (uart2_rx_buffer[0] == 0x80)
+        if (uart3_rx_buffer[0] == 0x80)
         {
-            if(uart2_rx_counter > 2)
+            if(uart3_rx_counter > 2)
             {
-                if(uart2_rx_buffer[1] == 0x06 && uart2_rx_buffer[2] == 0x83)
+                if(uart3_rx_buffer[1] == 0x06 && uart3_rx_buffer[2] == 0x83)
                 {
-                    if(uart2_rx_counter >= 11)
+                    if(uart3_rx_counter >= 11)
                     {
-                        uart2_rx_counter=0;
+                        uart3_rx_counter=0;
 
-                        if( (uart2_rx_buffer[3]<0x34) && (uart2_rx_buffer[3]!='E') && (uart2_rx_buffer[4]!='R') && (uart2_rx_buffer[5]!='R') && (uart2_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart2_rx_buffer[3]+uart2_rx_buffer[4]+uart2_rx_buffer[5]+0x2E+uart2_rx_buffer[7]+uart2_rx_buffer[8]+uart2_rx_buffer[9])+1)) ) 
+                        if( (uart3_rx_buffer[3]<0x34) && (uart3_rx_buffer[3]!='E') && (uart3_rx_buffer[4]!='R') && (uart3_rx_buffer[5]!='R') && (uart3_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart3_rx_buffer[3]+uart3_rx_buffer[4]+uart3_rx_buffer[5]+0x2E+uart3_rx_buffer[7]+uart3_rx_buffer[8]+uart3_rx_buffer[9])+1)) ) 
                         {
-                            // laser_ranging_value = (uart2_rx_buffer[4]-0x30)*10000+(uart2_rx_buffer[5]-0x30)*1000 + (uart2_rx_buffer[7]-0x30)*100 + (uart2_rx_buffer[8]-0x30)*10 + (uart2_rx_buffer[9]-0x30);                 
+                            // laser_ranging_value = (uart3_rx_buffer[4]-0x30)*10000+(uart3_rx_buffer[5]-0x30)*1000 + (uart3_rx_buffer[7]-0x30)*100 + (uart3_rx_buffer[8]-0x30)*10 + (uart3_rx_buffer[9]-0x30);                 
                             // sprintf(laser_ranging_char, "%f", laser_ranging_value);
-                            // 将uart2_rx_buffer[3]~uart2_rx_buffer[10]存储到laser_ranging_char数组中
+                            // 将uart3_rx_buffer[3]~uart3_rx_buffer[10]存储到laser_ranging_char数组中
                             for(i=3;i<11;i++)
                             {
-                                lrdata.y.chardata[i-3+16] = uart2_rx_buffer[i];
+                                lrdata.y.chardata[i-3+16] = uart3_rx_buffer[i];
                             }
                             lrdata.y.valuedata = atof(lrdata.y.chardata);
-                            // oled_printf_float_spi(6*6, 3, lrdata.y.valuedata, 2, 5);
+                            oled_printf_float_spi(6*6, 3, lrdata.y.valuedata, 2, 5);
+                            // oled_p6x8str_spi(6*6, 3, lrdata.y.chardata);
                             // oled_p6x8str_spi(6*6, 3, lrdata.y.chardata);
                         }
                         else
                         {
-                            lrdata.x.valuedata = -1.0;
-                            lrdata.x.chardata[0] = 'E';
-                            lrdata.x.chardata[1] = 'R';
-                            lrdata.x.chardata[2] = 'R';
+                            lrdata.y.valuedata = -1.0;
+                            lrdata.y.chardata[0] = 'E';
+                            lrdata.y.chardata[1] = 'R';
+                            lrdata.y.chardata[2] = 'R';
                         }
                     }
                 }
@@ -134,14 +135,10 @@ unsigned char laser_ranging_get_uart_value(unsigned char lr_axis)
     switch (lr_axis)
     {
     case 'x':
-        return 1;
-        break;
-    
-    case 'y':
         return 2;
         break;
     
-    case 'z':
+    case 'y':
         return 3;
         break;
     
@@ -159,10 +156,22 @@ void laser_ranging(unsigned char lr_axis, LASER_RANGING_CMD_DEF *specific_cmd)
 
 void laser_ranging_init()
 {
+    uart_init(UART_2, UART2_RX_P46, UART2_TX_P47, 9600, TIM_2);
+    uart_init(UART_3, UART3_RX_P50, UART3_TX_P51, 9600, TIM_2);
+    
     laser_ranging('x', &lrcmd_setfreq_5hz);
+    delay_ms(100);
     laser_ranging('x', &lrcmd_setrange_80m);
+    delay_ms(100);
     laser_ranging('x', &lrcmd_setresolution_0_1mm);
+    delay_ms(255);
+    laser_ranging('x', &lrcmd_continous);
+    delay_ms(100);
     laser_ranging('y', &lrcmd_setfreq_5hz);
+    delay_ms(100);
     laser_ranging('y', &lrcmd_setrange_80m);
+    delay_ms(100);
     laser_ranging('y', &lrcmd_setresolution_0_1mm);
+    delay_ms(255);
+    laser_ranging('y', &lrcmd_continous);
 }

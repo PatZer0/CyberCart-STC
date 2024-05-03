@@ -1,11 +1,7 @@
 #include "headfile.h"
+#include "hal.h"
 #include "ui.h"
-#include "uart.h"
 #include "key.h"
-#include "qmc5883.h"
-#include "laser_ranging.h"
-#include "host_comm.h"
-#include "motor_driver_boards.h"
 
 void gpio_init()
 {
@@ -24,20 +20,6 @@ void motor_drivers_pwm_init()
     pwm_init(PWMA_CH3P_P14, 30000, 0);   // Y方向驱动板PA, 30KHz, 10%占空比
     wheel_adjust(X_ALL, 0);
     wheel_adjust(Y_ALL, 0);
-}
-
-void laser_ranging_uart_init()
-{
-    // uart_init(UART_2, UART1_RX_P43, UART1_TX_P44, 9600, TIM_2);
-    // uart_init(UART_4, UART2_RX_P46, UART2_TX_P47, 9600, TIM_2);
-}
-
-void qmc5883_init()
-{
-    //初始化串口，使用串口3，波特率460800
-    uart_init(UART_3, UART3_RX_P50, UART3_TX_P51, 115200, TIM_2);
-    delay_ms(100);
-    uart_sendstring(3, "AT+PRATE=10\r\n");
 }
 
 void servo_chassis_pwm_init()
@@ -71,42 +53,21 @@ void main()
     motor_drivers_pwm_init();	    // 初始化PWM
     gpio_init();                    // 初始化GPIO
     oled_init_spi();                // 初始化OLED显示屏
+    wheel_oled_init();              // 初始化速度显示OLED显示屏
     ui_init();                      // 初始化UI
-    qmc5883_init();                 // 初始化QMC5883L传感器
-    oled_p6x8str_spi(0, 5, "Yaw:");
-
-
-
-    // laser_ranging_uart_init();      // 初始化激光测距串口
-    // oled_p6x8str_spi(0, 0, "LASER RANGING EXAMPLE");
-    // oled_p6x8str_spi(0, 1, "- REALTIME RANGING -");
-    // oled_p6x8str_spi(0, 2, "DistX:");
-    // oled_p6x8str_spi(0, 3, "DistY:");
-    // delay_ms(255);
-    // laser_ranging_init();           // 初始化激光测距
-    // delay_ms(255);
-    // laser_ranging('x', &lrcmd_continous);
-    // laser_ranging('y', &lrcmd_continous);
-    
-    // 步进电机测试代码
-    P32 = 1;
-    P35 = 1;
-    pwm_init(PWMB_CH3_P33, 5000, 0);
-    gpio_mode(P3_5, GPO_PP);
-    gpio_mode(P3_2, GPO_PP);
-
-    host_comm_uart_init();
-
+    delay_ms(100);
+    laser_ranging_init();           // 初始化测距模块
+    host_comm_uart_init();          // 初始化主机通信UART
     while(1)
     {
         key1_check();
         key2_check();
         key3_check();
         key4_check();
-        // ui_running();
         host_comm_sender();
         wheel_dynamic_adjusting();
-        wheel_yaw_calibrating();
+        uart_tx_send_buffer();
+        wheel_oled_update();
     }
 }
 

@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  laser_ranging                                                      25/04/24  20:32:25  PAGE 1   
+C251 COMPILER V5.60.0,  laser_ranging                                                      30/04/24  13:29:28  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE laser_ranging
 OBJECT MODULE PLACED IN .\Out_File\laser_ranging.obj
-COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\CODE\laser_ranging.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,S
-                    -PEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\
-                    -USER\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\laser_ranging.lst) TABS(2) OBJECT(.\Out_
-                    -File\laser_ranging.obj) 
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\HAL\laser_ranging.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,SP
+                    -EED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\U
+                    -SER\inc;Project\USER\src;Libraries\seekfree_components;.\Project\HAL) DEBUG PRINT(.\Out_File\laser_ranging.lst) TABS(2) 
+                    -OBJECT(.\Out_File\laser_ranging.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    36          LASER_RANGING_CMD_DEF lrcmd_setrange_50m        = {laser_ranging_cmd_arr_setrange_50m,          5};
    37          LASER_RANGING_CMD_DEF lrcmd_setrange_80m        = {laser_ranging_cmd_arr_setrange_80m,          5};
    38          LASER_RANGING_CMD_DEF lrcmd_setresolution_1mm   = {laser_ranging_cmd_arr_setresolution_1mm,     5};
-C251 COMPILER V5.60.0,  laser_ranging                                                      25/04/24  20:32:25  PAGE 2   
+C251 COMPILER V5.60.0,  laser_ranging                                                      30/04/24  13:29:28  PAGE 2   
 
    39          LASER_RANGING_CMD_DEF lrcmd_setresolution_0_1mm = {laser_ranging_cmd_arr_setresolution_0_1mm,   5};
    40          LASER_RANGING_CMD_DEF lrcmd_single_broadcast    = {laser_ranging_cmd_arr_single_broadcast,      4};
@@ -82,31 +82,31 @@ stmt  level    source
    50   1          switch (lr_axis)
    51   1          {
    52   2          case 'x':
-   53   2              if (uart1_rx_buffer[0] == 0x80)
+   53   2              if (uart2_rx_buffer[0] == 0x80)
    54   2              {
-   55   3                  if(uart1_rx_counter > 2)
+   55   3                  if(uart2_rx_counter > 2)
    56   3                  {
-   57   4                      if(uart1_rx_buffer[1] == 0x06 && uart1_rx_buffer[2] == 0x83)
+   57   4                      if(uart2_rx_buffer[1] == 0x06 && uart2_rx_buffer[2] == 0x83)
    58   4                      {
-   59   5                          if(uart1_rx_counter >= 11)
+   59   5                          if(uart2_rx_counter >= 11)
    60   5                          {
-   61   6                              uart1_rx_counter=0;
-   62   6                              if( (uart1_rx_buffer[3]<0x34) && (uart1_rx_buffer[3]!='E') && (uart1_rx_buffer[4]
-             -!='R') && (uart1_rx_buffer[5]!='R') && (uart1_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart1_rx_buffer[3]+uart1
-             -_rx_buffer[4]+uart1_rx_buffer[5]+0x2E+uart1_rx_buffer[7]+uart1_rx_buffer[8]+uart1_rx_buffer[9])+1)) ) 
+   61   6                              uart2_rx_counter=0;
+   62   6                              if( (uart2_rx_buffer[3]<0x34) && (uart2_rx_buffer[3]!='E') && (uart2_rx_buffer[4]
+             -!='R') && (uart2_rx_buffer[5]!='R') && (uart2_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart2_rx_buffer[3]+uart2
+             -_rx_buffer[4]+uart2_rx_buffer[5]+0x2E+uart2_rx_buffer[7]+uart2_rx_buffer[8]+uart2_rx_buffer[9])+1)) ) 
    63   6                              {
-   64   7                                  // laser_ranging_value = (uart1_rx_buffer[4]-0x30)*10000+(uart1_rx_buffer[5]-
-             -0x30)*1000 + (uart1_rx_buffer[7]-0x30)*100 + (uart1_rx_buffer[8]-0x30)*10 + (uart1_rx_buffer[9]-0x30);                 
+   64   7                                  // laser_ranging_value = (uart2_rx_buffer[4]-0x30)*10000+(uart2_rx_buffer[5]-
+             -0x30)*1000 + (uart2_rx_buffer[7]-0x30)*100 + (uart2_rx_buffer[8]-0x30)*10 + (uart2_rx_buffer[9]-0x30);                 
    65   7                                  // sprintf(laser_ranging_char, "%f", laser_ranging_value);
-   66   7                                  // 将uart1_rx_buffer[3]~uart1_rx_buffer[10]存储到laser_ranging_char数组中
+   66   7                                  // 将uart2_rx_buffer[3]~uart2_rx_buffer[10]存储到laser_ranging_char数组中
    67   7                                  for(i=3;i<11;i++)
    68   7                                  {
-   69   8                                      lrdata.x.chardata[i-3] = uart1_rx_buffer[i];
+   69   8                                      lrdata.x.chardata[i-3] = uart2_rx_buffer[i];
    70   8                                  }
-   71   7                                  // lrdata.x.valuedata = atof(lrdata.x.chardata);
-   72   7                                  // oled_printf_float_spi(6*6, 2, lrdata.x.valuedata, 2, 5);
+   71   7                                  lrdata.x.valuedata = atof(lrdata.x.chardata);
+   72   7                                  oled_printf_float_spi(6*6, 2, lrdata.x.valuedata, 2, 5);
    73   7                                  // oled_printf_float_spi(6*6, 2, 0.1, 2, 5);
-   74   7                                  oled_p6x8str_spi(6*6, 2, lrdata.x.chardata);
+   74   7                                  // oled_p6x8str_spi(6*6, 2, lrdata.x.chardata);
    75   7                              }
    76   6                              else
    77   6                              {
@@ -122,97 +122,106 @@ stmt  level    source
    87   2      
    88   2              break;
    89   2          case 'y':
-   90   2              if (uart2_rx_buffer[0] == 0x80)
+   90   2              if (uart3_rx_buffer[0] == 0x80)
    91   2              {
-   92   3                  if(uart2_rx_counter > 2)
+   92   3                  if(uart3_rx_counter > 2)
    93   3                  {
-   94   4                      if(uart2_rx_buffer[1] == 0x06 && uart2_rx_buffer[2] == 0x83)
+   94   4                      if(uart3_rx_buffer[1] == 0x06 && uart3_rx_buffer[2] == 0x83)
    95   4                      {
-   96   5                          if(uart2_rx_counter >= 11)
+   96   5                          if(uart3_rx_counter >= 11)
    97   5                          {
-   98   6                              uart2_rx_counter=0;
+   98   6                              uart3_rx_counter=0;
    99   6      
-  100   6                              if( (uart2_rx_buffer[3]<0x34) && (uart2_rx_buffer[3]!='E') && (uart2_rx_buffer[4]
-             -!='R') && (uart2_rx_buffer[5]!='R') && (uart2_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart2_rx_buffer[3]+uart2
-C251 COMPILER V5.60.0,  laser_ranging                                                      25/04/24  20:32:25  PAGE 3   
+  100   6                              if( (uart3_rx_buffer[3]<0x34) && (uart3_rx_buffer[3]!='E') && (uart3_rx_buffer[4]
+             -!='R') && (uart3_rx_buffer[5]!='R') && (uart3_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart3_rx_buffer[3]+uart3
+C251 COMPILER V5.60.0,  laser_ranging                                                      30/04/24  13:29:28  PAGE 3   
 
-             -_rx_buffer[4]+uart2_rx_buffer[5]+0x2E+uart2_rx_buffer[7]+uart2_rx_buffer[8]+uart2_rx_buffer[9])+1)) ) 
+             -_rx_buffer[4]+uart3_rx_buffer[5]+0x2E+uart3_rx_buffer[7]+uart3_rx_buffer[8]+uart3_rx_buffer[9])+1)) ) 
   101   6                              {
-  102   7                                  // laser_ranging_value = (uart2_rx_buffer[4]-0x30)*10000+(uart2_rx_buffer[5]-
-             -0x30)*1000 + (uart2_rx_buffer[7]-0x30)*100 + (uart2_rx_buffer[8]-0x30)*10 + (uart2_rx_buffer[9]-0x30);                 
+  102   7                                  // laser_ranging_value = (uart3_rx_buffer[4]-0x30)*10000+(uart3_rx_buffer[5]-
+             -0x30)*1000 + (uart3_rx_buffer[7]-0x30)*100 + (uart3_rx_buffer[8]-0x30)*10 + (uart3_rx_buffer[9]-0x30);                 
   103   7                                  // sprintf(laser_ranging_char, "%f", laser_ranging_value);
-  104   7                                  // 将uart2_rx_buffer[3]~uart2_rx_buffer[10]存储到laser_ranging_char数组中
+  104   7                                  // 将uart3_rx_buffer[3]~uart3_rx_buffer[10]存储到laser_ranging_char数组中
   105   7                                  for(i=3;i<11;i++)
   106   7                                  {
-  107   8                                      lrdata.y.chardata[i-3+16] = uart2_rx_buffer[i];
+  107   8                                      lrdata.y.chardata[i-3+16] = uart3_rx_buffer[i];
   108   8                                  }
   109   7                                  lrdata.y.valuedata = atof(lrdata.y.chardata);
-  110   7                                  // oled_printf_float_spi(6*6, 3, lrdata.y.valuedata, 2, 5);
+  110   7                                  oled_printf_float_spi(6*6, 3, lrdata.y.valuedata, 2, 5);
   111   7                                  // oled_p6x8str_spi(6*6, 3, lrdata.y.chardata);
-  112   7                              }
-  113   6                              else
-  114   6                              {
-  115   7                                  lrdata.x.valuedata = -1.0;
-  116   7                                  lrdata.x.chardata[0] = 'E';
-  117   7                                  lrdata.x.chardata[1] = 'R';
-  118   7                                  lrdata.x.chardata[2] = 'R';
-  119   7                              }
-  120   6                          }
-  121   5                      }
-  122   4                  }
-  123   3              }
-  124   2              break;
-  125   2          default:
-  126   2              break;
-  127   2          }
-  128   1      }
-  129          
-  130          // 参数：lr_axis 方向，'x'、'y'、'z'
-  131          // 返回：各个方向定义的激光测距UART串口号
-  132          unsigned char laser_ranging_get_uart_value(unsigned char lr_axis)
-  133          {
-  134   1          switch (lr_axis)
-  135   1          {
-  136   2          case 'x':
-  137   2              return 1;
-  138   2              break;
-  139   2          
-  140   2          case 'y':
-  141   2              return 2;
-  142   2              break;
-  143   2          
-  144   2          case 'z':
-  145   2              return 3;
-  146   2              break;
-  147   2          
-  148   2          default:
-  149   2              return 1;
-  150   2              break;
-  151   2          }
-  152   1      }
-  153          
-  154          // 参数：lr_axis 方向，'x'、'y'、'z'； specific_cmd 特定命令结构体
-  155          void laser_ranging(unsigned char lr_axis, LASER_RANGING_CMD_DEF *specific_cmd)
-  156          {
-  157   1          uart_sendcmd(laser_ranging_get_uart_value(lr_axis), specific_cmd->command, specific_cmd->length);
-  158   1      }
-  159          
-  160          void laser_ranging_init()
-  161          {
+  112   7                                  // oled_p6x8str_spi(6*6, 3, lrdata.y.chardata);
+  113   7                              }
+  114   6                              else
+  115   6                              {
+  116   7                                  lrdata.y.valuedata = -1.0;
+  117   7                                  lrdata.y.chardata[0] = 'E';
+  118   7                                  lrdata.y.chardata[1] = 'R';
+  119   7                                  lrdata.y.chardata[2] = 'R';
+  120   7                              }
+  121   6                          }
+  122   5                      }
+  123   4                  }
+  124   3              }
+  125   2              break;
+  126   2          default:
+  127   2              break;
+  128   2          }
+  129   1      }
+  130          
+  131          // 参数：lr_axis 方向，'x'、'y'、'z'
+  132          // 返回：各个方向定义的激光测距UART串口号
+  133          unsigned char laser_ranging_get_uart_value(unsigned char lr_axis)
+  134          {
+  135   1          switch (lr_axis)
+  136   1          {
+  137   2          case 'x':
+  138   2              return 2;
+  139   2              break;
+  140   2          
+  141   2          case 'y':
+  142   2              return 3;
+  143   2              break;
+  144   2          
+  145   2          default:
+  146   2              return 1;
+  147   2              break;
+  148   2          }
+  149   1      }
+  150          
+  151          // 参数：lr_axis 方向，'x'、'y'、'z'； specific_cmd 特定命令结构体
+  152          void laser_ranging(unsigned char lr_axis, LASER_RANGING_CMD_DEF *specific_cmd)
+  153          {
+  154   1          uart_sendcmd(laser_ranging_get_uart_value(lr_axis), specific_cmd->command, specific_cmd->length);
+  155   1      }
+  156          
+  157          void laser_ranging_init()
+  158          {
+  159   1          uart_init(UART_2, UART2_RX_P46, UART2_TX_P47, 9600, TIM_2);
+  160   1          uart_init(UART_3, UART3_RX_P50, UART3_TX_P51, 9600, TIM_2);
+  161   1          
   162   1          laser_ranging('x', &lrcmd_setfreq_5hz);
-  163   1          laser_ranging('x', &lrcmd_setrange_80m);
-  164   1          laser_ranging('x', &lrcmd_setresolution_0_1mm);
-C251 COMPILER V5.60.0,  laser_ranging                                                      25/04/24  20:32:25  PAGE 4   
+  163   1          delay_ms(100);
+  164   1          laser_ranging('x', &lrcmd_setrange_80m);
+C251 COMPILER V5.60.0,  laser_ranging                                                      30/04/24  13:29:28  PAGE 4   
 
-  165   1          laser_ranging('y', &lrcmd_setfreq_5hz);
-  166   1          laser_ranging('y', &lrcmd_setrange_80m);
-  167   1          laser_ranging('y', &lrcmd_setresolution_0_1mm);
-  168   1      }
+  165   1          delay_ms(100);
+  166   1          laser_ranging('x', &lrcmd_setresolution_0_1mm);
+  167   1          delay_ms(255);
+  168   1          laser_ranging('x', &lrcmd_continous);
+  169   1          delay_ms(100);
+  170   1          laser_ranging('y', &lrcmd_setfreq_5hz);
+  171   1          delay_ms(100);
+  172   1          laser_ranging('y', &lrcmd_setrange_80m);
+  173   1          delay_ms(100);
+  174   1          laser_ranging('y', &lrcmd_setresolution_0_1mm);
+  175   1          delay_ms(255);
+  176   1          laser_ranging('y', &lrcmd_continous);
+  177   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       741     ------
+  code size            =       899     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

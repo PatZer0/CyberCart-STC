@@ -1,7 +1,7 @@
 #ifndef __UART_H__
 #define __UART_H__
 
-#define UART1_BUF_LENGTH 16                        // 定义接收缓冲区长度
+#define UART1_BUF_LENGTH 64                        // 定义接收缓冲区长度
 #define UART2_BUF_LENGTH 64                        // 定义接收缓冲区长度
 #define UART3_BUF_LENGTH 64                        // 定义接收缓冲区长度
 #define UART4_BUF_LENGTH 64                        // 定义接收缓冲区长度
@@ -21,5 +21,6 @@ void uart_sendstring(unsigned char uart_num, unsigned char *puts);
 void uart_sendcmd(unsigned char uart_num, unsigned char *bytes, unsigned char length);
 void uart_sendbyte(unsigned char uart_num, unsigned char byte);
 void uart_running(unsigned char uart_num);
+void uart_tx_send_buffer();
 
 #endif

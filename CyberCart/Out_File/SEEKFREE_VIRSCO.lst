@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_VIRSCO                                                    21/04/24  18:32:24  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_VIRSCO                                                    30/04/24  13:29:26  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_VIRSCO
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_VIRSCO.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Libraries\seekfree_peripheral\SEEKFREE_VIRSCO.c XSMALL INTR2 WARNINGLE
                     -VEL(3) OPTIMIZE(0,SPEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Pr
-                    -oject\CODE;Project\USER\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\SEEKFREE_VIRSCO.lst) 
-                    -TABS(2) OBJECT(.\Out_File\SEEKFREE_VIRSCO.obj) 
+                    -oject\CODE;Project\USER\inc;Project\USER\src;Libraries\seekfree_components;.\Project\HAL) DEBUG PRINT(.\Out_File\SEEKFRE
+                    -E_VIRSCO.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_VIRSCO.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    50   3                      CRC_Temp = CRC_Temp >> 1;
    51   3              }
    52   2          }
-C251 COMPILER V5.60.0,  SEEKFREE_VIRSCO                                                    21/04/24  18:32:24  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_VIRSCO                                                    30/04/24  13:29:26  PAGE 2   
 
    53   1          return(CRC_Temp);
    54   1      }

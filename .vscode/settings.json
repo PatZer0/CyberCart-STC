@@ -5,6 +5,8 @@
         "headfile.h": "c",
         "uart.h": "c",
         "qmc5883.h": "c",
-        "host_comm.h": "c"
-    }
+        "host_comm.h": "c",
+        "hal.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

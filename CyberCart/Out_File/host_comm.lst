@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  host_comm                                                          26/04/24  17:12:33  PAGE 1   
+C251 COMPILER V5.60.0,  host_comm                                                          02/05/24  21:27:52  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE host_comm
 OBJECT MODULE PLACED IN .\Out_File\host_comm.obj
-COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\CODE\host_comm.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,SPEED
-                    -) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER
-                    -\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\host_comm.lst) TABS(2) OBJECT(.\Out_File\hos
-                    -t_comm.obj) 
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\HAL\host_comm.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZE(0,SPEED)
+                    - BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Project\USER\
+                    -inc;Project\USER\src;Libraries\seekfree_components;.\Project\HAL) DEBUG PRINT(.\Out_File\host_comm.lst) TABS(2) OBJECT(.
+                    -\Out_File\host_comm.obj) 
 
 stmt  level    source
 
@@ -25,159 +25,226 @@ stmt  level    source
    13          bit     sendwheelok = 0;
    14          bit     sendwheelwarnexceed = 0;
    15          
-   16          int wheel_speed_parser(const char *speed_char)
-   17          {
-   18   1          
-   19   1      }
-*** WARNING C47 IN LINE 16 OF Project\CODE\host_comm.c: 'speed_char': unreferenced parameter
-   20          
-   21          void host_comm_uart_init(void)
-   22          {
-   23   1          // 写入寄存器，设置串口1使用TIMER1，波特率921600
-   24   1      
-   25   1          SCON = 0x50;    //8位数据,可变波特率
-   26   1        AUXR |= 0x40;   //定时器时钟1T模式
-   27   1        AUXR &= 0xFE;   //串口1选择定时器1为波特率发生器
-   28   1        TMOD &= 0x0F;   //设置定时器模式
-   29   1        TL1 = 0xF7;     //设置定时初始值
-   30   1        TH1 = 0xFF;     //设置定时初始值
-   31   1        ET1 = 0;      //禁止定时器中断
-   32   1        TR1 = 1;      //定时器1开始计时
-   33   1        ES = 1;       //使能
-   34   1      
-   35   1          uart_sendstring(1, "STC32G12K128 READY. \r\n");
-   36   1      }
-   37          
-   38          void host_comm_irqhandler()
-   39          {
-   40   1          unsigned int i;
-   41   1          unsigned int oled_row;
-   42   1          unsigned int oled_txt[64];
-   43   1          unsigned char wheel_speed_buffer[6];
-   44   1          int wheel_speed;
+   16          // 速度字符串解析函数，内部使用
+   17          int wheel_speed_parser(const char *str)
+   18          {
+   19   1          // 将字符串转化为整数
+   20   1          int result = 0;  // 初始化结果为0
+   21   1          int sign = 1;    // 符号标记，默认为正数
+   22   1          int i = 0;
+   23   1      
+   24   1          // 检查是否为空字符串
+   25   1          if (str[0] == '\0') 
+   26   1          {
+   27   2              return 0;
+   28   2          }
+   29   1      
+   30   1          // 跳过前导空格（如果需要处理空格的情况）
+   31   1          while (str[i] == ' ') 
+   32   1          {
+   33   2              i++;
+   34   2          }
+   35   1      
+   36   1          // 检查符号
+   37   1          if (str[i] == '-') 
+   38   1          {
+   39   2              sign = -1;   // 如果是负号，设置符号为负
+   40   2              i++;         // 移动到下一个字符
+   41   2          } else if (str[i] == '+') 
+   42   1          {
+   43   2              i++;         // 如果是正号，仅移动到下一个字符（sign保持为1）
+   44   2          }
    45   1      
-   46   1          if ((uart1_rx_buffer[uart1_rx_counter] == '\n'))
-   47   1          {
-   48   2              // 接收到AT命令
-   49   2              if ((uart1_rx_buffer[0] == 'A') && (uart1_rx_buffer[1] == 'T'))   
-   50   2              {
-   51   3                  led_1 = !led_1;
-   52   3                  // 接收到SYS命令
-   53   3                  if((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'Y') && (uart1_rx_buffer[5] == 'S'))
-   54   3                  {
-   55   4                      // 接收到SYS?命令
-C251 COMPILER V5.60.0,  host_comm                                                          26/04/24  17:12:33  PAGE 2   
+   46   1          // 遍历字符串直到遇到结束符'\0'
+   47   1          while (str[i] != '\0') 
+   48   1          {
+   49   2              if (str[i] >= '0' && str[i] <= '9') {  // 确保字符是数字
+   50   3                  result = result * 10 + (str[i] - '0');  // 将字符转换为相应的整数并加到结果中
+   51   3              } else {
+   52   3                  break; // 如果遇到非数字字符，停止解析
+   53   3              }
+   54   2              i++;
+   55   2          }
+   56   1          if(result > WHEEL_PWM_MAX_VAL)
+C251 COMPILER V5.60.0,  host_comm                                                          02/05/24  21:27:52  PAGE 2   
 
-   56   4                      if(uart1_rx_buffer[6] == '?') sendok = 1;
-   57   4                      else sendwrongcmd = 1;
-   58   4                  }
-   59   3                  // 接收到WHL命令
-   60   3                  else if((uart1_rx_buffer[3] == 'W') && (uart1_rx_buffer[4] == 'H') && (uart1_rx_buffer[5] == 
-             -'L'))
-   61   3                  {
-   62   4                      if(uart1_rx_buffer[7] == 'X')
-   63   4                      {
-   64   5                          if(uart1_rx_buffer[8] == '=')
-   65   5                          {
-   66   6                              // 从index=9开始，写入wheel_speed_buffer
-   67   6                              for (i = 0; i < 6; i++)
-   68   6                              {
-   69   7                                  if(uart1_rx_buffer[9 + i] == '\r') break;
-   70   7                                  wheel_speed_buffer[i] = uart1_rx_buffer[9 + i];
-   71   7                              }
-   72   6                              wheel_speed = atoi(wheel_speed_buffer);
-   73   6                              wheel_x_front_speed = wheel_speed;
-   74   6                              wheel_x_rear_speed = wheel_speed;
-   75   6                              // 发送OK
-   76   6                              sendwheelok = 1;
-   77   6                          }
-   78   5                          else
-   79   5                          {
-   80   6                              // 从index=10开始，写入wheel_speed_buffer
-   81   6                              for (i = 0; i < 6; i++)
-   82   6                              {
-   83   7                                  wheel_speed_buffer[i] = uart1_rx_buffer[10 + i];
-   84   7                              }
-   85   6                              wheel_speed = atoi(wheel_speed_buffer);
-   86   6                              if(uart1_rx_buffer[8] == 'F')
-   87   6                              {
-   88   7                                  wheel_x_front_speed = wheel_speed;
-   89   7                                  sendwheelok = 1;
-   90   7                              }
-   91   6                              else if (uart1_rx_buffer[8] == 'R')
-   92   6                              {
-   93   7                                  wheel_x_rear_speed = wheel_speed;
-   94   7                                  sendwheelok = 1;
-   95   7                              }
-   96   6                              else sendwrongcmd = 1;
-   97   6                          }
-   98   5                      }
-   99   4                  }
-  100   3                  else sendwrongcmd = 1;
-  101   3              }
-  102   2              else sendwrongcmd = 1;
-  103   2          }
-  104   1          else sendwrongcmd = 1;
-  105   1      }
-*** WARNING C47 IN LINE 41 OF Project\CODE\host_comm.c: 'oled_row': unreferenced local variable
-*** WARNING C47 IN LINE 42 OF Project\CODE\host_comm.c: 'oled_txt': unreferenced local variable
-  106          
-  107          void host_comm_sender(void)
-  108          {
-  109   1          if (sendok)
-  110   1          {
-  111   2              uart_sendstring(1, "OK:SYS\r\n");
-  112   2              sendok = 0;
-  113   2              uart1_rx_counter = 0;
-  114   2          }
-  115   1          if (senderr)
-  116   1          {
-  117   2              uart_sendstring(1, "ERROR\r\n");
-  118   2              senderr = 0;
-C251 COMPILER V5.60.0,  host_comm                                                          26/04/24  17:12:33  PAGE 3   
+   57   1          {
+   58   2              result = WHEEL_PWM_MAX_VAL;
+   59   2              sendwheelwarnexceed = 1; // 限幅到PWM最大值
+   60   2          }
+   61   1          return sign * result;  // 返回带有正确符号的结果
+   62   1      }
+   63          
+   64          void host_comm_uart_init(void)
+   65          {
+   66   1        // P_SW1 &= ~0xc0;            //UART1/USART1: RxD(P3.0), TxD(P3.1)
+   67   1        // P_SW1 = (P_SW1 & ~0xc0) | 0x40;    //UART1/USART1: RxD(P3.6), TxD(P3.7)
+   68   1          
+   69   1          // 写入寄存器，设置串口1使用TIMER1，波特率921600
+   70   1      
+   71   1          SCON = 0x50;    //8位数据,可变波特率
+   72   1        AUXR |= 0x40;   //定时器时钟1T模式
+   73   1        AUXR &= 0xFE;   //串口1选择定时器1为波特率发生器
+   74   1        TMOD &= 0x0F;   //设置定时器模式
+   75   1        TL1 = 0xF7;     //设置定时初始值
+   76   1        TH1 = 0xFF;     //设置定时初始值
+   77   1        ET1 = 0;      //禁止定时器中断
+   78   1        TR1 = 1;      //定时器1开始计时
+   79   1        ES = 1;       //使能
+   80   1      
+   81   1          uart_sendstring(1, "STC32G12K128 READY. \r\n");
+   82   1      }
+   83          
+   84          void host_comm_irqhandler()
+   85          {
+   86   1          unsigned int i;
+   87   1          unsigned int oled_row;
+   88   1          unsigned int oled_txt[64];
+   89   1          unsigned char wheel_speed_buffer[7];
+   90   1          int wheel_speed;
+   91   1      
+   92   1          if ((uart1_rx_buffer[uart1_rx_counter] == '\n'))
+   93   1          {
+   94   2              // 接收到AT命令
+   95   2              if ((uart1_rx_buffer[0] == 'A') && (uart1_rx_buffer[1] == 'T'))   
+   96   2              {
+   97   3                  led_1 = !led_1;
+   98   3                  // 接收到SYS命令
+   99   3                  if      ((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'Y') && (uart1_rx_buffer[5] ==
+             - 'S'))
+  100   3                  {
+  101   4                      // 接收到SYS?命令
+  102   4                      if(uart1_rx_buffer[6] == '?') sendok = 1;
+  103   4                      else sendwrongcmd = 1;
+  104   4                  }
+  105   3                  // 接收到WHL命令
+  106   3                  else if ((uart1_rx_buffer[3] == 'W') && (uart1_rx_buffer[4] == 'H') && (uart1_rx_buffer[5] ==
+             - 'L'))
+  107   3                  {
+  108   4                      // 从Index10开始，写入缓冲区
+  109   4                      for(i = 0; i < 7; i++)
+  110   4                      {
+  111   5                          // 检查到\r结束
+  112   5                          if(uart1_rx_buffer[10+i] == '\r') break;
+  113   5                          wheel_speed_buffer[i] = uart1_rx_buffer[10+i];
+  114   5                      }
+  115   4                      // 解析字符串
+  116   4                      wheel_speed = wheel_speed_parser(wheel_speed_buffer);
+  117   4      
+  118   4                      // 解析速度结束，写入速度数据
+  119   4                      if(uart1_rx_buffer[7] == 'X')
+  120   4                      {
+C251 COMPILER V5.60.0,  host_comm                                                          02/05/24  21:27:52  PAGE 3   
 
-  119   2              uart1_rx_counter = 0;
-  120   2          }
-  121   1          if(sendwrongcmd)
-  122   1          {
-  123   2              uart_sendstring(1, "ERROR:CMD\r\n");
-  124   2              sendwrongcmd = 0;
-  125   2              uart1_rx_counter = 0;
-  126   2          }
-  127   1          if(sendwheelok)
-  128   1          {
-  129   2              uart_sendstring(1, "OK:WHEEL\r\n");
-  130   2              sendwheelok = 0;
-  131   2              uart1_rx_counter = 0;
-  132   2          }
-  133   1          if(sendwheelwarnexceed)
-  134   1          {
-  135   2              uart_sendstring(1, "WARNING:WHEEL_SPEED_EXCEEDED\r\n");
-  136   2              sendwheelwarnexceed = 0;
-  137   2              uart1_rx_counter = 0;
-  138   2          }
-  139   1          // 发送QMC5883L数据
-  140   1          // if(uart3_rx_rdy)
-  141   1          // {
-  142   1          //     uart_sendstring(1, qmc5883_char_yaw);
-  143   1          //     uart_sendstring(1, "\r\n");
-  144   1          //     uart3_rx_rdy = 0;
-  145   1          // }
-  146   1      }
-*** WARNING C135 IN LINE 19 OF Project\CODE\host_comm.c: 'wheel_speed_parser': no return value
-*** WARNING C135 IN LINE 19 OF Project\CODE\host_comm.c: 'wheel_speed_parser': no return value
+  121   5                          if(uart1_rx_buffer[8] == 'A')       // 设置所有轮子速度
+  122   5                          {
+  123   6                              wheel_x_front_speed = wheel_speed;
+  124   6                              wheel_x_rear_speed = wheel_speed;
+  125   6                              sendwheelok = 1;
+  126   6                          }
+  127   5                          else if(uart1_rx_buffer[8] == 'F')  // 设置前轮子速度
+  128   5                          {
+  129   6                              wheel_x_front_speed = wheel_speed;
+  130   6                              sendwheelok = 1;
+  131   6                          }
+  132   5                          else if(uart1_rx_buffer[8] == 'R')  // 设置后轮子速度
+  133   5                          {
+  134   6                              wheel_x_rear_speed = wheel_speed;
+  135   6                              sendwheelok = 1;
+  136   6                          }
+  137   5                          else sendwrongcmd = 1;
+  138   5                      }
+  139   4                      else if(uart1_rx_buffer[7] == 'Y')
+  140   4                      {
+  141   5                          if(uart1_rx_buffer[8] == 'A')       // 设置所有轮子速度
+  142   5                          {
+  143   6                              wheel_y_front_speed = wheel_speed;
+  144   6                              wheel_y_rear_speed = wheel_speed;
+  145   6                              sendwheelok = 1;
+  146   6                          }
+  147   5                          else if(uart1_rx_buffer[8] == 'F')  // 设置前轮子速度
+  148   5                          {
+  149   6                              wheel_y_front_speed = wheel_speed;
+  150   6                              sendwheelok = 1;
+  151   6                          }
+  152   5                          else if(uart1_rx_buffer[8] == 'R')  // 设置后轮子速度
+  153   5                          {
+  154   6                              wheel_y_rear_speed = wheel_speed;
+  155   6                              sendwheelok = 1;
+  156   6                          }
+  157   5                          else sendwrongcmd = 1;
+  158   5                      }
+  159   4                      else if(uart1_rx_buffer[7] == 'R' && uart1_rx_buffer[8] == 'R')
+  160   4                      {
+  161   5                          wheel_x_front_speed = -wheel_speed;
+  162   5                          wheel_x_rear_speed = wheel_speed;
+  163   5                          wheel_y_front_speed = wheel_speed;
+  164   5                          wheel_y_rear_speed = -wheel_speed;
+  165   5                          sendwheelok = 1;
+  166   5                      }
+  167   4                  }
+  168   3                  else sendwrongcmd = 1;
+  169   3              }
+  170   2              else sendwrongcmd = 1;
+  171   2          }
+  172   1          else sendwrongcmd = 1;
+  173   1      }
+*** WARNING C47 IN LINE 87 OF Project\HAL\host_comm.c: 'oled_row': unreferenced local variable
+*** WARNING C47 IN LINE 88 OF Project\HAL\host_comm.c: 'oled_txt': unreferenced local variable
+  174          
+  175          void host_comm_sender(void)
+  176          {
+  177   1          unsigned char host_comm_header = 0x90;
+  178   1          if (sendok)
+  179   1          {
+  180   2              uart_sendbyte(1, host_comm_header);
+  181   2              uart_sendstring(1, "OK\r\n");
+  182   2              sendok = 0;
+  183   2              uart1_rx_counter = 0;
+  184   2          }
+C251 COMPILER V5.60.0,  host_comm                                                          02/05/24  21:27:52  PAGE 4   
+
+  185   1          if (senderr)
+  186   1          {
+  187   2              uart_sendbyte(1, host_comm_header);
+  188   2              uart_sendstring(1, "ERROR\r\n");
+  189   2              senderr = 0;
+  190   2              uart1_rx_counter = 0;
+  191   2          }
+  192   1          if(sendwrongcmd)
+  193   1          {
+  194   2              uart_sendbyte(1, host_comm_header);
+  195   2              uart_sendstring(1, "ERROR:CMD\r\n");
+  196   2              sendwrongcmd = 0;
+  197   2              uart1_rx_counter = 0;
+  198   2          }
+  199   1          if(sendwheelok)
+  200   1          {
+  201   2              uart_sendbyte(1, host_comm_header);
+  202   2              uart_sendstring(1, "OK\r\n");
+  203   2              sendwheelok = 0;
+  204   2              uart1_rx_counter = 0;
+  205   2          }
+  206   1          if(sendwheelwarnexceed)
+  207   1          {
+  208   2              uart_sendbyte(1, host_comm_header);
+  209   2              uart_sendstring(1, "WARNING:WHEEL_SPEED_EXCEEDED\r\n");
+  210   2              sendwheelwarnexceed = 0;
+  211   2              uart1_rx_counter = 0;
+  212   2          }
+  213   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       578     ------
+  code size            =       995     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =        10     ------
+  edata size           =        22     ------
   bit size             =         5     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -185,8 +252,8 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        94     ------
+  hconst size          =        79     ------
 End of Module Information.
 
 
-C251 COMPILATION COMPLETE.  5 WARNING(S),  0 ERROR(S)
+C251 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)

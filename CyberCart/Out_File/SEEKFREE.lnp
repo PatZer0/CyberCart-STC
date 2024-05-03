@@ -30,16 +30,19 @@
 ".\Out_File\SEEKFREE_WIRELESS.obj",
 ".\Out_File\SEEKFREE_WIRELESS_CH573.obj",
 ".\Out_File\main.obj",
-".\Out_File\qmc5883.obj",
 ".\Out_File\uart.obj",
 ".\Out_File\isr.obj",
 ".\Out_File\key.obj",
+".\Out_File\ui.obj",
+".\Out_File\seekfree_assistant.obj",
+".\Out_File\seekfree_assistant_inface.obj",
 ".\Out_File\host_comm.obj",
 ".\Out_File\laser_ranging.obj",
 ".\Out_File\motor_driver_boards.obj",
-".\Out_File\ui.obj",
-".\Out_File\seekfree_assistant.obj",
-".\Out_File\seekfree_assistant_inface.obj" 
+".\Out_File\qmc5883.obj",
+".\Out_File\servo.obj",
+".\Out_File\stepper.obj",
+".\Out_File\wt61.obj" 
 TO ".\Out_File\SEEKFREE" 
 PRINT(".\Out_File\SEEKFREE.map") CASE DISABLEWARNING (15,16,57) 
 REMOVEUNUSED 

@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_18TFT
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_18TFT.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Libraries\seekfree_peripheral\SEEKFREE_18TFT.c XSMALL INTR2 WARNINGLEV
                     -EL(3) OPTIMIZE(0,SPEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Pro
-                    -ject\CODE;Project\USER\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\SEEKFREE_18TFT.lst) TA
-                    -BS(2) OBJECT(.\Out_File\SEEKFREE_18TFT.obj) 
+                    -ject\CODE;Project\USER\inc;Project\USER\src;Libraries\seekfree_components;.\Project\HAL) DEBUG PRINT(.\Out_File\SEEKFREE
+                    -_18TFT.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_18TFT.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    50          
    51          
    52          
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 2   
 
    53          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -134,7 +134,7 @@ stmt  level    source
   111          //  Sample usage:               
   112          //-------------------------------------------------------------------------------------------------------
              -------------
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 3   
 
   113          void lcd_writeData_16bit_simspi(uint16 dat) //向液晶屏写一个16位数据
   114          {
@@ -202,7 +202,7 @@ stmt  level    source
   173   1        lcd_writeData_simspi((uint8)(y_end+2)); 
   174   1      
   175   1      #endif
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 4   
 
   176   1          
   177   1          lcd_writeIndex_simspi(0x2c);
@@ -270,7 +270,7 @@ stmt  level    source
   235   1          lcd_writeIndex_simspi(0xC0); 
   236   1          lcd_writeData_simspi(0xA2); 
   237   1          lcd_writeData_simspi(0x02); 
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 5   
 
   238   1          lcd_writeData_simspi(0x84); 
   239   1          lcd_writeIndex_simspi(0xC1); 
@@ -338,7 +338,7 @@ stmt  level    source
   301   1          lcd_writeIndex_simspi(0x2a);
   302   1          lcd_writeData_simspi(0x00);
   303   1          lcd_writeData_simspi(0x00+2);
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 6   
 
   304   1          lcd_writeData_simspi(0x00);
   305   1          lcd_writeData_simspi(0x80+2);
@@ -406,7 +406,7 @@ stmt  level    source
   363   3            else      lcd_writeData_16bit_simspi(TFT_BGCOLOR);
   364   3            temp>>=1;
   365   3          }
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 7   
 
   366   2        }
   367   1      }
@@ -474,7 +474,7 @@ stmt  level    source
   424          //  @param      y               坐标y方向的起点 参数范围 0 -（TFT_Y_MAX/16-1）
   425          //  @param      dat             需要显示的变量，数据类型uint8
   426          //  @return     void
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 8   
 
   427          //  @since      v1.0
   428          //  Sample usage:               lcd_showuint8(0,0,x);//x为uint8类型
@@ -542,7 +542,7 @@ stmt  level    source
   486          //  @return     void
   487          //  @since      v1.0
   488          //  Sample usage:               lcd_showuint16(0,0,x);//x为uint16类型
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 9   
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 9   
 
   489          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -610,7 +610,7 @@ stmt  level    source
   547          //  @brief      液晶显示浮点数(去除整数部分无效的0)
   548          //  @param      x               坐标x方向的起点 参数范围 0 -（TFT_X_MAX-1）
   549          //  @param      y               坐标y方向的起点 参数范围 0 -（TFT_Y_MAX/16-1）
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 10  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 10  
 
   550          //  @param      dat             需要显示的变量，数据类型float或double
   551          //  @param      num             整数位显示长度   最高10位  
@@ -678,7 +678,7 @@ stmt  level    source
   608          { 
   609   1        
   610   1          TFT_CS(0);
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 11  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 11  
 
   611   1        TFT_DC(0);
   612   1        spi_mosi(dat);
@@ -746,7 +746,7 @@ stmt  level    source
                    lcd_writeIndex(0x2a);
                  lcd_writeData(0x00);
                  lcd_writeData((uint8)(x_start+2));
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 12  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 12  
 
                  lcd_writeData(0x00);
                  lcd_writeData((uint8)(x_end+2));
@@ -814,7 +814,7 @@ stmt  level    source
   730   1          delay_ms(120);
   731   1      
   732   1          lcd_writeIndex(0xB1); 
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 13  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 13  
 
   733   1          lcd_writeData(0x01); 
   734   1          lcd_writeData(0x2C); 
@@ -882,7 +882,7 @@ stmt  level    source
   796   1          lcd_writeData(0x1b); 
   797   1          lcd_writeData(0x23); 
   798   1          lcd_writeData(0x37); 
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 14  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 14  
 
   799   1          lcd_writeData(0x00);  
   800   1          lcd_writeData(0x07); 
@@ -950,7 +950,7 @@ stmt  level    source
   860          
   861          
   862          
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 15  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 15  
 
   863          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -1018,7 +1018,7 @@ stmt  level    source
   920          void lcd_showint8(uint16 x,uint16 y,int8 dat)
   921          {
   922   1        uint8 xdata a[3];
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 16  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 16  
 
   923   1        uint8 xdata i;
   924   1        if(dat<0)
@@ -1086,7 +1086,7 @@ stmt  level    source
   982   1        {
   983   2          lcd_showchar(x,y*16,'-');
   984   2          dat = -dat;
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 17  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 17  
 
   985   2        }
   986   1        else  lcd_showchar(x,y*16,' ');
@@ -1154,7 +1154,7 @@ stmt  level    source
  1043   1          int8 xdata    buff[34];
  1044   1          uint8 xdata   length;
  1045   1          
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 18  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 18  
 
  1046   1          if(10<num)      num = 10;
  1047   1          
@@ -1222,7 +1222,7 @@ stmt  level    source
  1107   1          if(0>dat)   buff[start] = '-';
  1108   1          else        buff[start] = ' ';
  1109   1          
-C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     21/04/24  18:32:22  PAGE 19  
+C251 COMPILER V5.60.0,  SEEKFREE_18TFT                                                     30/04/24  13:29:25  PAGE 19  
 
  1110   1          buff[end] = '\0';
  1111   1      

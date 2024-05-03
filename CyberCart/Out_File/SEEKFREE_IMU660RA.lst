@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_IMU660RA
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_IMU660RA.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Libraries\seekfree_peripheral\SEEKFREE_IMU660RA.c XSMALL INTR2 WARNING
                     -LEVEL(3) OPTIMIZE(0,SPEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;
-                    -Project\CODE;Project\USER\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\SEEKFREE_IMU660RA.l
-                    -st) TABS(2) OBJECT(.\Out_File\SEEKFREE_IMU660RA.obj) 
+                    -Project\CODE;Project\USER\inc;Project\USER\src;Libraries\seekfree_components;.\Project\HAL) DEBUG PRINT(.\Out_File\SEEKF
+                    -REE_IMU660RA.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_IMU660RA.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    52          int16 imu660ra_gyro_x = 0, imu660ra_gyro_y = 0, imu660ra_gyro_z = 0;            // 三轴陀螺仪数据 
              -  gyro (陀螺仪)
    53          int16 imu660ra_acc_x = 0, imu660ra_acc_y = 0, imu660ra_acc_z = 0;               // 三轴加速度计数�
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 2   
 
              -�� acc  (accelerometer 加速度计)
    54          
@@ -134,7 +134,7 @@ stmt  level    source
                }
                
                
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 3   
 
                static int imu660ra_sccb_waitack(void)
                {
@@ -202,7 +202,7 @@ stmt  level    source
                    imu660ra_simiic_sendack(ack_x);
                    return c;
                }
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 4   
 
                
                
@@ -270,7 +270,7 @@ stmt  level    source
                    imu660ra_send_ch( (dev_add<<1) | 0x01);  //发送器件地址加读位
                    dat = imu660ra_read_ch(no_ack);           //读取数据
                    imu660ra_simiic_stop();
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 5   
 
                    return dat;
                }
@@ -338,7 +338,7 @@ stmt  level    source
   299   2              IMU660RA_MOSI(byte&0x80);
   300   2              byte <<= 1;
   301   2              IMU660RA_SCK (0);
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 6   
 
   302   2              IMU660RA_SCK (0);
   303   2              IMU660RA_SCK (1);
@@ -406,7 +406,7 @@ stmt  level    source
   358          //  @brief      读取cmd所对应的寄存器地址
   359          //  @param      cmd         命令字
   360          //  @param      *val        存储读取的数据地址
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 7   
 
   361          //  @param      num         读取的数量
   362          //  @since      v1.0
@@ -474,7 +474,7 @@ stmt  level    source
   415   1          uint8 xdata dat[2];
   416   1          IMU660RA_CS(0);
   417   1          imu660ra_simspi_r_reg_bytes(reg | IMU660RA_SPI_R, dat, 2);
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 8   
 
   418   1          IMU660RA_CS(1);
   419   1          return dat[1];
@@ -542,7 +542,7 @@ stmt  level    source
   472          void imu660ra_get_acc (void)
   473          {
   474   1      #if IMU660RA_USE_SOFT_IIC
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 9   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 9   
 
                    uint8 xdata dat[6];
                    imu660ra_read_registers(IMU660RA_ACC_ADDRESS, dat, 6);
@@ -610,7 +610,7 @@ stmt  level    source
   532   2                  break;                   // 0x01 加速度计量程为:±4g     获取到的加速度计数�
              -� 除以 8192      可以转化为带物理单位的数据 单位：g(m/s^2)
   533   2              case 0x02:
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 10  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 10  
 
   534   2                  acc_dat = (float)acc_value / 4096;
   535   2                  break;                   // 0x02 加速度计量程为:±8g     获取到的加速度计数�
@@ -678,7 +678,7 @@ stmt  level    source
   586          {
   587   1          uint8 xdata return_state = 0;
   588   1          delay_ms(20);                                                           // 等待设备上电成功
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 11  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 11  
 
   589   1      #if (IMU660RA_USE_SOFT_IIC == 0 )
   590   1          imu660ra_read_register(IMU660RA_CHIP_ID);                                   // 读取一下设备ID �
@@ -746,7 +746,7 @@ stmt  level    source
              -  可以转化为带物理单位的数据 单位：g(m/s^2)
   636   2              // 设置为:0x02 加速度计量程为:±8g         获取到的加速度计数据 除以 4096  
              -  可以转化为带物理单位的数据 单位：g(m/s^2)
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  21/04/24  18:32:23  PAGE 12  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  30/04/24  13:29:26  PAGE 12  
 
   637   2              // 设置为:0x03 加速度计量程为:±16g        获取到的加速度计数据 除以 2048  
              -  可以转化为带物理单位的数据 单位：g(m/s^2)

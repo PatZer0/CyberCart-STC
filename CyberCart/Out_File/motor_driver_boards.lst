@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  motor_driver_boards                                                26/04/24  14:43:24  PAGE 1   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE motor_driver_boards
 OBJECT MODULE PLACED IN .\Out_File\motor_driver_boards.obj
-COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\CODE\motor_driver_boards.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMI
-                    -ZE(0,SPEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Pr
-                    -oject\USER\inc;Project\USER\src;Libraries\seekfree_components) DEBUG PRINT(.\Out_File\motor_driver_boards.lst) TABS(2) O
-                    -BJECT(.\Out_File\motor_driver_boards.obj) 
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\HAL\motor_driver_boards.c XSMALL INTR2 WARNINGLEVEL(3) OPTIMIZ
+                    -E(0,SPEED) BROWSE INCDIR(Libraries\libraries;Libraries\seekfree_libraries;Libraries\seekfree_peripheral;Project\CODE;Pro
+                    -ject\USER\inc;Project\USER\src;Libraries\seekfree_components;.\Project\HAL) DEBUG PRINT(.\Out_File\motor_driver_boards.l
+                    -st) TABS(2) OBJECT(.\Out_File\motor_driver_boards.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    52   3                  }
    53   2                  else if (wheel_direction == BACKWARD)
    54   2                  {
-C251 COMPILER V5.60.0,  motor_driver_boards                                                26/04/24  14:43:24  PAGE 2   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 2   
 
    55   3                      gpio_wheel_x_rear_forward = 0;
    56   3                      gpio_wheel_x_rear_backward = 1;
@@ -134,7 +134,7 @@ stmt  level    source
   118   3                      gpio_wheel_y_rear_backward = 0;
   119   3                  }
   120   2                  break;
-C251 COMPILER V5.60.0,  motor_driver_boards                                                26/04/24  14:43:24  PAGE 3   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 3   
 
   121   2              case Y_ALL:
   122   2                  if (wheel_direction == FORWARD)
@@ -202,7 +202,7 @@ stmt  level    source
   184          //-------------------------------------------------------------------------------------------------------
              -------------
   185          //  @brief      调整电机转速和方向
-C251 COMPILER V5.60.0,  motor_driver_boards                                                26/04/24  14:43:24  PAGE 4   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 4   
 
   186          //  @param      <X/Y>_<FRONT/REAR/ALL>      指定轮子
   187          //  @param      speed                       转速值，范围负10000~正10000
@@ -235,162 +235,187 @@ stmt  level    source
   212   2              case X_FRONT:
   213   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
   214   2                  break;
-  215   2              case X_REAR:
-  216   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
-  217   2                  break;
-  218   2              case X_ALL:
-  219   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
-  220   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
-  221   2                  break;
-  222   2              case Y_FRONT:
-  223   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
-  224   2                  break;
-  225   2              case Y_REAR:
-  226   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  215   2      
+  216   2              case X_REAR:
+  217   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  218   2                  break;
+  219   2      
+  220   2              case X_ALL:
+  221   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
+  222   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  223   2                  break;
+  224   2      
+  225   2              case Y_FRONT:
+  226   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
   227   2                  break;
-  228   2              case Y_ALL:
-  229   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  228   2      
+  229   2              case Y_REAR:
   230   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
   231   2                  break;
-  232   2              case ALL:
-  233   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
-  234   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
-  235   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
-  236   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
-  237   2                  break;
-  238   2              default:
-  239   2                  break;
-  240   2          }
-  241   1      }
-  242          
-  243          //-------------------------------------------------------------------------------------------------------
-             -------------
-  244          //  @brief      调整电机转速
-  245          //  @param      <X/Y>_<FRONT/REAR/ALL>      指定轮子
-  246          //  @param      speed                       转速值，范围0~10000
-  247          //  @return     void
-  248          //  @since      v1.0 by PatZer0 on 2024.04.18
-C251 COMPILER V5.60.0,  motor_driver_boards                                                26/04/24  14:43:24  PAGE 5   
+  232   2      
+  233   2              case Y_ALL:
+  234   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  235   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  236   2                  break;
+  237   2      
+  238   2              case ALL:
+  239   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
+  240   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  241   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  242   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  243   2                  break;
+  244   2                  
+  245   2              default:
+  246   2                  break;
+  247   2          }
+  248   1      }
+  249          
+C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 5   
 
-  249          //  *example  wheel_speed(X_FRONT, 5000); // X方向前轮向前转, 转速50%
-  250          //  *desc       一般情况下，直接使用此函数即可，除非需要保持转速调整方向，�
+  250          //-------------------------------------------------------------------------------------------------------
+             -------------
+  251          //  @brief      调整电机转速
+  252          //  @param      <X/Y>_<FRONT/REAR/ALL>      指定轮子
+  253          //  @param      speed                       转速值，范围0~10000
+  254          //  @return     void
+  255          //  @since      v1.0 by PatZer0 on 2024.04.18
+  256          //  *example  wheel_speed(X_FRONT, 5000); // X方向前轮向前转, 转速50%
+  257          //  *desc       一般情况下，直接使用此函数即可，除非需要保持转速调整方向，�
              -�则不需要使用换向函数
-  251          //-------------------------------------------------------------------------------------------------------
+  258          //-------------------------------------------------------------------------------------------------------
              -------------
-  252          void wheel_speed(WHEEL_SEL_enum wheel_select, unsigned int speed)
-  253          {
-  254   1          unsigned int pwm_duty_value;
-  255   1          if (speed > WHEEL_PWM_MAX_VAL) pwm_duty_value = WHEEL_PWM_MAX_VAL;
-  256   1      
-  257   1          switch (wheel_select)
-  258   1          {
-  259   2              case X_FRONT:
-  260   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
-  261   2                  break;
-  262   2              case X_REAR:
-  263   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
-  264   2                  break;
-  265   2              case X_ALL:
-  266   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
-  267   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  259          void wheel_speed(WHEEL_SEL_enum wheel_select, unsigned int speed)
+  260          {
+  261   1          unsigned int pwm_duty_value;
+  262   1          if (speed > WHEEL_PWM_MAX_VAL) pwm_duty_value = WHEEL_PWM_MAX_VAL;
+  263   1      
+  264   1          switch (wheel_select)
+  265   1          {
+  266   2              case X_FRONT:
+  267   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
   268   2                  break;
-  269   2              case Y_FRONT:
-  270   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  269   2              case X_REAR:
+  270   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
   271   2                  break;
-  272   2              case Y_REAR:
-  273   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
-  274   2                  break;
-  275   2              case Y_ALL:
-  276   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
-  277   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  272   2              case X_ALL:
+  273   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
+  274   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  275   2                  break;
+  276   2              case Y_FRONT:
+  277   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
   278   2                  break;
-  279   2              case ALL:
-  280   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
-  281   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
-  282   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
-  283   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
-  284   2                  break;
-  285   2              default:
-  286   2                  break;
-  287   2          }
-  288   1      }
-  289          
-  290          //-------------------------------------------------------------------------------------------------------
+  279   2              case Y_REAR:
+  280   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  281   2                  break;
+  282   2              case Y_ALL:
+  283   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  284   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  285   2                  break;
+  286   2              case ALL:
+  287   2                  pwm_duty(WHEEL_X_FRONT_PWMCH, pwm_duty_value);
+  288   2                  pwm_duty(WHEEL_X_REAR_PWMCH, pwm_duty_value);
+  289   2                  pwm_duty(WHEEL_Y_FRONT_PWMCH, pwm_duty_value);
+  290   2                  pwm_duty(WHEEL_Y_REAR_PWMCH, pwm_duty_value);
+  291   2                  break;
+  292   2              default:
+  293   2                  break;
+  294   2          }
+  295   1      }
+  296          
+  297          //-------------------------------------------------------------------------------------------------------
              -------------
-  291          //  @brief      根据全局变量动态调整电机转速
-  292          //  @param      void
-  293          //  @since      v1.0 by PatZer0 on 2024.04.24
-  294          //  *example  void
-  295          //  *desc       使用四个全局变量，动态调整轮子转速，将此函数放在while(1)中运行
+  298          //  @brief      根据全局变量动态调整电机转速
+  299          //  @param      void
+  300          //  @since      v1.0 by PatZer0 on 2024.04.24
+  301          //  *example  void
+  302          //  *desc       使用四个全局变量，动态调整轮子转速，将此函数放在while(1)中运行
              -，然后修改全局变量即可
-  296          //-------------------------------------------------------------------------------------------------------
+  303          //-------------------------------------------------------------------------------------------------------
              -------------
-  297          void wheel_dynamic_adjusting()
-  298          {
-  299   1          wheel_adjust(X_FRONT, wheel_x_front_speed);
-  300   1          wheel_adjust(X_REAR, wheel_x_rear_speed);
-  301   1          wheel_adjust(Y_FRONT, wheel_y_front_speed);
-  302   1          wheel_adjust(Y_REAR, wheel_y_rear_speed);
-  303   1      }
-  304          
-  305          void wheel_dynamic_calibrating()
-  306          {
-  307   1          
-  308   1      }
-  309          
-C251 COMPILER V5.60.0,  motor_driver_boards                                                26/04/24  14:43:24  PAGE 6   
+  304          void wheel_dynamic_adjusting()
+  305          {
+  306   1          wheel_adjust(X_FRONT, wheel_x_front_speed);
+  307   1          wheel_adjust(X_REAR, wheel_x_rear_speed);
+  308   1          wheel_adjust(Y_FRONT, wheel_y_front_speed);
+  309   1          wheel_adjust(Y_REAR, wheel_y_rear_speed);
+C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 6   
 
-  310          #define WHEEL_YAW_CALIBRATING_THRESHOLD 0.5
-  311          #define WHEEL_TURNING_SPEED_FAST 5000
-  312          #define WHEEL_TURNING_SPEED_SLOW 1000
-  313          
-  314          void wheel_yaw_calibrating()
-  315          {
-  316   1          if(wheel_yaw_calibrating_flag)
-  317   1          {
-  318   2              // 向左转偏转角+，向右转偏转角-
-  319   2              // 当前角度-偏转角度<0，说明偏转角度大于当前角度，需要左转
-  320   2              if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw > WHEEL_YAW_CALIBRATIN
+  310   1      }
+  311          
+  312          void wheel_dynamic_calibrating()
+  313          {
+  314   1          
+  315   1      }
+  316          
+  317          void wheel_oled_init()
+  318          {
+  319   1          oled_p6x8str_spi(0, 2, "XF");
+  320   1          oled_p6x8str_spi(6*8, 2, "YF");
+  321   1          oled_p6x8str_spi(0, 3, "XR");
+  322   1          oled_p6x8str_spi(6*8, 3, "YR");
+  323   1      }
+  324          
+  325          void wheel_oled_update()
+  326          {
+  327   1          oled_printf_int32_spi(2*6, 2, wheel_x_front_speed, 4);
+  328   1          oled_printf_int32_spi(2*6, 3, wheel_x_rear_speed, 4);
+  329   1          oled_printf_int32_spi(10*6, 2, wheel_y_front_speed, 4);
+  330   1          oled_printf_int32_spi(10*6, 3, wheel_y_rear_speed, 4);
+  331   1      }
+  332          
+  333          #define WHEEL_YAW_CALIBRATING_THRESHOLD 0.5
+  334          #define WHEEL_TURNING_SPEED_FAST 5000
+  335          #define WHEEL_TURNING_SPEED_SLOW 1000
+  336          
+  337          void wheel_yaw_calibrating()
+  338          {
+  339   1          if(wheel_yaw_calibrating_flag)
+  340   1          {
+  341   2              // 向左转偏转角+，向右转偏转角-
+  342   2              // 当前角度-偏转角度<0，说明偏转角度大于当前角度，需要左转
+  343   2              if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw > WHEEL_YAW_CALIBRATIN
              -G_THRESHOLD))  
-  321   2              {
-  322   3                  wheel_y_front_speed = WHEEL_TURNING_SPEED_FAST;         // 当还未达到目标角度时，�
+  344   2              {
+  345   3                  wheel_y_front_speed = WHEEL_TURNING_SPEED_FAST;         // 当还未达到目标角度时，�
              -��速转向
-  323   3              }
-  324   2              else if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIB
+  346   3              }
+  347   2              else if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIB
              -RATING_THRESHOLD))
-  325   2              {
-  326   3                  wheel_y_front_speed = WHEEL_TURNING_SPEED_SLOW;        // 当达到目标角度时，停止�
+  348   2              {
+  349   3                  wheel_y_front_speed = WHEEL_TURNING_SPEED_SLOW;        // 当达到目标角度时，停止�
              -�向
-  327   3              }
-  328   2      
-  329   2              // 当前角度-偏转角度>0，说明偏转角度小于当前角度，需要右转
-  330   2              if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw < -WHEEL_YAW_CALIBRATI
+  350   3              }
+  351   2      
+  352   2              // 当前角度-偏转角度>0，说明偏转角度小于当前角度，需要右转
+  353   2              if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw < -WHEEL_YAW_CALIBRATI
              -NG_THRESHOLD))
-  331   2              {
-  332   3                  wheel_y_front_speed = -WHEEL_TURNING_SPEED_FAST;        // 当还未达到目标角度时，�
+  354   2              {
+  355   3                  wheel_y_front_speed = -WHEEL_TURNING_SPEED_FAST;        // 当还未达到目标角度时，�
              -��速转向
-  333   3              }
-  334   2              else if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw > -WHEEL_YAW_CALI
+  356   3              }
+  357   2              else if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw > -WHEEL_YAW_CALI
              -BRATING_THRESHOLD))
-  335   2              {
-  336   3                  wheel_y_front_speed = -WHEEL_TURNING_SPEED_SLOW;       // 当达到目标角度时，停止�
+  358   2              {
+  359   3                  wheel_y_front_speed = -WHEEL_TURNING_SPEED_SLOW;       // 当达到目标角度时，停止�
              -�向
-  337   3              }
-  338   2      
-  339   2              // 角度误差小于阈值时，停止转向
-  340   2              if(qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIBRATING_THRESHOLD)
-  341   2              {
-  342   3                  wheel_yaw_calibrating_flag = 0;         // 标志位清零，停止校准
-  343   3                  wheel_y_front_speed = 0;
-  344   3                  wheel_y_rear_speed = 0;
-  345   3              }
-  346   2          }
-  347   1      }
+  360   3              }
+  361   2      
+  362   2              // 角度误差小于阈值时，停止转向
+  363   2              if(qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIBRATING_THRESHOLD)
+  364   2              {
+  365   3                  wheel_yaw_calibrating_flag = 0;         // 标志位清零，停止校准
+  366   3                  wheel_y_front_speed = 0;
+  367   3                  wheel_y_rear_speed = 0;
+C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 7   
+
+  368   3              }
+  369   2          }
+  370   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1466     ------
+  code size            =      1614     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -405,10 +430,8 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        24     ------
+  hconst size          =        36     ------
 End of Module Information.
-
-C251 COMPILER V5.60.0,  motor_driver_boards                                                26/04/24  14:43:24  PAGE 7   
 
 
 C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
