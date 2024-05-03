@@ -1,9 +1,5 @@
 #include "headfile.h"
-#include "host_comm.h"
-#include "uart.h"
-#include "qmc5883.h"
-#include "key.h"
-#include "motor_driver_boards.h"
+#include "hal.h"
 
 #define HOST_COMM_BUFFER_SIZE 64
 
@@ -88,6 +84,8 @@ void host_comm_irqhandler()
     unsigned int oled_txt[64];
     unsigned char wheel_speed_buffer[7];
     int wheel_speed;
+    unsigned char servo_angle_buffer[3];
+    int servo_angle;
 
     if ((uart1_rx_buffer[uart1_rx_counter] == '\n'))
     {
@@ -164,6 +162,38 @@ void host_comm_irqhandler()
                     wheel_y_rear_speed = -wheel_speed;
                     sendwheelok = 1;
                 }
+            }
+            // 接收到SVO命令
+            else if ((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'V') && (uart1_rx_buffer[5] == 'O'))
+            {
+                // AT+SVO+CLW=xxx   机械爪角度1-3位数
+                // AT+SVO+PTH=xxx   机械爪俯仰1-3位数
+                // AT+SVO+PAN=xxx   云台水平旋转1-3位数
+                // 从Index11开始，写入缓冲区
+                for(i = 0; i < 3; i++)
+                {
+                    servo_angle_buffer[i] = uart1_rx_buffer[11+i] - '0';
+                }
+                // 解析字符串
+                servo_angle = (servo_angle_buffer[0] * 100 + servo_angle_buffer[1] * 10 + servo_angle_buffer[2]);
+
+                // 解析角度结束，写入角度数据
+                if(uart1_rx_buffer[7] == 'C')
+                {
+                    servo_claw_set_angle(servo_angle);
+                    sendok = 1;
+                }
+                else if(uart1_rx_buffer[7] == 'P' && uart1_rx_buffer[8] == 'T' && uart1_rx_buffer[9] == 'H')
+                {
+                    servo_pitch_set_angle(servo_angle);
+                    sendok = 1;
+                }
+                else if(uart1_rx_buffer[7] == 'P' && uart1_rx_buffer[8] == 'A' && uart1_rx_buffer[9] == 'N')
+                {
+                    servo_pan_set_angle(servo_angle);
+                    sendok = 1;
+                }
+                else sendwrongcmd = 1;
             }
             else sendwrongcmd = 1;
         }

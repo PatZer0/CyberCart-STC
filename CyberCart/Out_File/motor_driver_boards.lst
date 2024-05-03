@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 1   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                03/05/24  13:26:05  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE motor_driver_boards
@@ -66,7 +66,7 @@ stmt  level    source
    52   3                  }
    53   2                  else if (wheel_direction == BACKWARD)
    54   2                  {
-C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 2   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                03/05/24  13:26:05  PAGE 2   
 
    55   3                      gpio_wheel_x_rear_forward = 0;
    56   3                      gpio_wheel_x_rear_backward = 1;
@@ -134,7 +134,7 @@ stmt  level    source
   118   3                      gpio_wheel_y_rear_backward = 0;
   119   3                  }
   120   2                  break;
-C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 3   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                03/05/24  13:26:05  PAGE 3   
 
   121   2              case Y_ALL:
   122   2                  if (wheel_direction == FORWARD)
@@ -202,7 +202,7 @@ stmt  level    source
   184          //-------------------------------------------------------------------------------------------------------
              -------------
   185          //  @brief      调整电机转速和方向
-C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 4   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                03/05/24  13:26:05  PAGE 4   
 
   186          //  @param      <X/Y>_<FRONT/REAR/ALL>      指定轮子
   187          //  @param      speed                       转速值，范围负10000~正10000
@@ -270,7 +270,7 @@ stmt  level    source
   247   2          }
   248   1      }
   249          
-C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 5   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                03/05/24  13:26:05  PAGE 5   
 
   250          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -338,7 +338,7 @@ stmt  level    source
   307   1          wheel_adjust(X_REAR, wheel_x_rear_speed);
   308   1          wheel_adjust(Y_FRONT, wheel_y_front_speed);
   309   1          wheel_adjust(Y_REAR, wheel_y_rear_speed);
-C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 6   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                03/05/24  13:26:05  PAGE 6   
 
   310   1      }
   311          
@@ -406,7 +406,7 @@ stmt  level    source
   365   3                  wheel_yaw_calibrating_flag = 0;         // 标志位清零，停止校准
   366   3                  wheel_y_front_speed = 0;
   367   3                  wheel_y_rear_speed = 0;
-C251 COMPILER V5.60.0,  motor_driver_boards                                                02/05/24  17:45:17  PAGE 7   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                03/05/24  13:26:05  PAGE 7   
 
   368   3              }
   369   2          }

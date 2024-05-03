@@ -17,6 +17,8 @@
         "stdlib.h": "c",
         "STDLIB.H": "cpp",
         "qmc5883.h": "c",
-        "ui.h": "c"
+        "ui.h": "c",
+        "hal.h": "c",
+        "uart.h": "c"
     }
 }

@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  servo                                                              30/04/24  13:29:28  PAGE 1   
+C251 COMPILER V5.60.0,  servo                                                              03/05/24  16:07:18  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE servo
@@ -10,19 +10,116 @@ COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE Project\HAL\servo.c XSMALL INT
 
 stmt  level    source
 
-*** WARNING C38 IN LINE 1 OF Project\HAL\servo.c: empty translation unit
+    1          #include "headfile.h"
+    2          #include "hal.h"
+    3          #define SERVO_PWM_FREQ          50 // 舵机PWM频率
+    4          #define PWM_CH_SERVO_PAN        PWMB_CH2_P01
+    5          #define PWM_CH_SERVO_CLAW       PWMB_CH1_P00
+    6          #define PWM_CH_SERVO_PITCH      PWMB_CH3_P02
+    7          #define SERVO_PAN_MAX_ANGLE     360 // 云台舵机最大角度
+    8          #define SERVO_CLAW_MAX_ANGLE    120 // 机械爪舵机最大角度
+    9          #define SERVO_PITCH_MAX_ANGLE   180 // 俯仰舵机最大角度
+   10          
+   11          //-------------------------------------------------------------------------------------------------------
+             -------------
+   12          //  @brief      根据输入角度，给出对应的舵机占空比（机械爪180°舵机）
+   13          //  @param      float angle 输入角度
+   14          //  @return     unsigned int duty 整型数
+   15          //  @since      v1.0 by PatZer0 on 2024.05.03
+   16          //  *example  servo_claw_get_duty(90); // 返回90°对应的PWM占空比
+   17          //  *desc       注意：机械爪舵机转动角度太大会导致齿轮离合，限制最大角度为120°。
+   18          //-------------------------------------------------------------------------------------------------------
+             -------------
+   19          unsigned int servo_claw_get_duty(float angle)
+   20          {
+   21   1          // 250/10000占空比为0°，1250/10000占空比为180°，中间的占空比对应角度
+   22   1          unsigned int duty;                                                      // 舵机占空比
+   23   1          if      (angle < 0)                     angle = 0;                      // 舵机角度不能为负数
+   24   1          else if (angle > SERVO_CLAW_MAX_ANGLE)  angle = SERVO_CLAW_MAX_ANGLE;   // 舵机角度不能超过最大角度
+   25   1          duty = 250 + ((1250 - 250) * angle) / 180;
+   26   1          return duty;
+   27   1      } 
+   28          
+   29          //-------------------------------------------------------------------------------------------------------
+             -------------
+   30          //  @brief      根据输入角度，给出对应的舵机占空比（俯仰180°舵机）
+   31          //  @param      float angle 输入角度
+   32          //  @return     unsigned int duty 整型数
+   33          //  @since      v1.0 by PatZer0 on 2024.05.03
+   34          //  *example  servo_pitch_get_duty(90); // 返回90°对应的PWM占空比
+   35          //  *desc       俯仰角度没有限制。
+   36          //-------------------------------------------------------------------------------------------------------
+             -------------
+   37          unsigned int servo_pitch_get_duty(float angle)
+   38          {
+   39   1          // 250/10000占空比为0°，1250/10000占空比为180°，中间的占空比对应角度
+   40   1          unsigned int duty;                                                              // 舵机占空比
+   41   1          if      (angle < 0)                         angle = 0;                          // 舵机角度不能为负数
+   42   1          else if (angle > SERVO_PITCH_MAX_ANGLE)     angle = SERVO_PITCH_MAX_ANGLE;      // 舵机角度不能超过最
+             -大角度
+   43   1          duty = 250 + ((1250 - 250) * angle) / 180;
+   44   1          return duty;
+   45   1      }
+   46          
+   47          //-------------------------------------------------------------------------------------------------------
+             -------------
+   48          //  @brief      根据输入角度，给出对应的舵机占空比（云台360°舵机）
+   49          //  @param      float angle 输入角度
+   50          //  @return     unsigned int duty 整型数
+C251 COMPILER V5.60.0,  servo                                                              03/05/24  16:07:18  PAGE 2   
+
+   51          //  @since      v1.0 by PatZer0 on 2024.05.03
+   52          //  *example  servo_pan_get_duty(90); // 返回90°对应的PWM占空比
+   53          //  *desc       底盘角度没有限制。
+   54          //-------------------------------------------------------------------------------------------------------
+             -------------
+   55          unsigned int servo_pan_get_duty(float angle)
+   56          {
+   57   1          // 250/10000占空比为0°，1250/10000占空比为360°，中间的占空比对应角度
+   58   1          unsigned int duty;                                                              // 舵机占空比
+   59   1          if      (angle < 0)                         angle = 0;                          // 舵机角度不能为负数
+   60   1          else if (angle > SERVO_PAN_MAX_ANGLE)       angle = SERVO_PAN_MAX_ANGLE;        // 舵机角度不能超过最
+             -大角度
+   61   1          duty = 250 + (1000 * angle) / 360;
+   62   1          return duty;
+   63   1      }
+   64          
+   65          void servo_init()
+   66          {
+   67   1          pwm_init(PWM_CH_SERVO_PAN,   50, 250);
+   68   1          pwm_init(PWM_CH_SERVO_CLAW,  50, 250);
+   69   1          pwm_init(PWM_CH_SERVO_PITCH, 50, 250);
+   70   1      }
+   71          
+   72          void servo_claw_set_angle(float angle)
+   73          {
+   74   1          unsigned int duty = servo_claw_get_duty(angle);
+   75   1          pwm_duty(PWM_CH_SERVO_CLAW, duty);
+   76   1      }
+   77          
+   78          void servo_pitch_set_angle(float angle)
+   79          {
+   80   1          unsigned int duty = servo_pitch_get_duty(angle);
+   81   1          pwm_duty(PWM_CH_SERVO_PITCH, duty);
+   82   1      }
+   83          
+   84          void servo_pan_set_angle(float angle)
+   85          {
+   86   1          unsigned int duty = servo_pitch_get_duty(angle);
+   87   1          pwm_duty(PWM_CH_SERVO_PAN, duty);
+   88   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =    ------     ------
+  code size            =       394     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =    ------     ------
+  edata size           =        36     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -34,4 +131,4 @@ Module Information          Static   Overlayable
 End of Module Information.
 
 
-C251 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

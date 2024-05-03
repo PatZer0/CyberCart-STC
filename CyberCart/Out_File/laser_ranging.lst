@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  laser_ranging                                                      30/04/24  13:29:28  PAGE 1   
+C251 COMPILER V5.60.0,  laser_ranging                                                      03/05/24  13:26:05  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE laser_ranging
@@ -66,7 +66,7 @@ stmt  level    source
    36          LASER_RANGING_CMD_DEF lrcmd_setrange_50m        = {laser_ranging_cmd_arr_setrange_50m,          5};
    37          LASER_RANGING_CMD_DEF lrcmd_setrange_80m        = {laser_ranging_cmd_arr_setrange_80m,          5};
    38          LASER_RANGING_CMD_DEF lrcmd_setresolution_1mm   = {laser_ranging_cmd_arr_setresolution_1mm,     5};
-C251 COMPILER V5.60.0,  laser_ranging                                                      30/04/24  13:29:28  PAGE 2   
+C251 COMPILER V5.60.0,  laser_ranging                                                      03/05/24  13:26:05  PAGE 2   
 
    39          LASER_RANGING_CMD_DEF lrcmd_setresolution_0_1mm = {laser_ranging_cmd_arr_setresolution_0_1mm,   5};
    40          LASER_RANGING_CMD_DEF lrcmd_single_broadcast    = {laser_ranging_cmd_arr_single_broadcast,      4};
@@ -134,7 +134,7 @@ stmt  level    source
    99   6      
   100   6                              if( (uart3_rx_buffer[3]<0x34) && (uart3_rx_buffer[3]!='E') && (uart3_rx_buffer[4]
              -!='R') && (uart3_rx_buffer[5]!='R') && (uart3_rx_buffer[10] == (unsigned char)(~(0x80+0x06+0x83+uart3_rx_buffer[3]+uart3
-C251 COMPILER V5.60.0,  laser_ranging                                                      30/04/24  13:29:28  PAGE 3   
+C251 COMPILER V5.60.0,  laser_ranging                                                      03/05/24  13:26:05  PAGE 3   
 
              -_rx_buffer[4]+uart3_rx_buffer[5]+0x2E+uart3_rx_buffer[7]+uart3_rx_buffer[8]+uart3_rx_buffer[9])+1)) ) 
   101   6                              {
@@ -202,7 +202,7 @@ stmt  level    source
   162   1          laser_ranging('x', &lrcmd_setfreq_5hz);
   163   1          delay_ms(100);
   164   1          laser_ranging('x', &lrcmd_setrange_80m);
-C251 COMPILER V5.60.0,  laser_ranging                                                      30/04/24  13:29:28  PAGE 4   
+C251 COMPILER V5.60.0,  laser_ranging                                                      03/05/24  13:26:05  PAGE 4   
 
   165   1          delay_ms(100);
   166   1          laser_ranging('x', &lrcmd_setresolution_0_1mm);

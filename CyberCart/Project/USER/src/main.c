@@ -22,18 +22,6 @@ void motor_drivers_pwm_init()
     wheel_adjust(Y_ALL, 0);
 }
 
-void servo_chassis_pwm_init()
-{
-    // 初始化旋转底盘舵机PWM接口
-    pwm_init(PWMB_CH1_P00, 5000, 0);
-}
-
-void servo_mech_arm_pwm_init()
-{
-    // 初始化机械臂舵机PWM接口
-    pwm_init(PWMB_CH2_P01, 5000, 0);
-}
-
 void stepper_pwm_init()
 {
     // 初始化步进电机PWM接口
@@ -48,6 +36,7 @@ void main()
     led_1 = 0;
     led_2 = 0;
     led_3 = 0;
+    led_4 = 0;
 
 	board_init();			        // 初始化寄存器,勿删除此句代码。
     motor_drivers_pwm_init();	    // 初始化PWM
@@ -58,12 +47,16 @@ void main()
     delay_ms(100);
     laser_ranging_init();           // 初始化测距模块
     host_comm_uart_init();          // 初始化主机通信UART
+
+    servo_init();                   // 初始化舵机
+    
     while(1)
     {
         key1_check();
         key2_check();
         key3_check();
         key4_check();
+        key5_check();
         host_comm_sender();
         wheel_dynamic_adjusting();
         uart_tx_send_buffer();

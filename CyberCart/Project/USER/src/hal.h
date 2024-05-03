@@ -8,5 +8,6 @@
 #include "host_comm.h"
 #include "qmc5883.h"
 #include "wt61.h"
+#include "servo.h"
 
 #endif /* HAL_H_ */

@@ -6,7 +6,7 @@ unsigned char key1_up_store = 1; // °´¼ü1×´Ì¬ÔÝ´æ
 unsigned char key2_up_store = 1; // °´¼ü2×´Ì¬ÔÝ´æ
 unsigned char key3_up_store = 1; // °´¼ü3×´Ì¬ÔÝ´æ
 unsigned char key4_up_store = 1; // °´¼ü4×´Ì¬ÔÝ´æ
-bit LaserRanging_State = 0; // ¼¤¹â²â¾à×´Ì¬
+unsigned char key5_up_store = 1; // °´¼ü5×´Ì¬ÔÝ´æ
 
 void keys_ui_init()
 {
@@ -16,88 +16,128 @@ void keys_ui_init()
 
 void key1_short_press()
 {
-    unsigned char str[10];
-
     // ¶Ì°´¼ü1¹¦ÄÜ
     led_1 = !led_1; // ÇÐ»»
-    P35 = !P35; // ÇÐ»»
-    wheel_x_front_speed = 0;
-    wheel_y_front_speed = 0;
-    wheel_x_rear_speed = 0;
-    wheel_y_rear_speed = 0;
-    laser_ranging('x', &lrcmd_continous);
-    // ½«x_rollÊý¾Ý×ª»»³É×Ö·û´®£¬·¢ËÍ¸ø´®¿Ú
-    sprintf(str, "%d", x_roll);
-    uart_sendstring(1, str);
+    // servo_claw_set_angle(0);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // led_1 = !led_1; // ÇÐ»»
+    // servo_claw_set_angle(30);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // led_1 = !led_1; // ÇÐ»»
+    // servo_claw_set_angle(60);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);    
+    // led_1 = !led_1; // ÇÐ»»
+    // servo_claw_set_angle(90);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // led_1 = !led_1; // ÇÐ»»
+    // servo_claw_set_angle(120);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
 }
 
 void key2_short_press()
 {
     // ¶Ì°´¼ü2¹¦ÄÜ
-    wheel_y_rear_speed = -5000;
+    led_2 = !led_2; // ÇÐ»»
+    servo_pitch_set_angle(0);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    led_2 = !led_2; // ÇÐ»»
+    servo_pitch_set_angle(45);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    led_2 = !led_2; // ÇÐ»»
+    servo_pitch_set_angle(90);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);    
+    led_2 = !led_2; // ÇÐ»»
+    servo_pitch_set_angle(135);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    led_2 = !led_2; // ÇÐ»»
+    servo_pitch_set_angle(180);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    servo_pitch_set_angle(0);
 }
+#define PWM_CH_SERVO_PAN        PWMB_CH1_P00
 
 void key3_short_press()
 {
     // ¶Ì°´¼ü3¹¦ÄÜ
-    wheel_y_rear_speed = 5000;
+    led_3 = !led_3; // ÇÐ»»
+    // servo_pan_set_angle(0);
+    pwm_duty(PWM_CH_SERVO_PAN, 250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    led_3 = !led_3; // ÇÐ»»
+    // servo_pan_set_angle(90);
+    pwm_duty(PWM_CH_SERVO_PAN, 500);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    led_3 = !led_3; // ÇÐ»»
+    // servo_pan_set_angle(180);
+    pwm_duty(PWM_CH_SERVO_PAN, 750);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);    
+    led_3 = !led_3; // ÇÐ»»
+    // servo_pan_set_angle(270);
+    pwm_duty(PWM_CH_SERVO_PAN, 1000);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    led_3 = !led_3; // ÇÐ»»
+    // servo_pan_set_angle(360);
+    pwm_duty(PWM_CH_SERVO_PAN, 1250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    delay_ms(250);
+    pwm_duty(PWM_CH_SERVO_PAN, 250);
+    // servo_pan_set_angle(0);
 }
 
 void key4_short_press()
 {
     // ¶Ì°´¼ü4¹¦ÄÜ
-    wheel_x_front_speed = 5000;
-    wheel_dynamic_adjusting();
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    wheel_x_front_speed = -5000;
-    wheel_dynamic_adjusting();
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    wheel_x_front_speed = 0;
-    wheel_x_rear_speed = 5000;
-    wheel_dynamic_adjusting();
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    wheel_x_rear_speed = -5000;
-    wheel_dynamic_adjusting();
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    wheel_x_rear_speed = 0;
-    wheel_y_front_speed = 5000;
-    wheel_dynamic_adjusting();
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    wheel_y_front_speed = -5000;
-    wheel_dynamic_adjusting();
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    wheel_y_front_speed = 0;
-    wheel_y_rear_speed = 5000;
-    wheel_dynamic_adjusting();
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    wheel_y_rear_speed = -5000;
-    wheel_dynamic_adjusting();
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    delay_ms(255);
-    wheel_y_rear_speed = 0;
+    led_4 = !led_4; // ÇÐ»»
+}
+
+void key5_short_press()
+{
+    // ¶Ì°´¼ü5¹¦ÄÜ
+    pwm_duty(PWMB_CH1_P00, 0);
 }
 
 void key1_check() 
@@ -157,5 +197,20 @@ void key4_check()
         key4_up_store = 1; // ±ê¼Ç°´¼ü±»ÊÍ·Å
         key4_short_press(); // ´¥·¢¶Ì°´¼ü4¹¦ÄÜ
         oled_p6x8str_spi(9*6, 7, "[4]");
+    }
+}
+
+void key5_check()
+{
+    if(key5 == 0 && key5_up_store == 1)
+    {
+        key5_up_store = 0; // ±ê¼Ç°´¼ü±»°´ÏÂ
+        oled_p6x8str_spi(12*6, 7, ">5<");
+    }
+    if(key5 == 1 && key5_up_store == 0)
+    {
+        key5_up_store = 1; // ±ê¼Ç°´¼ü±»ÊÍ·Å
+        // ´¥·¢¶Ì°´¼ü5¹¦ÄÜ
+        oled_p6x8str_spi(12*6, 7, "[5]");
     }
 }
