@@ -11,13 +11,15 @@ unsigned char key5_up_store = 1; // °´¼ü5×´Ì¬ÔÝ´æ
 void keys_ui_init()
 {
     // ³õÊ¼»¯°´¼ü
-    oled_p6x8str_spi(0, 7, "[1][2][3][4]");
+    oled_p6x8str_spi(0, 7, "[1][2][3][4][5]");
 }
 
 void key1_short_press()
 {
     // ¶Ì°´¼ü1¹¦ÄÜ
     led_1 = !led_1; // ÇÐ»»
+    stepper_adjust(+50);
+    wheel_x_front_speed = 2000;
     // servo_claw_set_angle(0);
     // delay_ms(250);
     // delay_ms(250);
@@ -53,36 +55,37 @@ void key2_short_press()
 {
     // ¶Ì°´¼ü2¹¦ÄÜ
     led_2 = !led_2; // ÇÐ»»
-    servo_pitch_set_angle(0);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    led_2 = !led_2; // ÇÐ»»
-    servo_pitch_set_angle(45);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    led_2 = !led_2; // ÇÐ»»
-    servo_pitch_set_angle(90);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);    
-    led_2 = !led_2; // ÇÐ»»
-    servo_pitch_set_angle(135);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    led_2 = !led_2; // ÇÐ»»
-    servo_pitch_set_angle(180);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    servo_pitch_set_angle(0);
+    stepper_adjust(-50);
+    // servo_pitch_set_angle(0);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // led_2 = !led_2; // ÇÐ»»
+    // servo_pitch_set_angle(45);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // led_2 = !led_2; // ÇÐ»»
+    // servo_pitch_set_angle(90);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);    
+    // led_2 = !led_2; // ÇÐ»»
+    // servo_pitch_set_angle(135);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // led_2 = !led_2; // ÇÐ»»
+    // servo_pitch_set_angle(180);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // servo_pitch_set_angle(0);
 }
 #define PWM_CH_SERVO_PAN        PWMB_CH1_P00
 
@@ -90,42 +93,45 @@ void key3_short_press()
 {
     // ¶Ì°´¼ü3¹¦ÄÜ
     led_3 = !led_3; // ÇÐ»»
-    // servo_pan_set_angle(0);
-    pwm_duty(PWM_CH_SERVO_PAN, 250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    led_3 = !led_3; // ÇÐ»»
-    // servo_pan_set_angle(90);
-    pwm_duty(PWM_CH_SERVO_PAN, 500);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    led_3 = !led_3; // ÇÐ»»
-    // servo_pan_set_angle(180);
-    pwm_duty(PWM_CH_SERVO_PAN, 750);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);    
-    led_3 = !led_3; // ÇÐ»»
-    // servo_pan_set_angle(270);
-    pwm_duty(PWM_CH_SERVO_PAN, 1000);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    led_3 = !led_3; // ÇÐ»»
-    // servo_pan_set_angle(360);
-    pwm_duty(PWM_CH_SERVO_PAN, 1250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    delay_ms(250);
-    pwm_duty(PWM_CH_SERVO_PAN, 250);
-    // servo_pan_set_angle(0);
+    stepper_stp = 1;
+    delay_us(10);
+    stepper_stp = 0;
+    // // servo_pan_set_angle(0);
+    // pwm_duty(PWM_CH_SERVO_PAN, 250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // led_3 = !led_3; // ÇÐ»»
+    // // servo_pan_set_angle(90);
+    // pwm_duty(PWM_CH_SERVO_PAN, 500);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // led_3 = !led_3; // ÇÐ»»
+    // // servo_pan_set_angle(180);
+    // pwm_duty(PWM_CH_SERVO_PAN, 750);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);    
+    // led_3 = !led_3; // ÇÐ»»
+    // // servo_pan_set_angle(270);
+    // pwm_duty(PWM_CH_SERVO_PAN, 1000);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // led_3 = !led_3; // ÇÐ»»
+    // // servo_pan_set_angle(360);
+    // pwm_duty(PWM_CH_SERVO_PAN, 1250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // delay_ms(250);
+    // pwm_duty(PWM_CH_SERVO_PAN, 250);
+    // // servo_pan_set_angle(0);
 }
 
 void key4_short_press()

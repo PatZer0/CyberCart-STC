@@ -330,41 +330,41 @@ void wheel_oled_update()
     oled_printf_int32_spi(10*6, 3, wheel_y_rear_speed, 4);
 }
 
-#define WHEEL_YAW_CALIBRATING_THRESHOLD 0.5
-#define WHEEL_TURNING_SPEED_FAST 5000
-#define WHEEL_TURNING_SPEED_SLOW 1000
+// #define WHEEL_YAW_CALIBRATING_THRESHOLD 0.5
+// #define WHEEL_TURNING_SPEED_FAST 5000
+// #define WHEEL_TURNING_SPEED_SLOW 1000
 
-void wheel_yaw_calibrating()
-{
-    if(wheel_yaw_calibrating_flag)
-    {
-        // 向左转偏转角+，向右转偏转角-
-        // 当前角度-偏转角度<0，说明偏转角度大于当前角度，需要左转
-        if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw > WHEEL_YAW_CALIBRATING_THRESHOLD))  
-        {
-            wheel_y_front_speed = WHEEL_TURNING_SPEED_FAST;         // 当还未达到目标角度时，加速转向
-        }
-        else if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIBRATING_THRESHOLD))
-        {
-            wheel_y_front_speed = WHEEL_TURNING_SPEED_SLOW;        // 当达到目标角度时，停止转向
-        }
+// void wheel_yaw_calibrating()
+// {
+//     if(wheel_yaw_calibrating_flag)
+//     {
+//         // 向左转偏转角+，向右转偏转角-
+//         // 当前角度-偏转角度<0，说明偏转角度大于当前角度，需要左转
+//         if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw > WHEEL_YAW_CALIBRATING_THRESHOLD))  
+//         {
+//             wheel_y_front_speed = WHEEL_TURNING_SPEED_FAST;         // 当还未达到目标角度时，加速转向
+//         }
+//         else if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIBRATING_THRESHOLD))
+//         {
+//             wheel_y_front_speed = WHEEL_TURNING_SPEED_SLOW;        // 当达到目标角度时，停止转向
+//         }
 
-        // 当前角度-偏转角度>0，说明偏转角度小于当前角度，需要右转
-        if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw < -WHEEL_YAW_CALIBRATING_THRESHOLD))
-        {
-            wheel_y_front_speed = -WHEEL_TURNING_SPEED_FAST;        // 当还未达到目标角度时，加速转向
-        }
-        else if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw > -WHEEL_YAW_CALIBRATING_THRESHOLD))
-        {
-            wheel_y_front_speed = -WHEEL_TURNING_SPEED_SLOW;       // 当达到目标角度时，停止转向
-        }
+//         // 当前角度-偏转角度>0，说明偏转角度小于当前角度，需要右转
+//         if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw < -WHEEL_YAW_CALIBRATING_THRESHOLD))
+//         {
+//             wheel_y_front_speed = -WHEEL_TURNING_SPEED_FAST;        // 当还未达到目标角度时，加速转向
+//         }
+//         else if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw > -WHEEL_YAW_CALIBRATING_THRESHOLD))
+//         {
+//             wheel_y_front_speed = -WHEEL_TURNING_SPEED_SLOW;       // 当达到目标角度时，停止转向
+//         }
 
-        // 角度误差小于阈值时，停止转向
-        if(qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIBRATING_THRESHOLD)
-        {
-            wheel_yaw_calibrating_flag = 0;         // 标志位清零，停止校准
-            wheel_y_front_speed = 0;
-            wheel_y_rear_speed = 0;
-        }
-    }
-}
+//         // 角度误差小于阈值时，停止转向
+//         if(qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIBRATING_THRESHOLD)
+//         {
+//             wheel_yaw_calibrating_flag = 0;         // 标志位清零，停止校准
+//             wheel_y_front_speed = 0;
+//             wheel_y_rear_speed = 0;
+//         }
+//     }
+// }

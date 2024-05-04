@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  key                                                                04/05/24  13:35:57  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                04/05/24  19:25:52  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
@@ -23,220 +23,226 @@ stmt  level    source
    11          void keys_ui_init()
    12          {
    13   1          // 初始化按键
-   14   1          oled_p6x8str_spi(0, 7, "[1][2][3][4]");
+   14   1          oled_p6x8str_spi(0, 7, "[1][2][3][4][5]");
    15   1      }
    16          
    17          void key1_short_press()
    18          {
    19   1          // 短按键1功能
    20   1          led_1 = !led_1; // 切换
-   21   1          // servo_claw_set_angle(0);
-   22   1          // delay_ms(250);
-   23   1          // delay_ms(250);
+   21   1          stepper_adjust(+50);
+   22   1          wheel_x_front_speed = 2000;
+   23   1          // servo_claw_set_angle(0);
    24   1          // delay_ms(250);
    25   1          // delay_ms(250);
-   26   1          // led_1 = !led_1; // 切换
-   27   1          // servo_claw_set_angle(30);
-   28   1          // delay_ms(250);
-   29   1          // delay_ms(250);
+   26   1          // delay_ms(250);
+   27   1          // delay_ms(250);
+   28   1          // led_1 = !led_1; // 切换
+   29   1          // servo_claw_set_angle(30);
    30   1          // delay_ms(250);
    31   1          // delay_ms(250);
-   32   1          // led_1 = !led_1; // 切换
-   33   1          // servo_claw_set_angle(60);
-   34   1          // delay_ms(250);
-   35   1          // delay_ms(250);
+   32   1          // delay_ms(250);
+   33   1          // delay_ms(250);
+   34   1          // led_1 = !led_1; // 切换
+   35   1          // servo_claw_set_angle(60);
    36   1          // delay_ms(250);
-   37   1          // delay_ms(250);    
-   38   1          // led_1 = !led_1; // 切换
-   39   1          // servo_claw_set_angle(90);
-   40   1          // delay_ms(250);
-   41   1          // delay_ms(250);
+   37   1          // delay_ms(250);
+   38   1          // delay_ms(250);
+   39   1          // delay_ms(250);    
+   40   1          // led_1 = !led_1; // 切换
+   41   1          // servo_claw_set_angle(90);
    42   1          // delay_ms(250);
    43   1          // delay_ms(250);
-   44   1          // led_1 = !led_1; // 切换
-   45   1          // servo_claw_set_angle(120);
-   46   1          // delay_ms(250);
-   47   1          // delay_ms(250);
+   44   1          // delay_ms(250);
+   45   1          // delay_ms(250);
+   46   1          // led_1 = !led_1; // 切换
+   47   1          // servo_claw_set_angle(120);
    48   1          // delay_ms(250);
    49   1          // delay_ms(250);
-   50   1      }
-   51          
-   52          void key2_short_press()
-   53          {
-   54   1          // 短按键2功能
-   55   1          led_2 = !led_2; // 切换
-   56   1          servo_pitch_set_angle(0);
-C251 COMPILER V5.60.0,  key                                                                04/05/24  13:35:57  PAGE 2   
+   50   1          // delay_ms(250);
+   51   1          // delay_ms(250);
+   52   1      }
+   53          
+   54          void key2_short_press()
+   55          {
+   56   1          // 短按键2功能
+C251 COMPILER V5.60.0,  key                                                                04/05/24  19:25:52  PAGE 2   
 
-   57   1          delay_ms(250);
-   58   1          delay_ms(250);
-   59   1          delay_ms(250);
-   60   1          delay_ms(250);
-   61   1          led_2 = !led_2; // 切换
-   62   1          servo_pitch_set_angle(45);
-   63   1          delay_ms(250);
-   64   1          delay_ms(250);
-   65   1          delay_ms(250);
-   66   1          delay_ms(250);
-   67   1          led_2 = !led_2; // 切换
-   68   1          servo_pitch_set_angle(90);
-   69   1          delay_ms(250);
-   70   1          delay_ms(250);
-   71   1          delay_ms(250);
-   72   1          delay_ms(250);    
-   73   1          led_2 = !led_2; // 切换
-   74   1          servo_pitch_set_angle(135);
-   75   1          delay_ms(250);
-   76   1          delay_ms(250);
-   77   1          delay_ms(250);
-   78   1          delay_ms(250);
-   79   1          led_2 = !led_2; // 切换
-   80   1          servo_pitch_set_angle(180);
-   81   1          delay_ms(250);
-   82   1          delay_ms(250);
-   83   1          delay_ms(250);
-   84   1          delay_ms(250);
-   85   1          servo_pitch_set_angle(0);
-   86   1      }
-   87          #define PWM_CH_SERVO_PAN        PWMB_CH1_P00
-   88          
-   89          void key3_short_press()
-   90          {
-   91   1          // 短按键3功能
-   92   1          led_3 = !led_3; // 切换
-   93   1          // servo_pan_set_angle(0);
-   94   1          pwm_duty(PWM_CH_SERVO_PAN, 250);
-   95   1          delay_ms(250);
-   96   1          delay_ms(250);
-   97   1          delay_ms(250);
-   98   1          delay_ms(250);
-   99   1          led_3 = !led_3; // 切换
-  100   1          // servo_pan_set_angle(90);
-  101   1          pwm_duty(PWM_CH_SERVO_PAN, 500);
-  102   1          delay_ms(250);
-  103   1          delay_ms(250);
-  104   1          delay_ms(250);
-  105   1          delay_ms(250);
-  106   1          led_3 = !led_3; // 切换
-  107   1          // servo_pan_set_angle(180);
-  108   1          pwm_duty(PWM_CH_SERVO_PAN, 750);
-  109   1          delay_ms(250);
-  110   1          delay_ms(250);
-  111   1          delay_ms(250);
-  112   1          delay_ms(250);    
-  113   1          led_3 = !led_3; // 切换
-  114   1          // servo_pan_set_angle(270);
-  115   1          pwm_duty(PWM_CH_SERVO_PAN, 1000);
-  116   1          delay_ms(250);
-  117   1          delay_ms(250);
-  118   1          delay_ms(250);
-  119   1          delay_ms(250);
-  120   1          led_3 = !led_3; // 切换
-  121   1          // servo_pan_set_angle(360);
-  122   1          pwm_duty(PWM_CH_SERVO_PAN, 1250);
-C251 COMPILER V5.60.0,  key                                                                04/05/24  13:35:57  PAGE 3   
+   57   1          led_2 = !led_2; // 切换
+   58   1          stepper_adjust(-50);
+   59   1          // servo_pitch_set_angle(0);
+   60   1          // delay_ms(250);
+   61   1          // delay_ms(250);
+   62   1          // delay_ms(250);
+   63   1          // delay_ms(250);
+   64   1          // led_2 = !led_2; // 切换
+   65   1          // servo_pitch_set_angle(45);
+   66   1          // delay_ms(250);
+   67   1          // delay_ms(250);
+   68   1          // delay_ms(250);
+   69   1          // delay_ms(250);
+   70   1          // led_2 = !led_2; // 切换
+   71   1          // servo_pitch_set_angle(90);
+   72   1          // delay_ms(250);
+   73   1          // delay_ms(250);
+   74   1          // delay_ms(250);
+   75   1          // delay_ms(250);    
+   76   1          // led_2 = !led_2; // 切换
+   77   1          // servo_pitch_set_angle(135);
+   78   1          // delay_ms(250);
+   79   1          // delay_ms(250);
+   80   1          // delay_ms(250);
+   81   1          // delay_ms(250);
+   82   1          // led_2 = !led_2; // 切换
+   83   1          // servo_pitch_set_angle(180);
+   84   1          // delay_ms(250);
+   85   1          // delay_ms(250);
+   86   1          // delay_ms(250);
+   87   1          // delay_ms(250);
+   88   1          // servo_pitch_set_angle(0);
+   89   1      }
+   90          #define PWM_CH_SERVO_PAN        PWMB_CH1_P00
+   91          
+   92          void key3_short_press()
+   93          {
+   94   1          // 短按键3功能
+   95   1          led_3 = !led_3; // 切换
+   96   1          stepper_stp = 1;
+   97   1          delay_us(10);
+   98   1          stepper_stp = 0;
+   99   1          // // servo_pan_set_angle(0);
+  100   1          // pwm_duty(PWM_CH_SERVO_PAN, 250);
+  101   1          // delay_ms(250);
+  102   1          // delay_ms(250);
+  103   1          // delay_ms(250);
+  104   1          // delay_ms(250);
+  105   1          // led_3 = !led_3; // 切换
+  106   1          // // servo_pan_set_angle(90);
+  107   1          // pwm_duty(PWM_CH_SERVO_PAN, 500);
+  108   1          // delay_ms(250);
+  109   1          // delay_ms(250);
+  110   1          // delay_ms(250);
+  111   1          // delay_ms(250);
+  112   1          // led_3 = !led_3; // 切换
+  113   1          // // servo_pan_set_angle(180);
+  114   1          // pwm_duty(PWM_CH_SERVO_PAN, 750);
+  115   1          // delay_ms(250);
+  116   1          // delay_ms(250);
+  117   1          // delay_ms(250);
+  118   1          // delay_ms(250);    
+  119   1          // led_3 = !led_3; // 切换
+  120   1          // // servo_pan_set_angle(270);
+  121   1          // pwm_duty(PWM_CH_SERVO_PAN, 1000);
+  122   1          // delay_ms(250);
+C251 COMPILER V5.60.0,  key                                                                04/05/24  19:25:52  PAGE 3   
 
-  123   1          delay_ms(250);
-  124   1          delay_ms(250);
-  125   1          delay_ms(250);
-  126   1          delay_ms(250);
-  127   1          pwm_duty(PWM_CH_SERVO_PAN, 250);
-  128   1          // servo_pan_set_angle(0);
-  129   1      }
-  130          
-  131          void key4_short_press()
-  132          {
-  133   1          // 短按键4功能
-  134   1          led_4 = !led_4; // 切换
+  123   1          // delay_ms(250);
+  124   1          // delay_ms(250);
+  125   1          // delay_ms(250);
+  126   1          // led_3 = !led_3; // 切换
+  127   1          // // servo_pan_set_angle(360);
+  128   1          // pwm_duty(PWM_CH_SERVO_PAN, 1250);
+  129   1          // delay_ms(250);
+  130   1          // delay_ms(250);
+  131   1          // delay_ms(250);
+  132   1          // delay_ms(250);
+  133   1          // pwm_duty(PWM_CH_SERVO_PAN, 250);
+  134   1          // // servo_pan_set_angle(0);
   135   1      }
   136          
-  137          void key5_short_press()
+  137          void key4_short_press()
   138          {
-  139   1          // 短按键5功能
-  140   1          pwm_duty(PWMB_CH1_P00, 0);
+  139   1          // 短按键4功能
+  140   1          led_4 = !led_4; // 切换
   141   1      }
   142          
-  143          void key1_check() 
+  143          void key5_short_press()
   144          {
-  145   1          if(key1 == 0 && key1_up_store == 1)
-  146   1          {
-  147   2              key1_up_store = 0; // 标记按键被按下
-  148   2              oled_p6x8str_spi(0, 7, ">1<");
-  149   2          }
-  150   1          if(key1 == 1 && key1_up_store == 0)
-  151   1          {
-  152   2              key1_up_store = 1; // 标记按键被释放
-  153   2              key1_short_press(); // 触发短按键1功能
-  154   2              oled_p6x8str_spi(0, 7, "[1]");
+  145   1          // 短按键5功能
+  146   1          pwm_duty(PWMB_CH1_P00, 0);
+  147   1      }
+  148          
+  149          void key1_check() 
+  150          {
+  151   1          if(key1 == 0 && key1_up_store == 1)
+  152   1          {
+  153   2              key1_up_store = 0; // 标记按键被按下
+  154   2              oled_p6x8str_spi(0, 7, ">1<");
   155   2          }
-  156   1      }
-  157          
-  158          void key2_check()
-  159          {
-  160   1          if(key2 == 0 && key2_up_store == 1)
-  161   1          {
-  162   2              key2_up_store = 0; // 标记按键被按下
-  163   2              oled_p6x8str_spi(3*6, 7, ">2<");
-  164   2          }
-  165   1          if(key2 == 1 && key2_up_store == 0)
-  166   1          {
-  167   2              key2_up_store = 1; // 标记按键被释放
-  168   2              key2_short_press(); // 触发短按键2功能
-  169   2              oled_p6x8str_spi(3*6, 7, "[2]");
+  156   1          if(key1 == 1 && key1_up_store == 0)
+  157   1          {
+  158   2              key1_up_store = 1; // 标记按键被释放
+  159   2              key1_short_press(); // 触发短按键1功能
+  160   2              oled_p6x8str_spi(0, 7, "[1]");
+  161   2          }
+  162   1      }
+  163          
+  164          void key2_check()
+  165          {
+  166   1          if(key2 == 0 && key2_up_store == 1)
+  167   1          {
+  168   2              key2_up_store = 0; // 标记按键被按下
+  169   2              oled_p6x8str_spi(3*6, 7, ">2<");
   170   2          }
-  171   1      }
-  172          
-  173          void key3_check()
-  174          {
-  175   1          if(key3 == 0 && key3_up_store == 1)
-  176   1          {
-  177   2              key3_up_store = 0; // 标记按键被按下
-  178   2              oled_p6x8str_spi(6*6, 7, ">3<");
-  179   2          }
-  180   1          if(key3 == 1 && key3_up_store == 0)
-  181   1          {
-  182   2              key3_up_store = 1; // 标记按键被释放
-  183   2              key3_short_press(); // 触发短按键3功能
-  184   2              oled_p6x8str_spi(6*6, 7, "[3]");
+  171   1          if(key2 == 1 && key2_up_store == 0)
+  172   1          {
+  173   2              key2_up_store = 1; // 标记按键被释放
+  174   2              key2_short_press(); // 触发短按键2功能
+  175   2              oled_p6x8str_spi(3*6, 7, "[2]");
+  176   2          }
+  177   1      }
+  178          
+  179          void key3_check()
+  180          {
+  181   1          if(key3 == 0 && key3_up_store == 1)
+  182   1          {
+  183   2              key3_up_store = 0; // 标记按键被按下
+  184   2              oled_p6x8str_spi(6*6, 7, ">3<");
   185   2          }
-  186   1      }
-  187          
-  188          void key4_check()
-C251 COMPILER V5.60.0,  key                                                                04/05/24  13:35:57  PAGE 4   
+  186   1          if(key3 == 1 && key3_up_store == 0)
+  187   1          {
+  188   2              key3_up_store = 1; // 标记按键被释放
+C251 COMPILER V5.60.0,  key                                                                04/05/24  19:25:52  PAGE 4   
 
-  189          {
-  190   1          if(key4 == 0 && key4_up_store == 1)
-  191   1          {
-  192   2              key4_up_store = 0; // 标记按键被按下
-  193   2              oled_p6x8str_spi(9*6, 7, ">4<");
-  194   2          }
-  195   1          if(key4 == 1 && key4_up_store == 0)
-  196   1          {
-  197   2              key4_up_store = 1; // 标记按键被释放
-  198   2              key4_short_press(); // 触发短按键4功能
-  199   2              oled_p6x8str_spi(9*6, 7, "[4]");
+  189   2              key3_short_press(); // 触发短按键3功能
+  190   2              oled_p6x8str_spi(6*6, 7, "[3]");
+  191   2          }
+  192   1      }
+  193          
+  194          void key4_check()
+  195          {
+  196   1          if(key4 == 0 && key4_up_store == 1)
+  197   1          {
+  198   2              key4_up_store = 0; // 标记按键被按下
+  199   2              oled_p6x8str_spi(9*6, 7, ">4<");
   200   2          }
-  201   1      }
-  202          
-  203          void key5_check()
-  204          {
-  205   1          if(key5 == 0 && key5_up_store == 1)
-  206   1          {
-  207   2              key5_up_store = 0; // 标记按键被按下
-  208   2              oled_p6x8str_spi(12*6, 7, ">5<");
-  209   2          }
-  210   1          if(key5 == 1 && key5_up_store == 0)
-  211   1          {
-  212   2              key5_up_store = 1; // 标记按键被释放
-  213   2              // 触发短按键5功能
-  214   2              oled_p6x8str_spi(12*6, 7, "[5]");
+  201   1          if(key4 == 1 && key4_up_store == 0)
+  202   1          {
+  203   2              key4_up_store = 1; // 标记按键被释放
+  204   2              key4_short_press(); // 触发短按键4功能
+  205   2              oled_p6x8str_spi(9*6, 7, "[4]");
+  206   2          }
+  207   1      }
+  208          
+  209          void key5_check()
+  210          {
+  211   1          if(key5 == 0 && key5_up_store == 1)
+  212   1          {
+  213   2              key5_up_store = 0; // 标记按键被按下
+  214   2              oled_p6x8str_spi(12*6, 7, ">5<");
   215   2          }
-  216   1      }
+  216   1          if(key5 == 1 && key5_up_store == 0)
+  217   1          {
+  218   2              key5_up_store = 1; // 标记按键被释放
+  219   2              // 触发短按键5功能
+  220   2              oled_p6x8str_spi(12*6, 7, "[5]");
+  221   2          }
+  222   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       940     ------
+  code size            =       511     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -251,7 +257,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        78     ------
+  hconst size          =        81     ------
 End of Module Information.
 
 

@@ -625,11 +625,6 @@
               <FilePath>.\Project\HAL\motor_driver_boards.c</FilePath>
             </File>
             <File>
-              <FileName>qmc5883.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Project\HAL\qmc5883.c</FilePath>
-            </File>
-            <File>
               <FileName>servo.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Project\HAL\servo.c</FilePath>

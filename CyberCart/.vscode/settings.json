@@ -19,6 +19,7 @@
         "qmc5883.h": "c",
         "ui.h": "c",
         "hal.h": "c",
-        "uart.h": "c"
+        "uart.h": "c",
+        "servo.h": "c"
     }
 }

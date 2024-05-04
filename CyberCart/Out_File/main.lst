@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               04/05/24  13:35:56  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               04/05/24  19:25:52  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -17,74 +17,66 @@ stmt  level    source
     5          
     6          void gpio_init()
     7          {
-    8   1          P1M0 = 0xff; P1M1 = 0x00; 
-    9   1          P6M0 = 0xff; P6M1 = 0x00; 
-   10   1          P1M0 = 0x77; P1M1 = 0x00; // 将LED使用的IO口配置为双向口
-   11   1          P6M0 = 0xbf; P6M1 = 0x00; // 将LED使用的IO口配置为双向口
-   12   1      }
-   13          
-   14          void motor_drivers_pwm_init()
-   15          {
-   16   1          // 参数：模块_端口, 频率, 占空比(÷10000)
-   17   1          pwm_init(PWMA_CH1P_P60, 30000, 0);   // X方向驱动板PB, 30KHz, 10%占空比
-   18   1          pwm_init(PWMA_CH2N_P63, 30000, 0);   // X方向驱动板PA，30KHz, 10%占空比
-   19   1          pwm_init(PWMA_CH4N_P67, 30000, 0);   // Y方向驱动板PB, 30KHz, 10%占空比
-   20   1          pwm_init(PWMA_CH3P_P14, 30000, 0);   // Y方向驱动板PA, 30KHz, 10%占空比
-   21   1          wheel_adjust(X_ALL, 0);
-   22   1          wheel_adjust(Y_ALL, 0);
-   23   1      }
-   24          
-   25          void stepper_pwm_init()
-   26          {
-   27   1          // 初始化步进电机PWM接口
-   28   1          // P3.2 <-> DIR
-   29   1          // P3.3 <-> STP (PWM) 频率:0-20kHz
-   30   1          // P3.5 <-> EN        1:使能步进电机；0:步进电机脱机
-   31   1          pwm_init(PWMB_CH3_P02, 10000, 0);
-   32   1      }
-   33          
-   34          void main()
-   35          {   
-   36   1          led_1 = 0;
-   37   1          led_2 = 0;
-   38   1          led_3 = 0;
-   39   1          led_4 = 0;
-   40   1      
-   41   1        board_init();             // 初始化寄存器,勿删除此句代码。
+    8   1          P0M0 = 0xff; P0M1 = 0x00; // 配置P0为推挽输出
+    9   1          P1M0 = 0xff; P1M1 = 0x00; 
+   10   1          P6M0 = 0xff; P6M1 = 0x00; 
+   11   1      }
+   12          
+   13          void motor_drivers_pwm_init()
+   14          {
+   15   1          // 参数：模块_端口, 频率, 占空比(÷10000)
+   16   1          pwm_init(PWMA_CH1P_P60, 30000, 0);   // X方向驱动板PB, 30KHz, 10%占空比
+   17   1          pwm_init(PWMA_CH2N_P63, 30000, 0);   // X方向驱动板PA，30KHz, 10%占空比
+   18   1          pwm_init(PWMA_CH4N_P67, 30000, 0);   // Y方向驱动板PB, 30KHz, 10%占空比
+   19   1          pwm_init(PWMA_CH3P_P14, 30000, 0);   // Y方向驱动板PA, 30KHz, 10%占空比
+   20   1          wheel_adjust(X_ALL, 0);
+   21   1          wheel_adjust(Y_ALL, 0);
+   22   1      }
+   23          
+   24          void main()
+   25          {   
+   26   1          led_1 = 0;
+   27   1          led_2 = 0;
+   28   1          led_3 = 0;
+   29   1          led_4 = 0;
+   30   1      
+   31   1        board_init();             // 初始化寄存器,勿删除此句代码。
+   32   1      
+   33   1          motor_drivers_pwm_init();     // 初始化PWM
+   34   1          gpio_init();                    // 初始化GPIO
+   35   1          oled_init_spi();                // 初始化OLED显示屏
+   36   1          wheel_oled_init();              // 初始化速度显示OLED显示屏
+   37   1          ui_init();                      // 初始化UI
+   38   1      
+   39   1          delay_ms(100);
+   40   1          // laser_ranging_init();           // 初始化测距模块
+   41   1          host_comm_uart_init();          // 初始化主机通信UART
    42   1      
-   43   1          motor_drivers_pwm_init();     // 初始化PWM
-   44   1          gpio_init();                    // 初始化GPIO
-   45   1          oled_init_spi();                // 初始化OLED显示屏
-   46   1          wheel_oled_init();              // 初始化速度显示OLED显示屏
-   47   1          ui_init();                      // 初始化UI
-   48   1      
-   49   1          delay_ms(100);
-   50   1          // laser_ranging_init();           // 初始化测距模块
-   51   1          host_comm_uart_init();          // 初始化主机通信UART
-   52   1      
-   53   1          servo_init();                   // 初始化舵机
-   54   1          stepper_init();
-   55   1      
-   56   1          while(1)
-C251 COMPILER V5.60.0,  main                                                               04/05/24  13:35:56  PAGE 2   
+   43   1          servo_init();                   // 初始化舵机
+   44   1          stepper_init();
+   45   1          stepper_oled_init();            // 初始化步进电机OLED显示屏
+   46   1      
+   47   1          while(1)
+   48   1          {
+   49   2              key1_check();
+   50   2              key2_check();
+   51   2              key3_check();
+   52   2              key4_check();
+   53   2              key5_check();
+   54   2              stepper_oled_update();
+   55   2              host_comm_sender();
+   56   2              wheel_dynamic_adjusting();
+C251 COMPILER V5.60.0,  main                                                               04/05/24  19:25:52  PAGE 2   
 
-   57   1          {
-   58   2              key1_check();
-   59   2              key2_check();
-   60   2              key3_check();
-   61   2              key4_check();
-   62   2              key5_check();
-   63   2              host_comm_sender();
-   64   2              wheel_dynamic_adjusting();
-   65   2              uart_tx_send_buffer();
-   66   2              wheel_oled_update();
-   67   2          }
-   68   1      }
+   57   2              uart_tx_send_buffer();
+   58   2              wheel_oled_update();
+   59   2          }
+   60   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       210     ------
+  code size            =       191     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

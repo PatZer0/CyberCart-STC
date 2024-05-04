@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  13:35:57  PAGE 1   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  19:25:53  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE motor_driver_boards
@@ -66,7 +66,7 @@ stmt  level    source
    52   3                  }
    53   2                  else if (wheel_direction == BACKWARD)
    54   2                  {
-C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  13:35:57  PAGE 2   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  19:25:53  PAGE 2   
 
    55   3                      gpio_wheel_x_rear_forward = 0;
    56   3                      gpio_wheel_x_rear_backward = 1;
@@ -134,7 +134,7 @@ stmt  level    source
   118   3                      gpio_wheel_y_rear_backward = 0;
   119   3                  }
   120   2                  break;
-C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  13:35:57  PAGE 3   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  19:25:53  PAGE 3   
 
   121   2              case Y_ALL:
   122   2                  if (wheel_direction == FORWARD)
@@ -202,7 +202,7 @@ stmt  level    source
   184          //-------------------------------------------------------------------------------------------------------
              -------------
   185          //  @brief      调整电机转速和方向
-C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  13:35:57  PAGE 4   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  19:25:53  PAGE 4   
 
   186          //  @param      <X/Y>_<FRONT/REAR/ALL>      指定轮子
   187          //  @param      speed                       转速值，范围负10000~正10000
@@ -270,7 +270,7 @@ stmt  level    source
   247   2          }
   248   1      }
   249          
-C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  13:35:57  PAGE 5   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  19:25:53  PAGE 5   
 
   250          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -338,7 +338,7 @@ stmt  level    source
   307   1          wheel_adjust(X_REAR, wheel_x_rear_speed);
   308   1          wheel_adjust(Y_FRONT, wheel_y_front_speed);
   309   1          wheel_adjust(Y_REAR, wheel_y_rear_speed);
-C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  13:35:57  PAGE 6   
+C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  19:25:53  PAGE 6   
 
   310   1      }
   311          
@@ -363,59 +363,59 @@ stmt  level    source
   330   1          oled_printf_int32_spi(10*6, 3, wheel_y_rear_speed, 4);
   331   1      }
   332          
-  333          #define WHEEL_YAW_CALIBRATING_THRESHOLD 0.5
-  334          #define WHEEL_TURNING_SPEED_FAST 5000
-  335          #define WHEEL_TURNING_SPEED_SLOW 1000
+  333          // #define WHEEL_YAW_CALIBRATING_THRESHOLD 0.5
+  334          // #define WHEEL_TURNING_SPEED_FAST 5000
+  335          // #define WHEEL_TURNING_SPEED_SLOW 1000
   336          
-  337          void wheel_yaw_calibrating()
-  338          {
-  339   1          if(wheel_yaw_calibrating_flag)
-  340   1          {
-  341   2              // 向左转偏转角+，向右转偏转角-
-  342   2              // 当前角度-偏转角度<0，说明偏转角度大于当前角度，需要左转
-  343   2              if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw > WHEEL_YAW_CALIBRATIN
-             -G_THRESHOLD))  
-  344   2              {
-  345   3                  wheel_y_front_speed = WHEEL_TURNING_SPEED_FAST;         // 当还未达到目标角度时，�
-             -��速转向
-  346   3              }
-  347   2              else if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIB
-             -RATING_THRESHOLD))
-  348   2              {
-  349   3                  wheel_y_front_speed = WHEEL_TURNING_SPEED_SLOW;        // 当达到目标角度时，停止�
-             -�向
-  350   3              }
-  351   2      
-  352   2              // 当前角度-偏转角度>0，说明偏转角度小于当前角度，需要右转
-  353   2              if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw < -WHEEL_YAW_CALIBRATI
-             -NG_THRESHOLD))
-  354   2              {
-  355   3                  wheel_y_front_speed = -WHEEL_TURNING_SPEED_FAST;        // 当还未达到目标角度时，�
-             -��速转向
-  356   3              }
-  357   2              else if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw > -WHEEL_YAW_CALI
-             -BRATING_THRESHOLD))
-  358   2              {
-  359   3                  wheel_y_front_speed = -WHEEL_TURNING_SPEED_SLOW;       // 当达到目标角度时，停止�
-             -�向
-  360   3              }
-  361   2      
-  362   2              // 角度误差小于阈值时，停止转向
-  363   2              if(qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIBRATING_THRESHOLD)
-  364   2              {
-  365   3                  wheel_yaw_calibrating_flag = 0;         // 标志位清零，停止校准
-  366   3                  wheel_y_front_speed = 0;
-  367   3                  wheel_y_rear_speed = 0;
-C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  13:35:57  PAGE 7   
+  337          // void wheel_yaw_calibrating()
+  338          // {
+  339          //     if(wheel_yaw_calibrating_flag)
+  340          //     {
+  341          //         // 向左转偏转角+，向右转偏转角-
+  342          //         // 当前角度-偏转角度<0，说明偏转角度大于当前角度，需要左转
+  343          //         if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw > WHEEL_YAW_CALIBRA
+             -TING_THRESHOLD))  
+  344          //         {
+  345          //             wheel_y_front_speed = WHEEL_TURNING_SPEED_FAST;         // 当还未达到目标角度时�
+             -��加速转向
+  346          //         }
+  347          //         else if((qmc5883_yaw - wheel_target_yaw < 0) && (qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CA
+             -LIBRATING_THRESHOLD))
+  348          //         {
+  349          //             wheel_y_front_speed = WHEEL_TURNING_SPEED_SLOW;        // 当达到目标角度时，停�
+             -�转向
+  350          //         }
+  351          
+  352          //         // 当前角度-偏转角度>0，说明偏转角度小于当前角度，需要右转
+  353          //         if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw < -WHEEL_YAW_CALIBR
+             -ATING_THRESHOLD))
+  354          //         {
+  355          //             wheel_y_front_speed = -WHEEL_TURNING_SPEED_FAST;        // 当还未达到目标角度时�
+             -��加速转向
+  356          //         }
+  357          //         else if((qmc5883_yaw - wheel_target_yaw > 0) && (qmc5883_yaw - wheel_target_yaw > -WHEEL_YAW_C
+             -ALIBRATING_THRESHOLD))
+  358          //         {
+  359          //             wheel_y_front_speed = -WHEEL_TURNING_SPEED_SLOW;       // 当达到目标角度时，停�
+             -�转向
+  360          //         }
+  361          
+  362          //         // 角度误差小于阈值时，停止转向
+  363          //         if(qmc5883_yaw - wheel_target_yaw < WHEEL_YAW_CALIBRATING_THRESHOLD)
+  364          //         {
+  365          //             wheel_yaw_calibrating_flag = 0;         // 标志位清零，停止校准
+  366          //             wheel_y_front_speed = 0;
+  367          //             wheel_y_rear_speed = 0;
+C251 COMPILER V5.60.0,  motor_driver_boards                                                04/05/24  19:25:53  PAGE 7   
 
-  368   3              }
-  369   2          }
-  370   1      }
+  368          //         }
+  369          //     }
+  370          // }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1614     ------
+  code size            =      1366     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

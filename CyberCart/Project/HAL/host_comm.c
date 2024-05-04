@@ -1,7 +1,9 @@
 #include "headfile.h"
 #include "hal.h"
 
-#define HOST_COMM_BUFFER_SIZE 64
+#define HOST_COMM_BUFFER_SIZE 16
+
+unsigned char host_comm_tx_buffer[HOST_COMM_BUFFER_SIZE];
 
 bit     sendok = 0;
 bit     senderr = 0;
@@ -9,8 +11,8 @@ bit     sendwrongcmd = 0;
 bit     sendwheelok = 0;
 bit     sendwheelwarnexceed = 0;
 
-// 速度字符串解析函数，内部使用
-int wheel_speed_parser(const char *str)
+// 内部使用的字符串转整数函数
+int internal_char_to_int(const char *str)
 {
     // 将字符串转化为整数
     int result = 0;  // 初始化结果为0
@@ -57,6 +59,11 @@ int wheel_speed_parser(const char *str)
     return sign * result;  // 返回带有正确符号的结果
 }
 
+void host_comm_send_checksum_err()
+{
+    senderr = 1;
+}
+
 void host_comm_uart_init(void)
 {
 	// P_SW1 &= ~0xc0;						//UART1/USART1: RxD(P3.0), TxD(P3.1)
@@ -86,6 +93,10 @@ void host_comm_irqhandler()
     int wheel_speed;
     unsigned char servo_angle_buffer[3];
     int servo_angle;
+    unsigned char stepper_step_buffer[5];
+    int stepper_step;
+
+    // oled_p6x8str_spi(0, 1, uart1_rx_buffer);
 
     if ((uart1_rx_buffer[uart1_rx_counter] == '\n'))
     {
@@ -111,7 +122,7 @@ void host_comm_irqhandler()
                     wheel_speed_buffer[i] = uart1_rx_buffer[10+i];
                 }
                 // 解析字符串
-                wheel_speed = wheel_speed_parser(wheel_speed_buffer);
+                wheel_speed = internal_char_to_int(wheel_speed_buffer);
 
                 // 解析速度结束，写入速度数据
                 if(uart1_rx_buffer[7] == 'X')
@@ -172,13 +183,19 @@ void host_comm_irqhandler()
                 // 从Index11开始，写入缓冲区
                 for(i = 0; i < 3; i++)
                 {
-                    servo_angle_buffer[i] = uart1_rx_buffer[11+i] - '0';
+                    if(uart1_rx_buffer[11+i] == '\r')
+                    {
+                        servo_angle_buffer[i] = '\0';
+                        break;
+                    }
+                    servo_angle_buffer[i] = uart1_rx_buffer[11+i];
                 }
+                // host_comm_send_data(servo_angle_buffer);       // 调用host_comm_send_data()发送数据
                 // 解析字符串
-                servo_angle = (servo_angle_buffer[0] * 100 + servo_angle_buffer[1] * 10 + servo_angle_buffer[2]);
+                servo_angle = internal_char_to_int(servo_angle_buffer);
 
                 // 解析角度结束，写入角度数据
-                if(uart1_rx_buffer[7] == 'C')
+                if(uart1_rx_buffer[7] == 'C' && uart1_rx_buffer[8] == 'L' && uart1_rx_buffer[9] == 'W')
                 {
                     servo_claw_set_angle(servo_angle);
                     sendok = 1;
@@ -195,6 +212,25 @@ void host_comm_irqhandler()
                 }
                 else sendwrongcmd = 1;
             }
+            // 接收到STP命令
+            else if ((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'T') && (uart1_rx_buffer[5] == 'P'))
+            {
+                // AT+STP=+/-xxxx 步进电机步数
+                // 从Index7开始，写入缓冲区
+                for(i = 0; i < 5; i++)
+                {
+                    if(uart1_rx_buffer[7+i] == '\r')
+                    {
+                        stepper_step_buffer[i] = '\0';
+                        break;
+                    }
+                    stepper_step_buffer[i] = uart1_rx_buffer[7+i];
+                }
+                // 解析字符串
+                stepper_step = internal_char_to_int(stepper_step_buffer);
+                stepper_adjust(stepper_step);
+                sendok = 1;
+            }
             else sendwrongcmd = 1;
         }
         else sendwrongcmd = 1;
@@ -202,8 +238,22 @@ void host_comm_irqhandler()
     else sendwrongcmd = 1;
 }
 
+void host_comm_send_data(const char *buffer)
+{
+    unsigned int i;
+    for(i = 0; i < 64; i++)
+    {
+        host_comm_tx_buffer[i] = buffer[i];
+    }
+}
+
 void host_comm_sender(void)
 {
+    if(host_comm_tx_buffer != NULL)
+    {
+        uart_sendstring(1, host_comm_tx_buffer);
+        host_comm_tx_buffer[0] = '\0';
+    }
     // unsigned char host_comm_header = 0x90;
     if (sendok)
     {

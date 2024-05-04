@@ -164,8 +164,23 @@ void uart_sendbyte(unsigned char uart_num, unsigned char byte)
     }
 }
 
+unsigned char uart_checksum(const unsigned char* buffer, unsigned char indexes)
+{
+    unsigned char sum = 0;
+    unsigned char i;
+    unsigned char received_checksum = buffer[indexes];
+
+    for (i = 0; i < indexes; i++) {
+        sum += buffer[i];
+    }
+
+    return (sum == received_checksum);
+}
+
 void uart1_isr(void) interrupt 4
 {
+    int i = 0;
+
 	if (TI)
 	{
 		TI = 0;
@@ -179,14 +194,25 @@ void uart1_isr(void) interrupt 4
         // ---------------- 放置专用串口中断处理代码函数 ------------------
         if((uart1_rx_buffer[uart1_rx_counter - 1] == 'A') && (uart1_rx_buffer[uart1_rx_counter] == 'T'))
         {
-            memset(uart1_rx_buffer, '\0', sizeof(uart1_rx_buffer));
+            memset(uart1_rx_buffer, '\0', UART1_BUF_LENGTH);
             uart1_rx_buffer[0] = 'A';
             uart1_rx_buffer[1] = 'T';
             uart1_rx_counter = 1;       // 重置计数器，从缓冲区头部开始写入剩余的命令
         }
-        if((uart1_rx_buffer[uart1_rx_counter - 1] == '\r') && (uart1_rx_buffer[uart1_rx_counter] == '\n'))
+        if((uart1_rx_buffer[uart1_rx_counter - 2] == '\r') && (uart1_rx_buffer[uart1_rx_counter - 1] == '\n'))
         {
-            host_comm_irqhandler();     // 当检测到\r\n代表命令接收完毕，调用host_comm_irqhandler()处理命令
+            // 在交给函数处理之前，先进行校验，如果校验不通过，拒绝进行处理
+            if(uart_checksum(uart1_rx_buffer, uart1_rx_counter))
+            {
+                uart1_rx_buffer[uart1_rx_counter] = '\0';   // 将校验位去掉
+                uart1_rx_counter -= 1;                      // 回退一位，去掉校验位
+                host_comm_irqhandler();                     //调用host_comm_irqhandler()处理命令
+            }
+            else
+            {
+                led_2 = !led_2;
+                host_comm_send_checksum_err();
+            }
         }
         // ------------------------ 专用代码结束 --------------------------
         if(++uart1_rx_counter >= UART1_BUF_LENGTH) uart1_rx_counter = 0;     // 缓冲区满, 循环

@@ -27,7 +27,6 @@
 ".\Out_File\host_comm.obj",
 ".\Out_File\laser_ranging.obj",
 ".\Out_File\motor_driver_boards.obj",
-".\Out_File\qmc5883.obj",
 ".\Out_File\servo.obj",
 ".\Out_File\stepper.obj",
 ".\Out_File\wt61.obj" 

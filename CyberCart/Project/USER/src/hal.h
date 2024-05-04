@@ -6,8 +6,7 @@
 #include "laser_ranging.h"
 #include "motor_driver_boards.h"
 #include "host_comm.h"
-#include "qmc5883.h"
-#include "wt61.h"
+// #include "wt61.h"
 #include "servo.h"
 #include "stepper.h"
 
