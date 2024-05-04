@@ -13,7 +13,6 @@
                 "e:\\RoboContest\\#CyberCartMCU\\CyberCart\\Project\\HAL",
                 "C:\\Keil_v5\\C251\\INC",
                 "C:\\Keil_v5\\C251\\INC\\STC",
-                "e:\\RoboContest\\#CyberCartMCU\\CyberCart\\Libraries\\doc",
                 "${default}",
                 "${workspaceFolder}/**"
             ],

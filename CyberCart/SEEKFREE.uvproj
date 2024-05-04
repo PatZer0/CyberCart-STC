@@ -490,16 +490,6 @@
               <FilePath>Libraries\seekfree_peripheral\headfile.h</FilePath>
             </File>
             <File>
-              <FileName>SEEKFREE_18TFT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_18TFT.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_18TFT.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_18TFT.h</FilePath>
-            </File>
-            <File>
               <FileName>SEEKFREE_BLUETOOTH_CH9141.c</FileName>
               <FileType>1</FileType>
               <FilePath>Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c</FilePath>
@@ -520,26 +510,6 @@
               <FilePath>Libraries\seekfree_peripheral\SEEKFREE_CONFIG.h</FilePath>
             </File>
             <File>
-              <FileName>SEEKFREE_DL1A.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_DL1A.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_DL1A.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_DL1A.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_DL1B.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_DL1B.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_DL1B.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_DL1B.h</FilePath>
-            </File>
-            <File>
               <FileName>SEEKFREE_FONT.c</FileName>
               <FileType>1</FileType>
               <FilePath>Libraries\seekfree_peripheral\SEEKFREE_FONT.c</FilePath>
@@ -548,56 +518,6 @@
               <FileName>SEEKFREE_FONT.h</FileName>
               <FileType>5</FileType>
               <FilePath>Libraries\seekfree_peripheral\SEEKFREE_FONT.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_ICM20602.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_ICM20602.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_ICM20602.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_ICM20602.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IMU660RA.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_IMU660RA.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IMU660RA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_IMU660RA.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IMU963RA.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IMU963RA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_IMU963RA.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IPS114_SPI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_IPS114_SPI.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_IPS114_SPI.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_MPU6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_MPU6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_MPU6050.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_MPU6050.h</FilePath>
             </File>
             <File>
               <FileName>SEEKFREE_OLED.c</FileName>
@@ -620,26 +540,6 @@
               <FilePath>Libraries\seekfree_peripheral\SEEKFREE_PRINTF.h</FilePath>
             </File>
             <File>
-              <FileName>SEEKFREE_TSL1401.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_TSL1401.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_TSL1401.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_TSL1401.h</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_VIRSCO.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_VIRSCO.c</FilePath>
-            </File>
-            <File>
-              <FileName>SEEKFREE_VIRSCO.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_peripheral\SEEKFREE_VIRSCO.h</FilePath>
-            </File>
-            <File>
               <FileName>SEEKFREE_WIRELESS.c</FileName>
               <FileType>1</FileType>
               <FilePath>Libraries\seekfree_peripheral\SEEKFREE_WIRELESS.c</FilePath>
@@ -658,16 +558,6 @@
               <FileName>SEEKFREE_WIRELESS_CH573.h</FileName>
               <FileType>5</FileType>
               <FilePath>Libraries\seekfree_peripheral\SEEKFREE_WIRELESS_CH573.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>doc</GroupName>
-          <Files>
-            <File>
-              <FileName>version.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\doc\version.txt</FilePath>
             </File>
           </Files>
         </Group>
@@ -713,26 +603,6 @@
               <FileName>hal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Project\USER\src\hal.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>seekfree_components</GroupName>
-          <Files>
-            <File>
-              <FileName>seekfree_assistant.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_components\seekfree_assistant.c</FilePath>
-            </File>
-            <File>
-              <FileName>seekfree_assistant.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>Libraries\seekfree_components\seekfree_assistant.h</FilePath>
-            </File>
-            <File>
-              <FileName>seekfree_assistant_inface.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\seekfree_components\seekfree_assistant_inface.c</FilePath>
             </File>
           </Files>
         </Group>
