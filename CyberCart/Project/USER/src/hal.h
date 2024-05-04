@@ -9,5 +9,6 @@
 #include "qmc5883.h"
 #include "wt61.h"
 #include "servo.h"
+#include "stepper.h"
 
 #endif /* HAL_H_ */

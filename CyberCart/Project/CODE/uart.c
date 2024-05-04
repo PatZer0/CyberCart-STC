@@ -208,13 +208,13 @@ void uart2_isr(void) interrupt 8                                            // �
         
         // ---------------- 放置专用串口中断处理代码函数 ------------------
         // laser_ranging_irqhandler('x');
-        if(uart2_rx_buffer[uart2_rx_counter] == 0x80)
-        {
-            uart1_tx_buffer_from_uart2[0] = 0x91;
-            uart1_tx_buffer_from_uart2[1] = uart2_rx_buffer[uart2_rx_counter];
-            uart1_tx_buffer_from_uart2_index = 2;
-        }
-        uart1_tx_buffer_from_uart2[uart1_tx_buffer_from_uart2_index++] = S2BUF;
+        // if(uart2_rx_buffer[uart2_rx_counter] == 0x80)
+        // {
+        //     uart1_tx_buffer_from_uart2[0] = 0x91;
+        //     uart1_tx_buffer_from_uart2[1] = uart2_rx_buffer[uart2_rx_counter];
+        //     uart1_tx_buffer_from_uart2_index = 2;
+        // }
+        // uart1_tx_buffer_from_uart2[uart1_tx_buffer_from_uart2_index++] = S2BUF;
         // ------------------------ 专用代码结束 --------------------------
 
         if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;      // 缓冲区满, 循环
@@ -235,13 +235,13 @@ void uart3_isr(void) interrupt 17                                           // �
 
         // ---------------- 放置专用串口中断处理代码函数 ------------------
         // laser_ranging_irqhandler('y');
-        if(uart3_rx_buffer[uart3_rx_counter] == 0x80)
-        {
-            uart1_tx_buffer_from_uart3[0] = 0x92;
-            uart1_tx_buffer_from_uart3[1] = uart3_rx_buffer[uart3_rx_counter];
-            uart1_tx_buffer_from_uart3_index = 2;
-        }
-        uart1_tx_buffer_from_uart3[uart1_tx_buffer_from_uart3_index++] = S3BUF;
+        // if(uart3_rx_buffer[uart3_rx_counter] == 0x80)
+        // {
+        //     uart1_tx_buffer_from_uart3[0] = 0x92;
+        //     uart1_tx_buffer_from_uart3[1] = uart3_rx_buffer[uart3_rx_counter];
+        //     uart1_tx_buffer_from_uart3_index = 2;
+        // }
+        // uart1_tx_buffer_from_uart3[uart1_tx_buffer_from_uart3_index++] = S3BUF;
         // ------------------------ 专用代码结束 --------------------------
 
         if(++uart3_rx_counter >= UART3_BUF_LENGTH) uart3_rx_counter = 0;    // 缓冲区满, 循环
@@ -261,17 +261,17 @@ void uart4_isr(void) interrupt 18                                           // �
         uart4_rx_buffer[uart4_rx_counter] = S4BUF;                          // 接收数据存入缓冲区
         // ---------------- 放置专用串口中断处理代码函数 ------------------
         // uart1_tx_buffer_from_uart4 = S4BUF;
-        if(uart4_rx_buffer[uart4_rx_counter] == 0x55)
-        {
-            memset(uart4_rx_buffer, '\0', sizeof(uart4_rx_buffer));
-            uart4_rx_buffer[0] = 0x55;
-            uart4_rx_counter = 0;       // 重置计数器，写入剩余的数据
-        }
-        if(uart4_rx_counter == 11)
-        {
-            led_1 = 1;
-            wt61_data_parse(uart4_rx_buffer);
-        }
+        // if(uart4_rx_buffer[uart4_rx_counter] == 0x55)
+        // {
+        //     memset(uart4_rx_buffer, '\0', sizeof(uart4_rx_buffer));
+        //     uart4_rx_buffer[0] = 0x55;
+        //     uart4_rx_counter = 0;       // 重置计数器，写入剩余的数据
+        // }
+        // if(uart4_rx_counter == 11)
+        // {
+        //     led_1 = 1;
+        //     wt61_data_parse(uart4_rx_buffer);
+        // }
         // ------------------------ 专用代码结束 --------------------------
         if(++uart4_rx_counter >= UART4_BUF_LENGTH) uart4_rx_counter = 0;      // 缓冲区满, 循环
 	}

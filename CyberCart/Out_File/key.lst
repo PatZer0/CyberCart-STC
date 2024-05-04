@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  key                                                                03/05/24  16:05:10  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                04/05/24  13:13:44  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
@@ -66,7 +66,7 @@ stmt  level    source
    54   1          // ¶Ì°´¼ü2¹¦ÄÜ
    55   1          led_2 = !led_2; // ÇÐ»»
    56   1          servo_pitch_set_angle(0);
-C251 COMPILER V5.60.0,  key                                                                03/05/24  16:05:10  PAGE 2   
+C251 COMPILER V5.60.0,  key                                                                04/05/24  13:13:44  PAGE 2   
 
    57   1          delay_ms(250);
    58   1          delay_ms(250);
@@ -134,7 +134,7 @@ stmt  level    source
   120   1          led_3 = !led_3; // ÇÐ»»
   121   1          // servo_pan_set_angle(360);
   122   1          pwm_duty(PWM_CH_SERVO_PAN, 1250);
-C251 COMPILER V5.60.0,  key                                                                03/05/24  16:05:10  PAGE 3   
+C251 COMPILER V5.60.0,  key                                                                04/05/24  13:13:44  PAGE 3   
 
   123   1          delay_ms(250);
   124   1          delay_ms(250);
@@ -202,7 +202,7 @@ stmt  level    source
   186   1      }
   187          
   188          void key4_check()
-C251 COMPILER V5.60.0,  key                                                                03/05/24  16:05:10  PAGE 4   
+C251 COMPILER V5.60.0,  key                                                                04/05/24  13:13:44  PAGE 4   
 
   189          {
   190   1          if(key4 == 0 && key4_up_store == 1)

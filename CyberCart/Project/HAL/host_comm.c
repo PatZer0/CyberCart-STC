@@ -204,38 +204,38 @@ void host_comm_irqhandler()
 
 void host_comm_sender(void)
 {
-    unsigned char host_comm_header = 0x90;
+    // unsigned char host_comm_header = 0x90;
     if (sendok)
     {
-        uart_sendbyte(1, host_comm_header);
+        // uart_sendbyte(1, host_comm_header);
         uart_sendstring(1, "OK\r\n");
         sendok = 0;
         uart1_rx_counter = 0;
     }
     if (senderr)
     {
-        uart_sendbyte(1, host_comm_header);
+        // uart_sendbyte(1, host_comm_header);
         uart_sendstring(1, "ERROR\r\n");
         senderr = 0;
         uart1_rx_counter = 0;
     }
     if(sendwrongcmd)
     {
-        uart_sendbyte(1, host_comm_header);
+        // uart_sendbyte(1, host_comm_header);
         uart_sendstring(1, "ERROR:CMD\r\n");
         sendwrongcmd = 0;
         uart1_rx_counter = 0;
     }
     if(sendwheelok)
     {
-        uart_sendbyte(1, host_comm_header);
+        // uart_sendbyte(1, host_comm_header);
         uart_sendstring(1, "OK\r\n");
         sendwheelok = 0;
         uart1_rx_counter = 0;
     }
     if(sendwheelwarnexceed)
     {
-        uart_sendbyte(1, host_comm_header);
+        // uart_sendbyte(1, host_comm_header);
         uart_sendstring(1, "WARNING:WHEEL_SPEED_EXCEEDED\r\n");
         sendwheelwarnexceed = 0;
         uart1_rx_counter = 0;

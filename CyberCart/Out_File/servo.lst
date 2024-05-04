@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  servo                                                              03/05/24  16:07:18  PAGE 1   
+C251 COMPILER V5.60.0,  servo                                                              04/05/24  13:13:44  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE servo
@@ -13,7 +13,7 @@ stmt  level    source
     1          #include "headfile.h"
     2          #include "hal.h"
     3          #define SERVO_PWM_FREQ          50 // 舵机PWM频率
-    4          #define PWM_CH_SERVO_PAN        PWMB_CH2_P01
+    4          #define PWM_CH_SERVO_PAN        PWMB_CH2_P01  
     5          #define PWM_CH_SERVO_CLAW       PWMB_CH1_P00
     6          #define PWM_CH_SERVO_PITCH      PWMB_CH3_P02
     7          #define SERVO_PAN_MAX_ANGLE     360 // 云台舵机最大角度
@@ -66,7 +66,7 @@ stmt  level    source
    48          //  @brief      根据输入角度，给出对应的舵机占空比（云台360°舵机）
    49          //  @param      float angle 输入角度
    50          //  @return     unsigned int duty 整型数
-C251 COMPILER V5.60.0,  servo                                                              03/05/24  16:07:18  PAGE 2   
+C251 COMPILER V5.60.0,  servo                                                              04/05/24  13:13:44  PAGE 2   
 
    51          //  @since      v1.0 by PatZer0 on 2024.05.03
    52          //  *example  servo_pan_get_duty(90); // 返回90°对应的PWM占空比

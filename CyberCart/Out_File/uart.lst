@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  uart                                                               03/05/24  13:26:03  PAGE 1   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  13:13:44  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE uart
@@ -66,7 +66,7 @@ stmt  level    source
    52   2          }
    53   1      }
    54          
-C251 COMPILER V5.60.0,  uart                                                               03/05/24  13:26:03  PAGE 2   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  13:13:44  PAGE 2   
 
    55          void uart_sendstring(unsigned char uart_num, unsigned char *puts)
    56          {
@@ -134,7 +134,7 @@ stmt  level    source
   118   2                  for (i = 0; i < length; i++)
   119   2                  {
   120   3                      S3BUF = bytes[i];
-C251 COMPILER V5.60.0,  uart                                                               03/05/24  13:26:03  PAGE 3   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  13:13:44  PAGE 3   
 
   121   3                      uart3_tx_busy = 1;
   122   3                      while(uart3_tx_busy);
@@ -202,7 +202,7 @@ stmt  level    source
   184   3                  uart1_rx_buffer[1] = 'T';
   185   3                  uart1_rx_counter = 1;       // 重置计数器，从缓冲区头部开始写入剩余的命�
              -�
-C251 COMPILER V5.60.0,  uart                                                               03/05/24  13:26:03  PAGE 4   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  13:13:44  PAGE 4   
 
   186   3              }
   187   2              if((uart1_rx_buffer[uart1_rx_counter - 1] == '\r') && (uart1_rx_buffer[uart1_rx_counter] == '\n')
@@ -233,13 +233,13 @@ stmt  level    source
   208   2              
   209   2              // ---------------- 放置专用串口中断处理代码函数 ------------------
   210   2              // laser_ranging_irqhandler('x');
-  211   2              if(uart2_rx_buffer[uart2_rx_counter] == 0x80)
-  212   2              {
-  213   3                  uart1_tx_buffer_from_uart2[0] = 0x91;
-  214   3                  uart1_tx_buffer_from_uart2[1] = uart2_rx_buffer[uart2_rx_counter];
-  215   3                  uart1_tx_buffer_from_uart2_index = 2;
-  216   3              }
-  217   2              uart1_tx_buffer_from_uart2[uart1_tx_buffer_from_uart2_index++] = S2BUF;
+  211   2              // if(uart2_rx_buffer[uart2_rx_counter] == 0x80)
+  212   2              // {
+  213   2              //     uart1_tx_buffer_from_uart2[0] = 0x91;
+  214   2              //     uart1_tx_buffer_from_uart2[1] = uart2_rx_buffer[uart2_rx_counter];
+  215   2              //     uart1_tx_buffer_from_uart2_index = 2;
+  216   2              // }
+  217   2              // uart1_tx_buffer_from_uart2[uart1_tx_buffer_from_uart2_index++] = S2BUF;
   218   2              // ------------------------ 专用代码结束 --------------------------
   219   2      
   220   2              if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;      // 缓冲区满, 循环
@@ -263,14 +263,14 @@ stmt  level    source
   235   2      
   236   2              // ---------------- 放置专用串口中断处理代码函数 ------------------
   237   2              // laser_ranging_irqhandler('y');
-  238   2              if(uart3_rx_buffer[uart3_rx_counter] == 0x80)
-  239   2              {
-  240   3                  uart1_tx_buffer_from_uart3[0] = 0x92;
-  241   3                  uart1_tx_buffer_from_uart3[1] = uart3_rx_buffer[uart3_rx_counter];
-  242   3                  uart1_tx_buffer_from_uart3_index = 2;
-  243   3              }
-  244   2              uart1_tx_buffer_from_uart3[uart1_tx_buffer_from_uart3_index++] = S3BUF;
-C251 COMPILER V5.60.0,  uart                                                               03/05/24  13:26:03  PAGE 5   
+  238   2              // if(uart3_rx_buffer[uart3_rx_counter] == 0x80)
+  239   2              // {
+  240   2              //     uart1_tx_buffer_from_uart3[0] = 0x92;
+  241   2              //     uart1_tx_buffer_from_uart3[1] = uart3_rx_buffer[uart3_rx_counter];
+  242   2              //     uart1_tx_buffer_from_uart3_index = 2;
+  243   2              // }
+  244   2              // uart1_tx_buffer_from_uart3[uart1_tx_buffer_from_uart3_index++] = S3BUF;
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  13:13:44  PAGE 5   
 
   245   2              // ------------------------ 专用代码结束 --------------------------
   246   2      
@@ -294,17 +294,17 @@ stmt  level    source
              -�
   262   2              // ---------------- 放置专用串口中断处理代码函数 ------------------
   263   2              // uart1_tx_buffer_from_uart4 = S4BUF;
-  264   2              if(uart4_rx_buffer[uart4_rx_counter] == 0x55)
-  265   2              {
-  266   3                  memset(uart4_rx_buffer, '\0', sizeof(uart4_rx_buffer));
-  267   3                  uart4_rx_buffer[0] = 0x55;
-  268   3                  uart4_rx_counter = 0;       // 重置计数器，写入剩余的数据
-  269   3              }
-  270   2              if(uart4_rx_counter == 11)
-  271   2              {
-  272   3                  led_1 = 1;
-  273   3                  wt61_data_parse(uart4_rx_buffer);
-  274   3              }
+  264   2              // if(uart4_rx_buffer[uart4_rx_counter] == 0x55)
+  265   2              // {
+  266   2              //     memset(uart4_rx_buffer, '\0', sizeof(uart4_rx_buffer));
+  267   2              //     uart4_rx_buffer[0] = 0x55;
+  268   2              //     uart4_rx_counter = 0;       // 重置计数器，写入剩余的数据
+  269   2              // }
+  270   2              // if(uart4_rx_counter == 11)
+  271   2              // {
+  272   2              //     led_1 = 1;
+  273   2              //     wt61_data_parse(uart4_rx_buffer);
+  274   2              // }
   275   2              // ------------------------ 专用代码结束 --------------------------
   276   2              if(++uart4_rx_counter >= UART4_BUF_LENGTH) uart4_rx_counter = 0;      // 缓冲区满, 循环
   277   2        }
@@ -338,7 +338,7 @@ stmt  level    source
   302   2                  {
   303   3                      S3BUF = uart3_rx_buffer[uart3_tx_counter];                          // 发送数据
   304   3                      uart3_tx_busy = 1;                                                  // 标记忙
-C251 COMPILER V5.60.0,  uart                                                               03/05/24  13:26:03  PAGE 6   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  13:13:44  PAGE 6   
 
   305   3                      if(++uart3_tx_counter >= UART3_BUF_LENGTH) uart3_tx_counter = 0;    // 循环
   306   3                  }
@@ -380,7 +380,7 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1623     ------
+  code size            =      1373     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
