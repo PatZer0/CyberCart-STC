@@ -30,19 +30,19 @@ void main()
 
 	board_init();			        // 初始化寄存器,勿删除此句代码。
 
-    motor_drivers_pwm_init();	    // 初始化PWM
-    gpio_init();                    // 初始化GPIO
-    oled_init_spi();                // 初始化OLED显示屏
-    wheel_oled_init();              // 初始化速度显示OLED显示屏
-    ui_init();                      // 初始化UI
+    // motor_drivers_pwm_init();	    // 初始化PWM
+    // gpio_init();                    // 初始化GPIO
+    // oled_init_spi();                // 初始化OLED显示屏
+    // wheel_oled_init();              // 初始化速度显示OLED显示屏
+    // ui_init();                      // 初始化UI
 
-    delay_ms(100);
+    // delay_ms(100);
     // laser_ranging_init();           // 初始化测距模块
     host_comm_uart_init();          // 初始化主机通信UART
 
-    servo_init();                   // 初始化舵机
+    // servo_init();                   // 初始化舵机
     stepper_init();
-    stepper_oled_init();            // 初始化步进电机OLED显示屏
+    // stepper_oled_init();            // 初始化步进电机OLED显示屏
 
     while(1)
     {
@@ -51,10 +51,17 @@ void main()
         key3_check();
         key4_check();
         key5_check();
-        stepper_oled_update();
+        // stepper_oled_update();
         host_comm_sender();
-        wheel_dynamic_adjusting();
+        // wheel_dynamic_adjusting();
         uart_tx_send_buffer();
-        wheel_oled_update();
+        // wheel_oled_update();
+
+        stepper_adjust(+200);
+        delay_ms(255);
+        delay_ms(255);
+        delay_ms(255);
+        delay_ms(255);
+        stepper_adjust(-200);
     }
 }

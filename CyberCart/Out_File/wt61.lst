@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  wt61                                                               04/05/24  19:25:53  PAGE 1   
+C251 COMPILER V5.60.0,  wt61                                                               04/05/24  19:31:20  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE wt61
@@ -66,7 +66,7 @@ stmt  level    source
    54   3                      gyro_y = ((short)(((short)buf[5] << 8) | buf[4])) * 2000 / 32768 ;
    55   3                      gyro_z = ((short)(((short)buf[7] << 8) | buf[6])) * 2000 / 32768 ;
    56   3                     if(wt61_oled_disp_flag) oled_printf_float_spi(2*6, 3, y_pitch, 3, 2);
-C251 COMPILER V5.60.0,  wt61                                                               04/05/24  19:25:53  PAGE 2   
+C251 COMPILER V5.60.0,  wt61                                                               04/05/24  19:31:20  PAGE 2   
 
    57   3                      break;
    58   3                  case 0x53: // 角度数据解析

@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  stepper                                                            04/05/24  19:25:53  PAGE 1   
+C251 COMPILER V5.60.0,  stepper                                                            10/05/24  07:54:04  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE stepper
@@ -66,7 +66,7 @@ stmt  level    source
    54          {
    55   1        AUXR |= 0x80;     //定时器时钟1T模式
    56   1        TMOD &= 0xF0;     //设置定时器模式
-C251 COMPILER V5.60.0,  stepper                                                            04/05/24  19:25:53  PAGE 2   
+C251 COMPILER V5.60.0,  stepper                                                            10/05/24  07:54:04  PAGE 2   
 
    57   1        TL0 = 0x0A;       //设置定时初始值
    58   1        TH0 = 0xF3;       //设置定时初始值
@@ -77,44 +77,45 @@ stmt  level    source
    63          
    64          void stepper_init(void)
    65          {
-   66   1          stepper_en = 1;
-   67   1          Timer0_Init();
-   68   1          // pwm_init(PWM_STEPPER_PORT, 1000, 8000);
-   69   1      }
-   70          
-   71          void stepper_oled_init()
-   72          {
-   73   1          oled_p6x8str_spi(0, 4, "STP");
-   74   1      }
-   75          
-   76          void stepper_oled_update()
-   77          {
-   78   1          oled_printf_int32_spi(4*6, 4, stepper_steps_remaining, 6);
-   79   1      }
-   80          
-   81          //-------------------------------------------------------------------------------------------------------
+   66   1          P0M0 = 0xff; P0M1 = 0x00; 
+   67   1          stepper_en = 1;
+   68   1          Timer0_Init();
+   69   1          // pwm_init(PWM_STEPPER_PORT, 1000, 8000);
+   70   1      }
+   71          
+   72          void stepper_oled_init()
+   73          {
+   74   1          oled_p6x8str_spi(0, 4, "STP");
+   75   1      }
+   76          
+   77          void stepper_oled_update()
+   78          {
+   79   1          oled_printf_int32_spi(4*6, 4, stepper_steps_remaining, 6);
+   80   1      }
+   81          
+   82          //-------------------------------------------------------------------------------------------------------
              -------------
-   82          //  @brief      让步进电机走指定的步数
-   83          //  @param      int 带符号整型数
-   84          //  @return     void
-   85          //  @since      v1.0 by PatZer0 on 2024.04.15
-   86          //  *example  stepper_adjust(+100); // 让步进电机向上走100步
-   87          //-------------------------------------------------------------------------------------------------------
+   83          //  @brief      让步进电机走指定的步数
+   84          //  @param      int 带符号整型数
+   85          //  @return     void
+   86          //  @since      v1.0 by PatZer0 on 2024.04.15
+   87          //  *example  stepper_adjust(+100); // 让步进电机向上走100步
+   88          //-------------------------------------------------------------------------------------------------------
              -------------
-   88          void stepper_adjust(int step)
-   89          {
-   90   1          if(step > 0)    stepper_dir = 1;
-   91   1          else            stepper_dir = 0;
-   92   1      
-   93   1          stepper_pulses_remaining = abs(step) * 4;
-   94   1          stepper_steps_remaining = abs(step);
-   95   1          stepper_steps_setted = abs(step);
-   96   1      }
+   89          void stepper_adjust(int step)
+   90          {
+   91   1          if(step > 0)    stepper_dir = 1;
+   92   1          else            stepper_dir = 0;
+   93   1      
+   94   1          stepper_pulses_remaining = abs(step) * 4;
+   95   1          stepper_steps_remaining = abs(step);
+   96   1          stepper_steps_setted = abs(step);
+   97   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       336     ------
+  code size            =       343     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

@@ -199,20 +199,20 @@ void uart1_isr(void) interrupt 4
             uart1_rx_buffer[1] = 'T';
             uart1_rx_counter = 1;       // 重置计数器，从缓冲区头部开始写入剩余的命令
         }
-        if((uart1_rx_buffer[uart1_rx_counter - 2] == '\r') && (uart1_rx_buffer[uart1_rx_counter - 1] == '\n'))
+        if((uart1_rx_buffer[uart1_rx_counter - 1] == '\r') && (uart1_rx_buffer[uart1_rx_counter - 0] == '\n'))
         {
-            // 在交给函数处理之前，先进行校验，如果校验不通过，拒绝进行处理
-            if(uart_checksum(uart1_rx_buffer, uart1_rx_counter))
-            {
-                uart1_rx_buffer[uart1_rx_counter] = '\0';   // 将校验位去掉
-                uart1_rx_counter -= 1;                      // 回退一位，去掉校验位
+            // // 在交给函数处理之前，先进行校验，如果校验不通过，拒绝进行处理
+            // if(uart_checksum(uart1_rx_buffer, uart1_rx_counter))
+            // {
+            //     uart1_rx_buffer[uart1_rx_counter] = '\0';   // 将校验位去掉
+            //     uart1_rx_counter -= 1;                      // 回退一位，去掉校验位
                 host_comm_irqhandler();                     //调用host_comm_irqhandler()处理命令
-            }
-            else
-            {
-                led_2 = !led_2;
-                host_comm_send_checksum_err();
-            }
+            // }
+            // else
+            // {
+            //     led_2 = !led_2;
+            //     host_comm_send_checksum_err();
+            // }
         }
         // ------------------------ 专用代码结束 --------------------------
         if(++uart1_rx_counter >= UART1_BUF_LENGTH) uart1_rx_counter = 0;     // 缓冲区满, 循环

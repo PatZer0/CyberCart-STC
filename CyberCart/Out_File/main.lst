@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               04/05/24  19:25:52  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               10/05/24  07:51:29  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -42,19 +42,19 @@ stmt  level    source
    30   1      
    31   1        board_init();             // 初始化寄存器,勿删除此句代码。
    32   1      
-   33   1          motor_drivers_pwm_init();     // 初始化PWM
-   34   1          gpio_init();                    // 初始化GPIO
-   35   1          oled_init_spi();                // 初始化OLED显示屏
-   36   1          wheel_oled_init();              // 初始化速度显示OLED显示屏
-   37   1          ui_init();                      // 初始化UI
+   33   1          // motor_drivers_pwm_init();      // 初始化PWM
+   34   1          // gpio_init();                    // 初始化GPIO
+   35   1          // oled_init_spi();                // 初始化OLED显示屏
+   36   1          // wheel_oled_init();              // 初始化速度显示OLED显示屏
+   37   1          // ui_init();                      // 初始化UI
    38   1      
-   39   1          delay_ms(100);
+   39   1          // delay_ms(100);
    40   1          // laser_ranging_init();           // 初始化测距模块
    41   1          host_comm_uart_init();          // 初始化主机通信UART
    42   1      
-   43   1          servo_init();                   // 初始化舵机
+   43   1          // servo_init();                   // 初始化舵机
    44   1          stepper_init();
-   45   1          stepper_oled_init();            // 初始化步进电机OLED显示屏
+   45   1          // stepper_oled_init();            // 初始化步进电机OLED显示屏
    46   1      
    47   1          while(1)
    48   1          {
@@ -63,20 +63,27 @@ stmt  level    source
    51   2              key3_check();
    52   2              key4_check();
    53   2              key5_check();
-   54   2              stepper_oled_update();
+   54   2              // stepper_oled_update();
    55   2              host_comm_sender();
-   56   2              wheel_dynamic_adjusting();
-C251 COMPILER V5.60.0,  main                                                               04/05/24  19:25:52  PAGE 2   
+   56   2              // wheel_dynamic_adjusting();
+C251 COMPILER V5.60.0,  main                                                               10/05/24  07:51:29  PAGE 2   
 
    57   2              uart_tx_send_buffer();
-   58   2              wheel_oled_update();
-   59   2          }
-   60   1      }
+   58   2              // wheel_oled_update();
+   59   2      
+   60   2              stepper_adjust(+200);
+   61   2              delay_ms(255);
+   62   2              delay_ms(255);
+   63   2              delay_ms(255);
+   64   2              delay_ms(255);
+   65   2              stepper_adjust(-200);
+   66   2          }
+   67   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       191     ------
+  code size            =       196     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

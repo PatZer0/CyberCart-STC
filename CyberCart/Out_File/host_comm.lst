@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:25:52  PAGE 1   
+C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:33:46  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE host_comm
@@ -66,7 +66,7 @@ stmt  level    source
    54   1          if(result > WHEEL_PWM_MAX_VAL)
    55   1          {
    56   2              result = WHEEL_PWM_MAX_VAL;
-C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:25:52  PAGE 2   
+C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:33:46  PAGE 2   
 
    57   2              sendwheelwarnexceed = 1; // 限幅到PWM最大值
    58   2          }
@@ -134,196 +134,200 @@ stmt  level    source
   118   4                      for(i = 0; i < 7; i++)
   119   4                      {
   120   5                          // 检查到\r结束
-C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:25:52  PAGE 3   
+C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:33:46  PAGE 3   
 
-  121   5                          if(uart1_rx_buffer[10+i] == '\r') break;
-  122   5                          wheel_speed_buffer[i] = uart1_rx_buffer[10+i];
-  123   5                      }
-  124   4                      // 解析字符串
-  125   4                      wheel_speed = internal_char_to_int(wheel_speed_buffer);
-  126   4      
-  127   4                      // 解析速度结束，写入速度数据
-  128   4                      if(uart1_rx_buffer[7] == 'X')
-  129   4                      {
-  130   5                          if(uart1_rx_buffer[8] == 'A')       // 设置所有轮子速度
-  131   5                          {
-  132   6                              wheel_x_front_speed = wheel_speed;
-  133   6                              wheel_x_rear_speed = wheel_speed;
-  134   6                              sendwheelok = 1;
-  135   6                          }
-  136   5                          else if(uart1_rx_buffer[8] == 'F')  // 设置前轮子速度
-  137   5                          {
-  138   6                              wheel_x_front_speed = wheel_speed;
-  139   6                              sendwheelok = 1;
-  140   6                          }
-  141   5                          else if(uart1_rx_buffer[8] == 'R')  // 设置后轮子速度
-  142   5                          {
-  143   6                              wheel_x_rear_speed = wheel_speed;
-  144   6                              sendwheelok = 1;
-  145   6                          }
-  146   5                          else sendwrongcmd = 1;
-  147   5                      }
-  148   4                      else if(uart1_rx_buffer[7] == 'Y')
-  149   4                      {
-  150   5                          if(uart1_rx_buffer[8] == 'A')       // 设置所有轮子速度
-  151   5                          {
-  152   6                              wheel_y_front_speed = wheel_speed;
-  153   6                              wheel_y_rear_speed = wheel_speed;
-  154   6                              sendwheelok = 1;
-  155   6                          }
-  156   5                          else if(uart1_rx_buffer[8] == 'F')  // 设置前轮子速度
-  157   5                          {
-  158   6                              wheel_y_front_speed = wheel_speed;
-  159   6                              sendwheelok = 1;
-  160   6                          }
-  161   5                          else if(uart1_rx_buffer[8] == 'R')  // 设置后轮子速度
-  162   5                          {
-  163   6                              wheel_y_rear_speed = wheel_speed;
-  164   6                              sendwheelok = 1;
-  165   6                          }
-  166   5                          else sendwrongcmd = 1;
-  167   5                      }
-  168   4                      else if(uart1_rx_buffer[7] == 'R' && uart1_rx_buffer[8] == 'R')
-  169   4                      {
-  170   5                          wheel_x_front_speed = -wheel_speed;
-  171   5                          wheel_x_rear_speed = wheel_speed;
-  172   5                          wheel_y_front_speed = wheel_speed;
-  173   5                          wheel_y_rear_speed = -wheel_speed;
-  174   5                          sendwheelok = 1;
-  175   5                      }
-  176   4                  }
-  177   3                  // 接收到SVO命令
-  178   3                  else if ((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'V') && (uart1_rx_buffer[5] ==
+  121   5                          if(uart1_rx_buffer[10+i] == '\r')
+  122   5                          {
+  123   6                              wheel_speed_buffer[i] = '\0';
+  124   6                              break;
+  125   6                          }
+  126   5                          wheel_speed_buffer[i] = uart1_rx_buffer[10+i];
+  127   5                      }
+  128   4                      // 解析字符串
+  129   4                      wheel_speed = internal_char_to_int(wheel_speed_buffer);
+  130   4                      host_comm_send_data(wheel_speed_buffer);       // 调用host_comm_send_data()发送数据
+  131   4                      // 解析速度结束，写入速度数据
+  132   4                      if(uart1_rx_buffer[7] == 'X')
+  133   4                      {
+  134   5                          if(uart1_rx_buffer[8] == 'A')       // 设置所有轮子速度
+  135   5                          {
+  136   6                              wheel_x_front_speed = wheel_speed;
+  137   6                              wheel_x_rear_speed = wheel_speed;
+  138   6                              sendwheelok = 1;
+  139   6                          }
+  140   5                          else if(uart1_rx_buffer[8] == 'F')  // 设置前轮子速度
+  141   5                          {
+  142   6                              wheel_x_front_speed = wheel_speed;
+  143   6                              sendwheelok = 1;
+  144   6                          }
+  145   5                          else if(uart1_rx_buffer[8] == 'R')  // 设置后轮子速度
+  146   5                          {
+  147   6                              wheel_x_rear_speed = wheel_speed;
+  148   6                              sendwheelok = 1;
+  149   6                          }
+  150   5                          else sendwrongcmd = 1;
+  151   5                      }
+  152   4                      else if(uart1_rx_buffer[7] == 'Y')
+  153   4                      {
+  154   5                          if(uart1_rx_buffer[8] == 'A')       // 设置所有轮子速度
+  155   5                          {
+  156   6                              wheel_y_front_speed = wheel_speed;
+  157   6                              wheel_y_rear_speed = wheel_speed;
+  158   6                              sendwheelok = 1;
+  159   6                          }
+  160   5                          else if(uart1_rx_buffer[8] == 'F')  // 设置前轮子速度
+  161   5                          {
+  162   6                              wheel_y_front_speed = wheel_speed;
+  163   6                              sendwheelok = 1;
+  164   6                          }
+  165   5                          else if(uart1_rx_buffer[8] == 'R')  // 设置后轮子速度
+  166   5                          {
+  167   6                              wheel_y_rear_speed = wheel_speed;
+  168   6                              sendwheelok = 1;
+  169   6                          }
+  170   5                          else sendwrongcmd = 1;
+  171   5                      }
+  172   4                      else if(uart1_rx_buffer[7] == 'R' && uart1_rx_buffer[8] == 'R')
+  173   4                      {
+  174   5                          wheel_x_front_speed = -wheel_speed;
+  175   5                          wheel_x_rear_speed = wheel_speed;
+  176   5                          wheel_y_front_speed = wheel_speed;
+  177   5                          wheel_y_rear_speed = -wheel_speed;
+  178   5                          sendwheelok = 1;
+  179   5                      }
+  180   4                  }
+  181   3                  // 接收到SVO命令
+  182   3                  else if ((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'V') && (uart1_rx_buffer[5] ==
              - 'O'))
-  179   3                  {
-  180   4                      // AT+SVO+CLW=xxx   机械爪角度1-3位数
-  181   4                      // AT+SVO+PTH=xxx   机械爪俯仰1-3位数
-  182   4                      // AT+SVO+PAN=xxx   云台水平旋转1-3位数
-  183   4                      // 从Index11开始，写入缓冲区
-  184   4                      for(i = 0; i < 3; i++)
-  185   4                      {
-C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:25:52  PAGE 4   
+  183   3                  {
+  184   4                      // AT+SVO+CLW=xxx   机械爪角度1-3位数
+  185   4                      // AT+SVO+PTH=xxx   机械爪俯仰1-3位数
+C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:33:46  PAGE 4   
 
-  186   5                          if(uart1_rx_buffer[11+i] == '\r')
-  187   5                          {
-  188   6                              servo_angle_buffer[i] = '\0';
-  189   6                              break;
-  190   6                          }
-  191   5                          servo_angle_buffer[i] = uart1_rx_buffer[11+i];
-  192   5                      }
-  193   4                      // host_comm_send_data(servo_angle_buffer);       // 调用host_comm_send_data()发送数据
-  194   4                      // 解析字符串
-  195   4                      servo_angle = internal_char_to_int(servo_angle_buffer);
-  196   4      
-  197   4                      // 解析角度结束，写入角度数据
-  198   4                      if(uart1_rx_buffer[7] == 'C' && uart1_rx_buffer[8] == 'L' && uart1_rx_buffer[9] == 'W')
-  199   4                      {
-  200   5                          servo_claw_set_angle(servo_angle);
-  201   5                          sendok = 1;
-  202   5                      }
-  203   4                      else if(uart1_rx_buffer[7] == 'P' && uart1_rx_buffer[8] == 'T' && uart1_rx_buffer[9] == '
+  186   4                      // AT+SVO+PAN=xxx   云台水平旋转1-3位数
+  187   4                      // 从Index11开始，写入缓冲区
+  188   4                      for(i = 0; i < 3; i++)
+  189   4                      {
+  190   5                          if(uart1_rx_buffer[11+i] == '\r')
+  191   5                          {
+  192   6                              servo_angle_buffer[i] = '\0';
+  193   6                              break;
+  194   6                          }
+  195   5                          servo_angle_buffer[i] = uart1_rx_buffer[11+i];
+  196   5                      }
+  197   4                      // host_comm_send_data(servo_angle_buffer);       // 调用host_comm_send_data()发送数据
+  198   4                      // 解析字符串
+  199   4                      servo_angle = internal_char_to_int(servo_angle_buffer);
+  200   4      
+  201   4                      // 解析角度结束，写入角度数据
+  202   4                      if(uart1_rx_buffer[7] == 'C' && uart1_rx_buffer[8] == 'L' && uart1_rx_buffer[9] == 'W')
+  203   4                      {
+  204   5                          servo_claw_set_angle(servo_angle);
+  205   5                          sendok = 1;
+  206   5                      }
+  207   4                      else if(uart1_rx_buffer[7] == 'P' && uart1_rx_buffer[8] == 'T' && uart1_rx_buffer[9] == '
              -H')
-  204   4                      {
-  205   5                          servo_pitch_set_angle(servo_angle);
-  206   5                          sendok = 1;
-  207   5                      }
-  208   4                      else if(uart1_rx_buffer[7] == 'P' && uart1_rx_buffer[8] == 'A' && uart1_rx_buffer[9] == '
+  208   4                      {
+  209   5                          servo_pitch_set_angle(servo_angle);
+  210   5                          sendok = 1;
+  211   5                      }
+  212   4                      else if(uart1_rx_buffer[7] == 'P' && uart1_rx_buffer[8] == 'A' && uart1_rx_buffer[9] == '
              -N')
-  209   4                      {
-  210   5                          servo_pan_set_angle(servo_angle);
-  211   5                          sendok = 1;
-  212   5                      }
-  213   4                      else sendwrongcmd = 1;
-  214   4                  }
-  215   3                  // 接收到STP命令
-  216   3                  else if ((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'T') && (uart1_rx_buffer[5] ==
+  213   4                      {
+  214   5                          servo_pan_set_angle(servo_angle);
+  215   5                          sendok = 1;
+  216   5                      }
+  217   4                      else sendwrongcmd = 1;
+  218   4                  }
+  219   3                  // 接收到STP命令
+  220   3                  else if ((uart1_rx_buffer[3] == 'S') && (uart1_rx_buffer[4] == 'T') && (uart1_rx_buffer[5] ==
              - 'P'))
-  217   3                  {
-  218   4                      // AT+STP=+/-xxxx 步进电机步数
-  219   4                      // 从Index7开始，写入缓冲区
-  220   4                      for(i = 0; i < 5; i++)
-  221   4                      {
-  222   5                          if(uart1_rx_buffer[7+i] == '\r')
-  223   5                          {
-  224   6                              stepper_step_buffer[i] = '\0';
-  225   6                              break;
-  226   6                          }
-  227   5                          stepper_step_buffer[i] = uart1_rx_buffer[7+i];
-  228   5                      }
-  229   4                      // 解析字符串
-  230   4                      stepper_step = internal_char_to_int(stepper_step_buffer);
-  231   4                      stepper_adjust(stepper_step);
-  232   4                      sendok = 1;
-  233   4                  }
-  234   3                  else sendwrongcmd = 1;
-  235   3              }
-  236   2              else sendwrongcmd = 1;
-  237   2          }
-  238   1          else sendwrongcmd = 1;
-  239   1      }
+  221   3                  {
+  222   4                      // AT+STP=+/-xxxx 步进电机步数
+  223   4                      // 从Index7开始，写入缓冲区
+  224   4                      for(i = 0; i < 5; i++)
+  225   4                      {
+  226   5                          if(uart1_rx_buffer[7+i] == '\r')
+  227   5                          {
+  228   6                              stepper_step_buffer[i] = '\0';
+  229   6                              break;
+  230   6                          }
+  231   5                          stepper_step_buffer[i] = uart1_rx_buffer[7+i];
+  232   5                      }
+  233   4                      // 解析字符串
+  234   4                      stepper_step = internal_char_to_int(stepper_step_buffer);
+  235   4                      stepper_adjust(stepper_step);
+  236   4                      sendok = 1;
+  237   4                  }
+  238   3                  else sendwrongcmd = 1;
+  239   3              }
+  240   2              else sendwrongcmd = 1;
+  241   2          }
+  242   1          else sendwrongcmd = 1;
+  243   1      }
 *** WARNING C47 IN LINE 90 OF Project\HAL\host_comm.c: 'oled_row': unreferenced local variable
 *** WARNING C47 IN LINE 91 OF Project\HAL\host_comm.c: 'oled_txt': unreferenced local variable
-  240          
-  241          void host_comm_send_data(const char *buffer)
-  242          {
-  243   1          unsigned int i;
-  244   1          for(i = 0; i < 64; i++)
-  245   1          {
-  246   2              host_comm_tx_buffer[i] = buffer[i];
-C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:25:52  PAGE 5   
+  244          
+  245          void host_comm_send_data(const char *buffer)
+  246          {
+C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:33:46  PAGE 5   
 
-  247   2          }
-  248   1      }
-  249          
-  250          void host_comm_sender(void)
-  251          {
-  252   1          if(host_comm_tx_buffer != NULL)
-  253   1          {
-  254   2              uart_sendstring(1, host_comm_tx_buffer);
-  255   2              host_comm_tx_buffer[0] = '\0';
-  256   2          }
-  257   1          // unsigned char host_comm_header = 0x90;
-  258   1          if (sendok)
-  259   1          {
-  260   2              // uart_sendbyte(1, host_comm_header);
-  261   2              uart_sendstring(1, "OK\r\n");
-  262   2              sendok = 0;
-  263   2              uart1_rx_counter = 0;
-  264   2          }
-  265   1          if (senderr)
-  266   1          {
-  267   2              // uart_sendbyte(1, host_comm_header);
-  268   2              uart_sendstring(1, "ERROR\r\n");
-  269   2              senderr = 0;
-  270   2              uart1_rx_counter = 0;
-  271   2          }
-  272   1          if(sendwrongcmd)
-  273   1          {
-  274   2              // uart_sendbyte(1, host_comm_header);
-  275   2              uart_sendstring(1, "ERROR:CMD\r\n");
-  276   2              sendwrongcmd = 0;
-  277   2              uart1_rx_counter = 0;
-  278   2          }
-  279   1          if(sendwheelok)
-  280   1          {
-  281   2              // uart_sendbyte(1, host_comm_header);
-  282   2              uart_sendstring(1, "OK\r\n");
-  283   2              sendwheelok = 0;
-  284   2              uart1_rx_counter = 0;
-  285   2          }
-  286   1          if(sendwheelwarnexceed)
-  287   1          {
-  288   2              // uart_sendbyte(1, host_comm_header);
-  289   2              uart_sendstring(1, "WARNING:WHEEL_SPEED_EXCEEDED\r\n");
-  290   2              sendwheelwarnexceed = 0;
-  291   2              uart1_rx_counter = 0;
-  292   2          }
-  293   1      }
+  247   1          unsigned int i;
+  248   1          for(i = 0; i < 64; i++)
+  249   1          {
+  250   2              host_comm_tx_buffer[i] = buffer[i];
+  251   2          }
+  252   1      }
+  253          
+  254          void host_comm_sender(void)
+  255          {
+  256   1          if(host_comm_tx_buffer != NULL)
+  257   1          {
+  258   2              uart_sendstring(1, host_comm_tx_buffer);
+  259   2              host_comm_tx_buffer[0] = '\0';
+  260   2          }
+  261   1          // unsigned char host_comm_header = 0x90;
+  262   1          if (sendok)
+  263   1          {
+  264   2              // uart_sendbyte(1, host_comm_header);
+  265   2              uart_sendstring(1, "OK\r\n");
+  266   2              sendok = 0;
+  267   2              uart1_rx_counter = 0;
+  268   2          }
+  269   1          if (senderr)
+  270   1          {
+  271   2              // uart_sendbyte(1, host_comm_header);
+  272   2              uart_sendstring(1, "ERROR\r\n");
+  273   2              senderr = 0;
+  274   2              uart1_rx_counter = 0;
+  275   2          }
+  276   1          if(sendwrongcmd)
+  277   1          {
+  278   2              // uart_sendbyte(1, host_comm_header);
+  279   2              uart_sendstring(1, "ERROR:CMD\r\n");
+  280   2              sendwrongcmd = 0;
+  281   2              uart1_rx_counter = 0;
+  282   2          }
+  283   1          if(sendwheelok)
+  284   1          {
+  285   2              // uart_sendbyte(1, host_comm_header);
+  286   2              uart_sendstring(1, "OK\r\n");
+  287   2              sendwheelok = 0;
+  288   2              uart1_rx_counter = 0;
+  289   2          }
+  290   1          if(sendwheelwarnexceed)
+  291   1          {
+  292   2              // uart_sendbyte(1, host_comm_header);
+  293   2              uart_sendstring(1, "WARNING:WHEEL_SPEED_EXCEEDED\r\n");
+  294   2              sendwheelwarnexceed = 0;
+  295   2              uart1_rx_counter = 0;
+  296   2          }
+  297   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1470     ------
+  code size            =      1493     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -335,12 +339,12 @@ Module Information          Static   Overlayable
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
   ebitaddressable size =    ------     ------
+C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:33:46  PAGE 6   
+
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
   hconst size          =        79     ------
-C251 COMPILER V5.60.0,  host_comm                                                          04/05/24  19:25:52  PAGE 6   
-
 End of Module Information.
 
 

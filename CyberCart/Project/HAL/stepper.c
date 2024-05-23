@@ -63,6 +63,7 @@ void Timer0_Init(void)		//0.1∫¡√Î=100Œ¢√Î@33.1776MHz
 
 void stepper_init(void)
 {
+    P0M0 = 0xff; P0M1 = 0x00; 
     stepper_en = 1;
     Timer0_Init();
     // pwm_init(PWM_STEPPER_PORT, 1000, 8000);

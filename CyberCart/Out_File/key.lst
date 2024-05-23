@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  key                                                                04/05/24  19:25:52  PAGE 1   
+C251 COMPILER V5.60.0,  key                                                                04/05/24  19:31:19  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE key
@@ -66,7 +66,7 @@ stmt  level    source
    54          void key2_short_press()
    55          {
    56   1          // 短按键2功能
-C251 COMPILER V5.60.0,  key                                                                04/05/24  19:25:52  PAGE 2   
+C251 COMPILER V5.60.0,  key                                                                04/05/24  19:31:19  PAGE 2   
 
    57   1          led_2 = !led_2; // 切换
    58   1          stepper_adjust(-50);
@@ -134,7 +134,7 @@ stmt  level    source
   120   1          // // servo_pan_set_angle(270);
   121   1          // pwm_duty(PWM_CH_SERVO_PAN, 1000);
   122   1          // delay_ms(250);
-C251 COMPILER V5.60.0,  key                                                                04/05/24  19:25:52  PAGE 3   
+C251 COMPILER V5.60.0,  key                                                                04/05/24  19:31:19  PAGE 3   
 
   123   1          // delay_ms(250);
   124   1          // delay_ms(250);
@@ -202,7 +202,7 @@ stmt  level    source
   186   1          if(key3 == 1 && key3_up_store == 0)
   187   1          {
   188   2              key3_up_store = 1; // 标记按键被释放
-C251 COMPILER V5.60.0,  key                                                                04/05/24  19:25:52  PAGE 4   
+C251 COMPILER V5.60.0,  key                                                                04/05/24  19:31:19  PAGE 4   
 
   189   2              key3_short_press(); // 触发短按键3功能
   190   2              oled_p6x8str_spi(6*6, 7, "[3]");

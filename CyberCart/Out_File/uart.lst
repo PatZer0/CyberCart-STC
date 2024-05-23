@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:25:52  PAGE 1   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:31:19  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE uart
@@ -66,7 +66,7 @@ stmt  level    source
    52   2          }
    53   1      }
    54          
-C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:25:52  PAGE 2   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:31:19  PAGE 2   
 
    55          void uart_sendstring(unsigned char uart_num, unsigned char *puts)
    56          {
@@ -134,7 +134,7 @@ stmt  level    source
   118   2                  for (i = 0; i < length; i++)
   119   2                  {
   120   3                      S3BUF = bytes[i];
-C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:25:52  PAGE 3   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:31:19  PAGE 3   
 
   121   3                      uart3_tx_busy = 1;
   122   3                      while(uart3_tx_busy);
@@ -202,7 +202,7 @@ stmt  level    source
   184   1        if (TI)
   185   1        {
   186   2          TI = 0;
-C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:25:52  PAGE 4   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:31:19  PAGE 4   
 
   187   2              uart1_tx_busy = 0;
   188   2        }
@@ -220,21 +220,22 @@ stmt  level    source
   200   3                  uart1_rx_counter = 1;       // 重置计数器，从缓冲区头部开始写入剩余的命�
              -�
   201   3              }
-  202   2              if((uart1_rx_buffer[uart1_rx_counter - 2] == '\r') && (uart1_rx_buffer[uart1_rx_counter - 1] == '
+  202   2              if((uart1_rx_buffer[uart1_rx_counter - 1] == '\r') && (uart1_rx_buffer[uart1_rx_counter - 0] == '
              -\n'))
   203   2              {
-  204   3                  // 在交给函数处理之前，先进行校验，如果校验不通过，拒绝进行处理
-  205   3                  if(uart_checksum(uart1_rx_buffer, uart1_rx_counter))
-  206   3                  {
-  207   4                      uart1_rx_buffer[uart1_rx_counter] = '\0';   // 将校验位去掉
-  208   4                      uart1_rx_counter -= 1;                      // 回退一位，去掉校验位
-  209   4                      host_comm_irqhandler();                     //调用host_comm_irqhandler()处理命令
-  210   4                  }
-  211   3                  else
-  212   3                  {
-  213   4                      led_2 = !led_2;
-  214   4                      host_comm_send_checksum_err();
-  215   4                  }
+  204   3                  // // 在交给函数处理之前，先进行校验，如果校验不通过，拒绝进行处
+             -理
+  205   3                  // if(uart_checksum(uart1_rx_buffer, uart1_rx_counter))
+  206   3                  // {
+  207   3                  //     uart1_rx_buffer[uart1_rx_counter] = '\0';   // 将校验位去掉
+  208   3                  //     uart1_rx_counter -= 1;                      // 回退一位，去掉校验位
+  209   3                      host_comm_irqhandler();                     //调用host_comm_irqhandler()处理命令
+  210   3                  // }
+  211   3                  // else
+  212   3                  // {
+  213   3                  //     led_2 = !led_2;
+  214   3                  //     host_comm_send_checksum_err();
+  215   3                  // }
   216   3              }
   217   2              // ------------------------ 专用代码结束 --------------------------
   218   2              if(++uart1_rx_counter >= UART1_BUF_LENGTH) uart1_rx_counter = 0;     // 缓冲区满, 循环
@@ -269,9 +270,9 @@ stmt  level    source
   245   2      
   246   2              if(++uart2_rx_counter >= UART2_BUF_LENGTH) uart2_rx_counter = 0;      // 缓冲区满, 循环
   247   2        }
-  248   1      }
-C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:25:52  PAGE 5   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:31:19  PAGE 5   
 
+  248   1      }
   249          
   250          void uart3_isr(void) interrupt 17                                           // 串口3的中断函数
   251          {
@@ -337,9 +338,9 @@ stmt  level    source
   305          
   306          void uart_running(unsigned char uart_num)
   307          {
-  308   1          switch(uart_num)
-C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:25:52  PAGE 6   
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:31:19  PAGE 6   
 
+  308   1          switch(uart_num)
   309   1          {
   310   2              case 1:
   311   2                  if((uart1_tx_counter != uart1_rx_counter) && (!uart1_tx_busy))          // 收到数据, 发�
@@ -405,10 +406,10 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1544     ------
-  ecode size           =    ------     ------
-C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:25:52  PAGE 7   
+  code size            =      1486     ------
+C251 COMPILER V5.60.0,  uart                                                               04/05/24  19:31:19  PAGE 7   
 
+  ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------

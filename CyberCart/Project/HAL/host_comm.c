@@ -118,12 +118,16 @@ void host_comm_irqhandler()
                 for(i = 0; i < 7; i++)
                 {
                     // 检查到\r结束
-                    if(uart1_rx_buffer[10+i] == '\r') break;
+                    if(uart1_rx_buffer[10+i] == '\r')
+                    {
+                        wheel_speed_buffer[i] = '\0';
+                        break;
+                    }
                     wheel_speed_buffer[i] = uart1_rx_buffer[10+i];
                 }
                 // 解析字符串
                 wheel_speed = internal_char_to_int(wheel_speed_buffer);
-
+                host_comm_send_data(wheel_speed_buffer);       // 调用host_comm_send_data()发送数据
                 // 解析速度结束，写入速度数据
                 if(uart1_rx_buffer[7] == 'X')
                 {
